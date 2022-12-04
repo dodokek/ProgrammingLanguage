@@ -5,7 +5,7 @@
 #include "fileUtils.h"
 #include "frontend.h"
 
-TreeNode* CreateNode (Types type, double dbl_val, Operations op_val, const char* var_name,
+TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
 {
     // printf ("Creating node with type %d\n", type);
@@ -15,7 +15,7 @@ TreeNode* CreateNode (Types type, double dbl_val, Operations op_val, const char*
 
     if      (type == NUM_T) new_node->value.dbl_val  = dbl_val;
     else if (type == VAR_T) new_node->value.var_name = var_name;
-    else if (type == OP_T)  new_node->value.op_val   = op_val;
+    else if (type ==OPERATION_T)  new_node->value.op_val   = op_val;
     
     new_node->left   = left_child;
     new_node->right  = right_child;
@@ -115,7 +115,7 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 
     while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
     {
-        Operations last_op = CUR_TOKEN.value.op_val;
+        Options last_op = CUR_TOKEN.value.op_val;
         *cur_token_id += 1;
 
         TreeNode* right_node = GetMlt (token_array, cur_token_id);
@@ -136,7 +136,7 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id)
 
     while (CUR_TOKEN.value.op_val == MUL || CUR_TOKEN.value.op_val == DIV)
     {
-        Operations last_op = CUR_TOKEN.value.op_val;
+        Options last_op = CUR_TOKEN.value.op_val;
         *cur_token_id += 1;
 
         TreeNode* right_node = GetPower (token_array, cur_token_id);
@@ -186,9 +186,9 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
         }        
     }
 
-    else if (CUR_TOKEN.type == OP_T)
+    else if (CUR_TOKEN.type ==OPERATION_T)
     {
-        Operations cur_op = CUR_TOKEN.value.op_val;
+        Options cur_op = CUR_TOKEN.value.op_val;
 
         *cur_token_id += 2; // Skipping operation + bracket
         TreeNode* sub_node = GetExpression (token_array, cur_token_id);
@@ -232,33 +232,11 @@ TreeNode* GetNumber (Token token_array[], int* cur_token_id)
 }
 
 
-TreeNode* GetOperationNode (TreeNode* child_node, Operations op)
-{
-    switch (op)
-    {
-    case SIN:
-        return SIN (nullptr, child_node);
-    
-    case COS:
-        return COS (nullptr, child_node);
-
-    case LN:
-        return LN (nullptr, child_node);
-    
-    default:
-        printf ("While GetMlting operation nodes, error occured: %d\n", op);
-        break;
-    }
-
-    return 0;
-}
-
-
 char* GetInputLine ()
 {
     char* buffer = (char*) calloc (MAX_SRC_LEN, sizeof (char));
 
-    FILE* input_file = get_file ("data/input.txt", "r");
+    FILE* input_file = get_file (input_path, "r");
 
     fgets (buffer, MAX_SRC_LEN, input_file);
 
@@ -279,36 +257,61 @@ void FillTokensArray (Token* token_array)
     for (int i = 0; i <= input_len;)
     {
         SkipSpaces (input, &i);
-
-        if (isalpha(input[i]))
+        
+        if (isalpha(input[i]) || input[i] == '{' || input[i] == '}')
         {
-            char* tmp_line = (input + i);
-            while (isalpha (*tmp_line)) tmp_line++;
+            char op_name[MAX_NAME_LEN] = "";
 
-            if (*tmp_line == '(')
-            {
-                char op_name[100] = "";
-                
-                int len = 0;
-                sscanf (input + i, "%[^( ]%n", op_name, &len);
-                i += len;
-                
-                Operations operation = GetOpType (op_name);
-                TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
-                tokens_amount++;
-            }   
-            else // variable handler
-            {
-                TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i);
+            int len = 0;
+            sscanf (input + i, "%[^{} ]%n", op_name, &len);
+            i += len;
 
-                int len = 0;
-                sscanf (input + i, "%[^+-*/() ]%n", TOP_TOKEN.value.var_name, &len);
-                i += len;
+            Options operation = GetOpType (op_name);
+            TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i); 
+            tokens_amount++;
 
-                printf ("Working with var, its len: %d, String %s\n", len, input + i);
-                tokens_amount++;
-            }
+            // {
+            // if (*tmp_line == '(')
+            // {
+            //     char op_name[100] = "";
+            //
+            //     int len = 0;
+            //     sscanf (input + i, "%[^( ]%n", op_name, &len);
+            //     i += len;
+            //    
+            //     Options operation = GetOpType (op_name);
+            //     TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i); 
+            //     tokens_amount++;
+            // }   
+            // else // variable handler
+            // {
+            //     TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i);
+            //
+            //     int len = 0;
+            //     sscanf (input + i, "%[^+-*/() ]%n", TOP_TOKEN.value.var_name, &len);
+            //     i += len;
+            //
+            //     printf ("Working with var, its len: %d, String %s\n", len, input + i);
+            //     tokens_amount++;
+            // }
+            // }
         }
+        else if (input[i] == '"')
+        {
+            TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i); 
+
+            int len = 0;
+            sscanf (input + i, "%[^\" ]%n", TOP_TOKEN.value.var_name, &len);
+            i += len;
+
+            if (input[i] == '"')
+            {
+                printf ("Skipping fucker\n");
+                i++;
+            }
+
+            tokens_amount++;
+        } 
         else if (isdigit (input[i]))
         {
             printf ("Proccessing digit %c\n", input[i]);
@@ -321,20 +324,10 @@ void FillTokensArray (Token* token_array)
 
             TOP_TOKEN = CreateToken (NUM_T, num, UNKNOWN, i);
             tokens_amount++;
-
         }
         else
         {
-            printf ("Proccessing operation %c\n", input[i]);
-
-            Operations operation = UNKNOWN;
-            operation = GetOpType (input + i);
-            printf ("Input: %c, Op type: %d\n", input[i], operation);
-        
-            TOP_TOKEN = CreateToken (OP_PARAMS(operation));
-            
-            tokens_amount++;
-            i++;
+            printf ("======== Could not match any pattern :( ========== \n");
         }
     } 
 }
@@ -346,15 +339,15 @@ void SkipSpaces (char* string, int* i)
 }
 
 
-Token CreateToken (Types type, double dbl_val, Operations op_t, int line_number)
+Token CreateToken (Types type, double dbl_val, Options operation, int line_number)
 {
-    printf ("====Creating token with type %d and op val %d====\n", type, op_t);
+    printf ("====Creating token with type %d and op val %d====\n", type,OPERATION_T);
 
     Token* new_token = (Token*) calloc (1, sizeof (Token));
 
     if      (type == NUM_T) new_token->value.dbl_val  = dbl_val;
     else if (type == VAR_T) new_token->value.var_name = (char*) calloc (MAX_TOKEN_LEN, sizeof (char));
-    else if (type == OP_T)  new_token->value.op_val   = op_t;
+    else if (type == OPERATION_T)  new_token->value.op_val = operation;
     
     new_token->type = type;
     new_token->line_number = line_number;
@@ -382,28 +375,34 @@ void PrintTokens (Token* token_array)
 //--Parser.End---------------------------------------------------
 
 
-#define CMP(operation) strcmp (str, #operation) == 0
+#define CMP(operation)                                        \
+    if (strcmp (str, #operation) == 0) {return operation;}    \
+    else 
 
-Operations GetOpType (char str[])
+Options GetOpType (char str[])
 {    
-    if      (str[0] == '+') return ADD;
-    else if (str[0] == '-') return SUB;
-    else if (str[0] == '*') return MUL;
-    else if (str[0] == '/') return DIV;
-    else if (str[0] == '^') return POW;
-    else if (str[0] == '(') return OPEN_BR;
-    else if (str[0] == ')') return CLOSE_BR;
-    else if (str[0] == '\0') return TERMINATION_SYM;
-    else if (CMP (sin)) return SIN;
-    else if (CMP (cos)) return COS;
-    else if (CMP (tg))  return TG;
-    else if (CMP (ctg)) return CTG;
-    else if (CMP (ln)) return LN;
-    else if (CMP (arccos)) return ARCCOS;
-    else if (CMP (arcsin)) return ARCSIN;
+    CMP (ADD)
+    CMP (SUB)
+    CMP (DIV)
+    CMP ()
+    CMP (POW)
+    CMP (AND)
+    CMP (OR)
+    CMP (EQ)
+    CMP (ST)
+    CMP (IF)
+    CMP (ELSE)
+    CMP (NIL)
+    CMP (VAR)
+    CMP (WHILE)
+    CMP (FUNC)
+    CMP (RET)
+    CMP (CALL)
+    CMP (PARAM)
 
-
-    else return UNKNOWN;
+    {
+        return UNKNOWN;
+    }
 }
 
 #undef CMP

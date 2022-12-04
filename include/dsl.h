@@ -7,31 +7,16 @@
 #define CR CopyNode (cur_node->right)
 #define GET_DIGIT(num) CreateDigitNode (num)
 
-#define ADD(L, R) CreateNode (OP_T, 0, ADD, nullptr, L, R)
-#define SUB(L, R) CreateNode (OP_T, 0, SUB, nullptr, L, R)
-#define MUL(L, R) CreateNode (OP_T, 0, MUL, nullptr, L, R)
-#define DIV(L, R) CreateNode (OP_T, 0, DIV, nullptr, L, R)
-#define SIN(L, R) CreateNode (OP_T, 0, SIN, nullptr, L, R)
-#define COS(L, R) CreateNode (OP_T, 0, COS, nullptr, L, R)
-#define LN(L, R)  CreateNode (OP_T, 0, LN,  nullptr,  L, R)
-#define POW(L, R) CreateNode (OP_T, 0, POW,  nullptr,  L, R)
+#define ADD(L, R) CreateNode (OPERATION_T, 0, ADD, nullptr, L, R)
+#define SUB(L, R) CreateNode (OPERATION_T, 0, SUB, nullptr, L, R)
+#define MUL(L, R) CreateNode (OPERATION_T, 0, MUL, nullptr, L, R)
+#define DIV(L, R) CreateNode (OPERATION_T, 0, DIV, nullptr, L, R)
+#define POW(L, R) CreateNode (OPERATION_T, 0, POW,  nullptr,  L, R)
 
-#define INIT_PARAMS OP_T, 0, UNKNOWN, nullptr, nullptr, nullptr
+#define INIT_PARAMSOPERATION_T, 0, UNKNOWN, nullptr, nullptr, nullptr
 #define VAR_PARAMS(V)  VAR_T, 0, UNKNOWN, #V, nullptr, nullptr
 
-#define $PRINT_PLUS_RETURN(X)                       \
-    {                                            \
-        TreeNode* tmp_node = X;                  \
-        if (print_in_pdf)                        \
-        {                                        \
-            PrintBranch (tmp_node, DERIVATIVE);  \
-        }                                        \
-        return tmp_node;                         \
-    }
-
 #define _print(...) fprintf (out_file, __VA_ARGS__)
-
-#define _equation(X) _print ("\n\\begin{center}$\n"); X ; _print ("\n$\\end{center}\n")
 
 //--Simplifier
 
@@ -56,7 +41,7 @@
 
 #define TOP_TOKEN token_array[tokens_amount]
 
-#define OP_PARAMS(X) OP_T, 0, X, i
+#define OP_PARAMS(X)OPERATION_T, 0, X, i
 
 //-----------
 

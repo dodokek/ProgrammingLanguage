@@ -24,42 +24,45 @@ enum Types
 {
     NUM_T,
     VAR_T,
-    OP_T,
+    OPERATION_T,
+    OPERATOR_T,
+    SPEC_T,
 };
 
 
-enum OutputType
-{
-    NO_TEX_OUT,
-    TEX_OUT,
-};
-
-
-enum Operations
+enum Options
 {
     UNKNOWN,
     ADD,
     SUB,
     DIV,
     MUL,
-    SQR,
     POW,
-    SIN,
-    COS,
-    TG,
-    CTG,
-    ARCCOS,
-    ARCSIN,
-    LN,
-    LOG,
+    AND,
+    OR,
+    EQ,
+    
+    // Special nodes 
+    ST,
+    IF,
+    ELSE,
+    NIL,
+    VAR,
+    WHILE,
+    FUNC,
+    RET,
+    CALL,
+    PARAM,
+
+    // Only for tokenizer
     OPEN_BR,
     CLOSE_BR,
     TERMINATION_SYM,
 };
 
-
 const double ACCURACY = 0.000001;
 
+const char* input_path = "data/input.txt";
 
 //---------------------------------------------
 
@@ -67,7 +70,7 @@ const double ACCURACY = 0.000001;
 union Values
 {
     double dbl_val;
-    Operations op_val;
+    Options op_val;
     const char* var_name;
 };
 
@@ -116,7 +119,7 @@ void SkipSpaces (char* string, int* i);
 TreeNode* GetMltreeRoot ();
 
 TreeNode* CreateNode (Types type,           double dbl_val,
-                      Operations op_val,    const char* var_name,
+                      Options op_val,    const char* var_name,
                       TreeNode* left_child, TreeNode* right_child);
 
 TreeNode* TransformNode (TreeNode* node, Types type, double dbl_val, const char* var_name);
@@ -127,7 +130,7 @@ TreeNode* BuildTree (FILE* tree_info);
 
 TreeNode* DestructTree (TreeNode* root);
 
-Operations GetOpType (char str[]);
+Options GetOpType (char str[]);
 
 TreeNode* CreateDigitNode (double dbl_val);
 
@@ -135,11 +138,11 @@ bool isZero (double num);
 
 bool isEqual (double num1, double num2);
 
-TreeNode* GetOperationNode (TreeNode* child_node, Operations op);
+TreeNode* GetOperationNode (TreeNode* child_node, Options op);
 
 void FillTokensArray (Token* token_array);
 
-Token CreateToken (Types type, double dbl_val, Operations op_t, int line_number);
+Token CreateToken (Types type, double dbl_val, OptionsOPERATION_T, int line_number);
 
 void PrintTokens (Token token_array[]);
 

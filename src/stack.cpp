@@ -2,7 +2,7 @@
 #include "../include/stack.h"
 
 
-void StackCtor_ (Stack* self, int capacity, const char* name, const char* filename, const char* funcname, int line)
+void StackCtor_ (Stack* self, int capacity, const char* name, const char* filename, const char* funcname, int /* line */)
 {
     ON_CANARY_PROTECTION(
 
@@ -115,13 +115,13 @@ void StackResize (Stack* self, int mode)
 
 void* recalloc (void* ptr, size_t size_new)
 {
-    int len_old = _msize (ptr);
+    int len_old = (int) _msize (ptr);
     
-    if (len_old == size_new) return ptr;
+    if (len_old == (int) size_new) return ptr;
 
     ptr = (void*) realloc (ptr, size_new);
 
-    for (int i = len_old; i < size_new; i++)
+    for (int i = len_old; i < (int) size_new; i++)
     {
         ((char*) ptr)[i] = 0;
     }
@@ -263,7 +263,7 @@ void PutErrCodes (intmax_t err)
 int GetBit (intmax_t n, int pos)
 {
     int mask = 1 << pos;
-    int masked_n = n & mask;
+    int masked_n = (int) n & mask;
     int thebit = masked_n >> pos;
 
     return thebit;
