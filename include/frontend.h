@@ -62,7 +62,7 @@ enum Options
 
 const double ACCURACY = 0.000001;
 
-const char* input_path = "data/input.txt";
+const char input_path[] = "data/input.txt";
 
 //---------------------------------------------
 
@@ -142,7 +142,7 @@ TreeNode* GetOperationNode (TreeNode* child_node, Options op);
 
 void FillTokensArray (Token* token_array);
 
-Token CreateToken (Types type, double dbl_val, OptionsOPERATION_T, int line_number);
+Token CreateToken (Types type, double dbl_val, Options operation, int line_number);
 
 void PrintTokens (Token token_array[]);
 

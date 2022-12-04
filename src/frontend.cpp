@@ -196,7 +196,8 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
         if (CUR_TOKEN.value.op_val == CLOSE_BR)
         {
             *cur_token_id += 1;
-            return GetOperationNode (sub_node, cur_op);
+            // return GetOperationNode (sub_node, cur_op);
+            return 0;
         }
         else 
         {
@@ -258,8 +259,10 @@ void FillTokensArray (Token* token_array)
     {
         SkipSpaces (input, &i);
         
-        if (isalpha(input[i]) || input[i] == '{' || input[i] == '}')
+        if (isalpha(input[i]))
         {
+            printf ("Now at %c\n", input[i]);
+
             char op_name[MAX_NAME_LEN] = "";
 
             int len = 0;
@@ -298,6 +301,8 @@ void FillTokensArray (Token* token_array)
         }
         else if (input[i] == '"')
         {
+            printf ("Now at %c\n", input[i]);
+
             TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i); 
 
             int len = 0;
@@ -314,6 +319,8 @@ void FillTokensArray (Token* token_array)
         } 
         else if (isdigit (input[i]))
         {
+            printf ("Now at %c\n", input[i]);
+
             printf ("Proccessing digit %c\n", input[i]);
 
             double num = 0;
@@ -325,9 +332,21 @@ void FillTokensArray (Token* token_array)
             TOP_TOKEN = CreateToken (NUM_T, num, UNKNOWN, i);
             tokens_amount++;
         }
+        else if (input[i] == '{' || input[i] == '}' || input[i] == '\0')
+        {
+            printf ("Now at %c\n", input[i]);
+
+            Options operation = GetOpType (input + i);
+
+            TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i);
+            i++;
+            tokens_amount++;
+        }
         else
         {
-            printf ("======== Could not match any pattern :( ========== \n");
+            printf ("Now at %c\n", input[i]);
+
+            printf ("======== Could not match pattern %s, %d ========== \n", input + i, i);
         }
     } 
 }
@@ -341,7 +360,7 @@ void SkipSpaces (char* string, int* i)
 
 Token CreateToken (Types type, double dbl_val, Options operation, int line_number)
 {
-    printf ("====Creating token with type %d and op val %d====\n", type,OPERATION_T);
+    printf ("====Creating token with type %d and op val %d====\n", type, operation);
 
     Token* new_token = (Token*) calloc (1, sizeof (Token));
 
@@ -384,7 +403,7 @@ Options GetOpType (char str[])
     CMP (ADD)
     CMP (SUB)
     CMP (DIV)
-    CMP ()
+    CMP (MUL)
     CMP (POW)
     CMP (AND)
     CMP (OR)
@@ -399,7 +418,9 @@ Options GetOpType (char str[])
     CMP (RET)
     CMP (CALL)
     CMP (PARAM)
-
+    if (*str == '{')      return OPEN_BR;
+    else if (*str == '}') return CLOSE_BR;
+    else if (*str == '\0') return TERMINATION_SYM;
     {
         return UNKNOWN;
     }
