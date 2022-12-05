@@ -301,6 +301,7 @@ void FillTokensArray (Token* token_array)
         }
         else if (input[i] == '"')
         {
+            i++;
             printf ("Now at %c\n", input[i]);
 
             TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i); 
