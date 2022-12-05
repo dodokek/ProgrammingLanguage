@@ -123,7 +123,7 @@ TreeNode* GetFunction (Token token_array[], int* cur_token_id)
 
 TreeNode* GetFuncName (Token token_array[], int* cur_token_id)
 {
-    return 0;
+    return 0; // delete this shit
 }
 
 
@@ -135,7 +135,7 @@ TreeNode* GetParam (Token token_array[], int* cur_token_id)
 
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
-
+    return OP_NODE(VAR, GetName (TOKENS_DATA), GetNumber (TOKENS_DATA));
 }
 
 
