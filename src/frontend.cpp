@@ -15,7 +15,7 @@ TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* va
 
     if      (type == NUM_T) new_node->value.dbl_val  = dbl_val;
     else if (type == VAR_T) new_node->value.var_name = var_name;
-    else if (type ==OPERATION_T)  new_node->value.op_val   = op_val;
+    else if (type == OP_T)  new_node->value.op_val   = op_val;
     
     new_node->left   = left_child;
     new_node->right  = right_child;
@@ -32,22 +32,6 @@ TreeNode* CopyNode (TreeNode* node_to_cpy)
     if (!new_node) return nullptr;
 
     *new_node = *node_to_cpy;
-
-    return new_node;
-}
-
-
-TreeNode* CreateDigitNode (double dbl_val)
-{
-    TreeNode* new_node = (TreeNode*) calloc (1, sizeof (TreeNode));
-    if (!new_node) return nullptr;
-
-    new_node->value.dbl_val  = dbl_val;
-    
-    new_node->left   = nullptr;
-    new_node->right  = nullptr;
-    new_node->parent = nullptr;
-    new_node->type   = NUM_T;
 
     return new_node;
 }
@@ -97,7 +81,7 @@ TreeNode* GetGrammar ()
     int token_id = 0;
     int* cur_token_id = &token_id;
 
-    TreeNode* root = GetExpression(token_array, cur_token_id); 
+    TreeNode* root = GetStatement(TOKENS_DATA); 
 
     if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
         printf ("G: Got termination symbol, ending\n");
@@ -109,16 +93,62 @@ TreeNode* GetGrammar ()
 }
 
 
+TreeNode* GetStatement (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (ST))
+    {
+        *cur_token_id += 1;
+        return OP_NODE (ST, GetFunction (TOKENS_DATA), GetStatement (TOKENS_DATA));
+    }
+    else 
+    {
+        *cur_token_id += 1;
+        return GetFunction (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetFunction (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (FUNC))
+    {
+        *cur_token_id += 1;
+        return OP_NODE (FUNC, GetFuncName (TOKENS_DATA), GetStatement (TOKENS_DATA));
+    }
+    else {
+        return GetVar ();
+    }
+}
+
+
+TreeNode* GetFuncName (Token token_array[], int* cur_token_id)
+{
+    return 0;
+}
+
+
+TreeNode* GetParam (Token token_array[], int* cur_token_id)
+{
+    return 0;
+}
+
+
+TreeNode* GetVar (Token token_array[], int* cur_token_id)
+{
+
+}
+
+
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetMlt (token_array, cur_token_id);
+    TreeNode* top_operation_node = GetMlt (TOKENS_DATA);
 
     while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
     {
         Options last_op = CUR_TOKEN.value.op_val;
         *cur_token_id += 1;
 
-        TreeNode* right_node = GetMlt (token_array, cur_token_id);
+        TreeNode* right_node = GetMlt (TOKENS_DATA);
 
         if (last_op == ADD)
             top_operation_node = ADD (top_operation_node, right_node);
@@ -132,14 +162,14 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 
 TreeNode* GetMlt (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetPower (token_array, cur_token_id);
+    TreeNode* top_operation_node = GetPower (TOKENS_DATA);
 
     while (CUR_TOKEN.value.op_val == MUL || CUR_TOKEN.value.op_val == DIV)
     {
         Options last_op = CUR_TOKEN.value.op_val;
         *cur_token_id += 1;
 
-        TreeNode* right_node = GetPower (token_array, cur_token_id);
+        TreeNode* right_node = GetPower (TOKENS_DATA);
 
         if (last_op == MUL)
             top_operation_node = MUL (top_operation_node, right_node);
@@ -153,13 +183,13 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id)
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetBracketExp (token_array, cur_token_id);
+    TreeNode* top_operation_node = GetBracketExp (TOKENS_DATA);
 
     while (CUR_TOKEN.value.op_val == POW)
     {
         *cur_token_id += 1;
 
-        TreeNode* right_node = GetBracketExp (token_array, cur_token_id);
+        TreeNode* right_node = GetBracketExp (TOKENS_DATA);
         top_operation_node = POW (top_operation_node, right_node);
     }       
 
@@ -173,7 +203,7 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
     if (CUR_TOKEN.value.op_val == OPEN_BR)
     {
         *cur_token_id += 1;
-        TreeNode* sub_node = GetExpression (token_array, cur_token_id);
+        TreeNode* sub_node = GetExpression (TOKENS_DATA);
 
         if (CUR_TOKEN.value.op_val == CLOSE_BR)
         {
@@ -186,12 +216,12 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
         }        
     }
 
-    else if (CUR_TOKEN.type ==OPERATION_T)
+    else if (CUR_TOKEN.type ==OP_T)
     {
         Options cur_op = CUR_TOKEN.value.op_val;
 
         *cur_token_id += 2; // Skipping operation + bracket
-        TreeNode* sub_node = GetExpression (token_array, cur_token_id);
+        TreeNode* sub_node = GetExpression (TOKENS_DATA);
 
         if (CUR_TOKEN.value.op_val == CLOSE_BR)
         {
@@ -206,7 +236,7 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
     }
     else
     {
-        return GetNumber (token_array, cur_token_id);
+        return GetNumber (TOKENS_DATA);
     }
 }
 
@@ -216,7 +246,7 @@ TreeNode* GetNumber (Token token_array[], int* cur_token_id)
     if      (CUR_TOKEN.type == NUM_T)
     {
         *cur_token_id += 1;
-        return CreateDigitNode (PREV_TOKEN.value.dbl_val);
+        return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
     }
 
     else if (CUR_TOKEN.type == VAR_T)
@@ -270,7 +300,7 @@ void FillTokensArray (Token* token_array)
             i += len;
 
             Options operation = GetOpType (op_name);
-            TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i); 
+            TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
             tokens_amount++;
 
             // {
@@ -283,7 +313,7 @@ void FillTokensArray (Token* token_array)
             //     i += len;
             //    
             //     Options operation = GetOpType (op_name);
-            //     TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i); 
+            //     TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
             //     tokens_amount++;
             // }   
             // else // variable handler
@@ -335,13 +365,8 @@ void FillTokensArray (Token* token_array)
         }
         else if (input[i] == '{' || input[i] == '}' || input[i] == '\0')
         {
-            printf ("Now at %c\n", input[i]);
-
-            Options operation = GetOpType (input + i);
-
-            TOP_TOKEN = CreateToken (OPERATION_T, 0, operation, i);
+            printf ("Skipping %c\n", input[i]);
             i++;
-            tokens_amount++;
         }
         else
         {
@@ -367,7 +392,7 @@ Token CreateToken (Types type, double dbl_val, Options operation, int line_numbe
 
     if      (type == NUM_T) new_token->value.dbl_val  = dbl_val;
     else if (type == VAR_T) new_token->value.var_name = (char*) calloc (MAX_TOKEN_LEN, sizeof (char));
-    else if (type == OPERATION_T)  new_token->value.op_val = operation;
+    else if (type == OP_T)  new_token->value.op_val = operation;
     
     new_token->type = type;
     new_token->line_number = line_number;

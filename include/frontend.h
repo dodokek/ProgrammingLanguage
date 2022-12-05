@@ -24,8 +24,7 @@ enum Types
 {
     NUM_T,
     VAR_T,
-    OPERATION_T,
-    OPERATOR_T,
+    OP_T,
     SPEC_T,
 };
 
@@ -131,8 +130,6 @@ TreeNode* BuildTree (FILE* tree_info);
 TreeNode* DestructTree (TreeNode* root);
 
 Options GetOpType (char str[]);
-
-TreeNode* CreateDigitNode (double dbl_val);
 
 bool isZero (double num);
 

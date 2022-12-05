@@ -5,15 +5,16 @@
 #define DR GetDerivative (cur_node->right, print_in_pdf)
 #define CL CopyNode (cur_node->left)
 #define CR CopyNode (cur_node->right)
-#define GET_DIGIT(num) CreateDigitNode (num)
+#define DIGIT_NODE(num) CreateNode (NUM_T, num, UNKNOWN, nullptr, nullptr, nullptr)
+#define OP_NODE(op, l, r) CreateNode (OP_T, 0, op, nullptr, l, r)
 
-#define ADD(L, R) CreateNode (OPERATION_T, 0, ADD, nullptr, L, R)
-#define SUB(L, R) CreateNode (OPERATION_T, 0, SUB, nullptr, L, R)
-#define MUL(L, R) CreateNode (OPERATION_T, 0, MUL, nullptr, L, R)
-#define DIV(L, R) CreateNode (OPERATION_T, 0, DIV, nullptr, L, R)
-#define POW(L, R) CreateNode (OPERATION_T, 0, POW,  nullptr,  L, R)
+#define ADD(L, R) CreateNode (OP_T, 0, ADD, nullptr, L, R)
+#define SUB(L, R) CreateNode (OP_T, 0, SUB, nullptr, L, R)
+#define MUL(L, R) CreateNode (OP_T, 0, MUL, nullptr, L, R)
+#define DIV(L, R) CreateNode (OP_T, 0, DIV, nullptr, L, R)
+#define POW(L, R) CreateNode (OP_T, 0, POW,  nullptr,  L, R)
 
-#define INIT_PARAMSOPERATION_T, 0, UNKNOWN, nullptr, nullptr, nullptr
+#define INIT_PARAMSOP_T, 0, UNKNOWN, nullptr, nullptr, nullptr
 #define VAR_PARAMS(V)  VAR_T, 0, UNKNOWN, #V, nullptr, nullptr
 
 #define _print(...) fprintf (out_file, __VA_ARGS__)
@@ -41,8 +42,16 @@
 
 #define TOP_TOKEN token_array[tokens_amount]
 
-#define OP_PARAMS(X)OPERATION_T, 0, X, i
+#define OP_PARAMS(X) OP_T, 0, X, i
 
-//-----------
+//-----------Syntax Analyser Stuff
+
+#define TOKENS_DATA token_array, cur_token_id
+
+#define CHECK_OP_T(op) CUR_TOKEN.type == OP_T && CUR_TOKEN.value.op_val == op
+
+//--------------------------------
+
+
 
 #endif
