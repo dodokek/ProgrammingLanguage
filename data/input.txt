@@ -1,1 +1,1 @@
-{ ST { VAR { "X" } { POW {ADD {2} {"X"} } {2} } } { NIL } }
+{ ST { VAR { "X" } { IS_EE {ADD {2} {"X"} } {2} } } { NIL } }

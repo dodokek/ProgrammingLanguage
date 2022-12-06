@@ -175,20 +175,26 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
     printf ("%d: \n", *cur_token_id);
 
 
-    if (CHECK_OP_T (EQ))
+    if(
+        CUR_TOKEN.value.op_val != EQ    &&
+        CUR_TOKEN.value.op_val != IS_EE &&
+        CUR_TOKEN.value.op_val != IS_GE &&
+        CUR_TOKEN.value.op_val != IS_BE &&
+        CUR_TOKEN.value.op_val != IS_GT &&
+        CUR_TOKEN.value.op_val != IS_BT &&
+        CUR_TOKEN.value.op_val != IS_NE
+    ) return GetAddSub (TOKENS_DATA);
+    else 
     {
+        Options cur_op = CUR_TOKEN.value.op_val;
+
         *cur_token_id += 1;
 
         TreeNode* left_node  = GetExpression (TOKENS_DATA);
         TreeNode* right_node = GetExpression (TOKENS_DATA);
 
-        return EQ (left_node, right_node);
+        return OP_NODE (cur_op, left_node, right_node);
     }
-    else 
-    {
-        return GetAddSub (TOKENS_DATA);
-    }
-
 }
 
 
@@ -519,6 +525,12 @@ Options GetOpType (char str[])
     CMP (RET)
     CMP (CALL)
     CMP (PARAM)
+    CMP (IS_EE)
+    CMP (IS_GE)
+    CMP (IS_BE)
+    CMP (IS_GT)
+    CMP (IS_BT)
+    CMP (IS_NE)
     if (*str == '{')      return OPEN_BR;
     else if (*str == '}') return CLOSE_BR;
     else if (*str == '\0') return TERMINATION_SYM;
@@ -631,6 +643,24 @@ char* GetOpSign (Options op)
 
     case POW:
         return "^";
+
+    case IS_EE:
+        return "==";
+
+    case IS_GE:
+        return ">=";
+
+    case IS_BE:
+        return "<=";
+
+    case IS_GT:
+        return ">";
+
+    case IS_BT:
+        return "<";
+
+    case IS_NE:
+        return "!=";
 
     case ST:
         return "Statement";

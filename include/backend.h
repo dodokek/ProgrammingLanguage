@@ -41,6 +41,14 @@ enum Options
     OR,
     EQ,
     
+    // Comparison
+    IS_EE,
+    IS_GE,
+    IS_BE,
+    IS_GT,
+    IS_BT,
+    IS_NE,
+    
     // Special nodes 
     ST,
     IF,
