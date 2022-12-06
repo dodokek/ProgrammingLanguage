@@ -117,6 +117,8 @@ TreeNode* GetName (Token token_array[], int* cur_token_id);
 
 TreeNode* GetExpression (Token token_array[], int* cur_token_id);
 
+TreeNode* GetAddSub (Token token_array[], int* cur_token_id);
+
 TreeNode* GetMlt (Token token_array[], int* cur_token_id);
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id);

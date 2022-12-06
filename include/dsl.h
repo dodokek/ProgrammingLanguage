@@ -15,6 +15,8 @@
 #define MUL(L, R) CreateNode (OP_T, 0, MUL, nullptr, L, R)
 #define DIV(L, R) CreateNode (OP_T, 0, DIV, nullptr, L, R)
 #define POW(L, R) CreateNode (OP_T, 0, POW,  nullptr,  L, R)
+#define EQ(L, R) CreateNode (OP_T, 0, EQ,  nullptr,  L, R)
+
 
 #define _print(...) fprintf (out_file, __VA_ARGS__)
 

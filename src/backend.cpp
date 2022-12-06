@@ -172,63 +172,94 @@ TreeNode* GetName (Token token_array[], int* cur_token_id)
 
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
+    printf ("%d: \n", *cur_token_id);
 
-    if (CHECK_OP_T (ADD) || CHECK_OP_T (SUB))
+
+    if (CHECK_OP_T (EQ))
     {
         *cur_token_id += 1;
 
-        TreeNode* left_node = GetMlt (TOKENS_DATA);
-        TreeNode* right_node = GetMlt (TOKENS_DATA);
+        TreeNode* left_node  = GetExpression (TOKENS_DATA);
+        TreeNode* right_node = GetExpression (TOKENS_DATA);
 
-        if (CUR_TOKEN.value.op_val == ADD)
+        return EQ (left_node, right_node);
+    }
+    else 
+    {
+        return GetAddSub (TOKENS_DATA);
+    }
+
+}
+
+
+TreeNode* GetAddSub (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: add/sub \n", *cur_token_id);
+
+
+    if (CHECK_OP_T (ADD) || CHECK_OP_T (SUB))
+    {
+        Options cur_option = CUR_TOKEN.value.op_val;
+
+        *cur_token_id += 1;
+
+        TreeNode* left_node  = GetExpression (TOKENS_DATA);
+        TreeNode* right_node = GetExpression (TOKENS_DATA);
+
+        if (cur_option == ADD)
             return ADD (left_node, right_node);
         else
             return SUB (left_node, right_node);
     }
     else 
     {
-        *cur_token_id += 1;
-
         return GetMlt (TOKENS_DATA);
     }
-
 }
+
 
 
 TreeNode* GetMlt (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetPower (TOKENS_DATA);
+    printf ("%d: mlt/div \n", *cur_token_id);
 
-    while (CUR_TOKEN.value.op_val == MUL || CUR_TOKEN.value.op_val == DIV)
+
+    if (CHECK_OP_T (MUL) || CHECK_OP_T (DIV))
     {
-        Options last_op = CUR_TOKEN.value.op_val;
+        Options cur_option = CUR_TOKEN.value.op_val;
+
         *cur_token_id += 1;
 
-        TreeNode* right_node = GetPower (TOKENS_DATA);
+        TreeNode* left_node =  GetExpression (TOKENS_DATA);
+        TreeNode* right_node = GetExpression (TOKENS_DATA);
 
-        if (last_op == MUL)
-            top_operation_node = MUL (top_operation_node, right_node);
+        if (cur_option == MUL)
+            return MUL (left_node, right_node);
         else
-            top_operation_node = DIV (top_operation_node, right_node);
-    }       
-
-    return top_operation_node;
+            return DIV (left_node, right_node);
+    }
+    else 
+    {
+        return GetPower (TOKENS_DATA);
+    }
 }
 
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetBracketExp (TOKENS_DATA);
-
-    while (CUR_TOKEN.value.op_val == POW)
+    if (CHECK_OP_T (POW))
     {
         *cur_token_id += 1;
 
-        TreeNode* right_node = GetBracketExp (TOKENS_DATA);
-        top_operation_node = POW (top_operation_node, right_node);
-    }       
-
-    return top_operation_node;
+        TreeNode* left_node =  GetExpression (TOKENS_DATA);
+        TreeNode* right_node = GetExpression (TOKENS_DATA);
+        
+        return POW (left_node, right_node);    
+    }
+    else 
+    {
+        return GetNumber (TOKENS_DATA);
+    }
 }
 
 
@@ -450,7 +481,7 @@ void PrintTokens (Token* token_array)
     int i = 0;
     while (token_array[i].value.op_val != TERMINATION_SYM)
     {
-        printf ("Token. Type: %d, Dbl value: %lg. Line number %d. Op type: %d\n",
+        printf ("Token %d. Type: %d, Dbl value: %lg. Line number %d. Op type: %d\n", i,
                token_array[i].type, token_array[i].value.dbl_val, token_array[i].line_number, token_array[i].value.op_val);
 
         i++;
@@ -596,7 +627,7 @@ char* GetOpSign (Options op)
         return "/";
 
     case MUL:
-        return "\\cdot";
+        return "*";
 
     case POW:
         return "^";
@@ -609,6 +640,9 @@ char* GetOpSign (Options op)
 
     case NIL:
         return "Null node";
+
+    case EQ:
+        return "=";
 
     default:
         return "?";
