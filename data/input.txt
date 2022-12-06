@@ -1,1 +1,1 @@
-{ ST { VAR { "X" } { 2 } } { NIL } }
+{ ST { VAR { "X" } { 2 } } { ST { VAR {"Y"} {2}} {NIL} } } 

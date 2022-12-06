@@ -1,0 +1,6 @@
+Get Grammar : Statement
+Statement   : function
+function    : func_name
+func_name   : par
+par         : var
+var         : var_name, val 

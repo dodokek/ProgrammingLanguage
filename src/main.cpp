@@ -1,11 +1,8 @@
-#include "frontend.h"
 #include "backend.h"
 
 int main()
 {
-    Token token_array[MAX_TOKENS] = {};
+    TreeNode* root = GetGrammar ();
 
-    FillTokensArray (token_array);
-
-    PrintTokens (token_array);
+    DrawTree (root);
 }
