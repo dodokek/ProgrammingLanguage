@@ -121,12 +121,11 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
-
     printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
 
     *cur_token_id += 1;
     TreeNode* tmp_node = GetName (TOKENS_DATA);
-    return OP_NODE(VAR, tmp_node, GetNumber (TOKENS_DATA));
+    return OP_NODE(VAR, tmp_node, GetExpression (TOKENS_DATA));
 }
 
 
@@ -173,22 +172,26 @@ TreeNode* GetName (Token token_array[], int* cur_token_id)
 
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
-    TreeNode* top_operation_node = GetMlt (TOKENS_DATA);
 
-    while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
+    if (CHECK_OP_T (ADD) || CHECK_OP_T (SUB))
     {
-        Options last_op = CUR_TOKEN.value.op_val;
         *cur_token_id += 1;
 
+        TreeNode* left_node = GetMlt (TOKENS_DATA);
         TreeNode* right_node = GetMlt (TOKENS_DATA);
 
-        if (last_op == ADD)
-            top_operation_node = ADD (top_operation_node, right_node);
+        if (CUR_TOKEN.value.op_val == ADD)
+            return ADD (left_node, right_node);
         else
-            top_operation_node = SUB (top_operation_node, right_node);
-    }   
+            return SUB (left_node, right_node);
+    }
+    else 
+    {
+        *cur_token_id += 1;
 
-    return top_operation_node;
+        return GetMlt (TOKENS_DATA);
+    }
+
 }
 
 
