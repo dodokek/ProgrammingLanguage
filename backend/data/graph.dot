@@ -8,12 +8,24 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node00000156970c1760[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: +}"] 
+    Node000002be9ce618a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: if}"] 
  
-Node00000156970c1700[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+Node000002be9ce617e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ==}"] 
  
-Node00000156970c1730[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+Node000002be9ce61780[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 1}"] 
  
-Node00000156970c1760->Node00000156970c1700
-Node00000156970c1760->Node00000156970c1730
+Node000002be9ce617b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+ 
+Node000002be9ce61870[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: else}"] 
+ 
+Node000002be9ce61810[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 3}"] 
+ 
+Node000002be9ce61840[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 4}"] 
+ 
+Node000002be9ce618a0->Node000002be9ce617e0
+Node000002be9ce617e0->Node000002be9ce61780
+Node000002be9ce617e0->Node000002be9ce617b0
+Node000002be9ce618a0->Node000002be9ce61870
+Node000002be9ce61870->Node000002be9ce61810
+Node000002be9ce61870->Node000002be9ce61840
 }

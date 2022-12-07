@@ -1,1 +1,1 @@
-ADD 2 2
+IF IS_EE 1 2 ELSE 3 4

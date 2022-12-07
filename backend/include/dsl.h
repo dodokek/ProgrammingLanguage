@@ -55,6 +55,14 @@
 
 //--------------------------------
 
+//----Tree to asm-----------------
+
+#define l_child cur_node->left, cmds_file
+#define r_child cur_node->right, cmds_file
+
+
+//----Tree to asm-----------------
+
 
 
 #endif
