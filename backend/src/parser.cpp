@@ -246,6 +246,20 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
     }
     else 
     {
+        return GetRet (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetRet (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (RET))
+    {
+        NEXT_TOKEN;
+        return OP_NODE (RET, nullptr, nullptr);
+    }
+    else 
+    {
         return GetExpression (TOKENS_DATA);
     }
 }
@@ -254,7 +268,6 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
     printf ("%d: \n", *cur_token_id);
-
 
     if(
         CUR_TOKEN.value.op_val != EQ    &&
@@ -699,6 +712,7 @@ char* GetOpSign (Options op)
     SWITCH (PARAM, "Parametr")
     SWITCH (FUNC, "Function declaration")
     SWITCH (CALL, "Function call")
+    SWITCH (RET, "Return of function")
 
     default:
         return "?";

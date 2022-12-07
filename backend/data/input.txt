@@ -1,1 +1,1 @@
-IF IS_EE 1 2 ELSE 3 4
+FUNC "main" NIL ADD 1 1

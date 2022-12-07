@@ -130,6 +130,8 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id);
 
 TreeNode* GetName (Token token_array[], int* cur_token_id);
 
+TreeNode* GetRet (Token token_array[], int* cur_token_id);
+
 TreeNode* GetExpression (Token token_array[], int* cur_token_id);
 
 TreeNode* GetAddSub (Token token_array[], int* cur_token_id);

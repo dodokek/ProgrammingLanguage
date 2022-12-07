@@ -28,6 +28,16 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             if (cur_node->right) PrintOperation (r_child);
             break;
         
+        case FUNC:
+            PRINT ("; function \n");
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+            break;
+
+        case RET:
+            PRINT ("RET\n");
+            break;
+
         case ADD:
             PrintOperation (l_child);
             PrintOperation (r_child);
@@ -59,7 +69,11 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
         default:
             break;
         }
-
+    }
+    else if (cur_node->type == NAME_T)
+    {
+        PRINT ("%s:\n", cur_node->value.var_name);
+        PrintOperation (r_child);
     }
     else if (cur_node->type == NUM_T)
     {
