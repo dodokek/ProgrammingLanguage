@@ -184,14 +184,14 @@ TreeNode* GetIf (Token token_array[], int* cur_token_id)
         // printf ("Hey hey\n");
         NEXT_TOKEN;
 
-        TreeNode* statement = GetExpression (TOKENS_DATA);
+        TreeNode* statement = GetStatement (TOKENS_DATA);
         TreeNode* else_node = GetElse (TOKENS_DATA);
 
         return OP_NODE (IF, statement, else_node);
     }
     else 
     {
-        return GetVar (TOKENS_DATA);
+        return GetCall (TOKENS_DATA);
     }
 }
 
@@ -210,6 +210,23 @@ TreeNode* GetElse (Token token_array[], int* cur_token_id)
     {
         printf ("===Error, couldn't match else for any if before.===\n");
         return nullptr;
+    }
+}
+
+
+TreeNode* GetCall (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (CALL))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* function_header_node = GetFuncHeader (TOKENS_DATA);
+
+        return OP_NODE (CALL, function_header_node, nullptr);
+    }
+    else
+    {
+        return GetVar (TOKENS_DATA);
     }
 }
 
@@ -681,6 +698,7 @@ char* GetOpSign (Options op)
     SWITCH (ELSE, "else")
     SWITCH (PARAM, "Parametr")
     SWITCH (FUNC, "Function declaration")
+    SWITCH (CALL, "Function call")
 
     default:
         return "?";
