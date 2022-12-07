@@ -1,0 +1,10 @@
+Get Grammar : Statement
+Statement   : function
+function    : func_name, if
+func_name   : par
+par         : var
+var         : var_name, val 
+if          : else, call
+call        : var
+var         : name, expression
+expression  : .... - > num or var 
