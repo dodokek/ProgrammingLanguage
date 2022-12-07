@@ -26,6 +26,7 @@ enum Types
     VAR_T,
     OP_T,
     SPEC_T,
+    NAME_T,
 };
 
 
@@ -119,7 +120,7 @@ TreeNode* GetElse (Token token_array[], int* cur_token_id);
 
 TreeNode* GetFunction (Token token_array[], int* cur_token_id);
 
-TreeNode* GetFuncName (Token token_array[], int* cur_token_id);
+TreeNode* GetFuncHeader (Token token_array[], int* cur_token_id);
 
 TreeNode* GetParam (Token token_array[], int* cur_token_id);
 
@@ -135,7 +136,7 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id);
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id);
 
-TreeNode* GetNumber (Token token_array[], int* cur_token_id);
+TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id);
 
 TreeNode* GetBracketExp (Token token_array[], int* cur_token_id);
 

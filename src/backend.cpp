@@ -101,18 +101,78 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
 
     if (CHECK_OP_T (ST))
     {
-        *cur_token_id += 1;
-        TreeNode* tmp_node = GetIf (TOKENS_DATA);
+        NEXT_TOKEN;
+        TreeNode* tmp_node = GetFunction (TOKENS_DATA);
         return OP_NODE (ST, tmp_node, GetStatement (TOKENS_DATA));
     }
     else if (CHECK_OP_T (NIL))
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         return nullptr;
     }
     else 
     {
+        return GetFunction (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetFunction (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (FUNC))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* functction_header = GetFuncHeader (TOKENS_DATA); 
+        TreeNode* functction_body   = GetStatement (TOKENS_DATA); 
+
+        return OP_NODE (FUNC, functction_header, functction_body);
+    }
+    else 
+    {
         return GetIf (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetFuncHeader (Token token_array[], int* cur_token_id)
+{
+    if (CUR_TOKEN.type != VAR_T)
+        printf ("===Error missing function name===\n");
+
+    TreeNode* func_name_node = GetNumOrVar (TOKENS_DATA);
+    func_name_node->type = NAME_T;
+
+    printf ("Got name %s\n", func_name_node->value.var_name);
+
+    func_name_node->left = GetParam (TOKENS_DATA);
+
+    return func_name_node;
+}
+
+
+TreeNode* GetParam (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (PARAM))
+    {
+        NEXT_TOKEN;
+        
+        TreeNode* param_node = OP_NODE (PARAM, nullptr, nullptr);
+
+        param_node->left  = GetVar (TOKENS_DATA);
+        param_node->right = GetParam (TOKENS_DATA);
+
+        return param_node;
+    }
+    else if (CHECK_OP_T (NIL))
+    {
+        NEXT_TOKEN;
+
+        return nullptr;
+    }
+    else
+    {
+        printf ("===Error. Undefined parametr sequence===\n");
     }
 }
 
@@ -122,7 +182,7 @@ TreeNode* GetIf (Token token_array[], int* cur_token_id)
     if (CHECK_OP_T (IF))
     {
         // printf ("Hey hey\n");
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* statement = GetExpression (TOKENS_DATA);
         TreeNode* else_node = GetElse (TOKENS_DATA);
@@ -140,7 +200,7 @@ TreeNode* GetElse (Token token_array[], int* cur_token_id)
 {
     if (CHECK_OP_T (ELSE))
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         TreeNode* left_statement = GetStatement (TOKENS_DATA);
         TreeNode* right_statement = GetStatement (TOKENS_DATA);
 
@@ -161,55 +221,16 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
         printf ("%d: ", *cur_token_id);
         printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
 
-        *cur_token_id += 1;
-        TreeNode* tmp_node = GetName (TOKENS_DATA);
-        return OP_NODE(VAR, tmp_node, GetExpression (TOKENS_DATA));
+        NEXT_TOKEN;
+        TreeNode* var_name_node = GetNumOrVar (TOKENS_DATA);
+        TreeNode* equated_st_node = GetExpression (TOKENS_DATA);
+
+        return OP_NODE(VAR, var_name_node, equated_st_node);
     }
     else 
     {
-        return GetNumber (TOKENS_DATA);
+        return GetExpression (TOKENS_DATA);
     }
-}
-
-
-TreeNode* GetFunction (Token token_array[], int* cur_token_id)
-{
-    // if (CHECK_OP_T (FUNC))
-    // {
-    //     *cur_token_id += 1;
-    //     return OP_NODE (FUNC, GetFuncName (TOKENS_DATA), GetStatement (TOKENS_DATA));
-    // }
-    // else {
-    //     return GetVar ();
-    // }
-}
-
-
-TreeNode* GetFuncName (Token token_array[], int* cur_token_id)
-{
-    return 0; // delete this shit
-}
-
-
-TreeNode* GetParam (Token token_array[], int* cur_token_id)
-{
-    return 0;
-}
-
-
-TreeNode* GetName (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: ", *cur_token_id);
-    printf ("Name: Now at name %s %d\n", CUR_TOKEN.value.var_name, CUR_TOKEN.type);
-
-
-    if (CUR_TOKEN.type == VAR_T)
-    {
-        *cur_token_id += 1;
-        return NAME_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);;
-    }
-    
-    return 0;
 }
 
 
@@ -227,11 +248,16 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
         CUR_TOKEN.value.op_val != IS_BT &&
         CUR_TOKEN.value.op_val != IS_NE
     ) return GetAddSub (TOKENS_DATA);
+    else if (CUR_TOKEN.value.op_val == NIL)
+    {
+        NEXT_TOKEN;
+        return nullptr;
+    }
     else 
     {
         Options cur_op = CUR_TOKEN.value.op_val;
 
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* left_node  = GetExpression (TOKENS_DATA);
         TreeNode* right_node = GetExpression (TOKENS_DATA);
@@ -250,7 +276,7 @@ TreeNode* GetAddSub (Token token_array[], int* cur_token_id)
     {
         Options cur_option = CUR_TOKEN.value.op_val;
 
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* left_node  = GetExpression (TOKENS_DATA);
         TreeNode* right_node = GetExpression (TOKENS_DATA);
@@ -276,7 +302,7 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id)
     {
         Options cur_option = CUR_TOKEN.value.op_val;
 
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* left_node =  GetExpression (TOKENS_DATA);
         TreeNode* right_node = GetExpression (TOKENS_DATA);
@@ -297,7 +323,7 @@ TreeNode* GetPower (Token token_array[], int* cur_token_id)
 {
     if (CHECK_OP_T (POW))
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* left_node =  GetExpression (TOKENS_DATA);
         TreeNode* right_node = GetExpression (TOKENS_DATA);
@@ -306,56 +332,12 @@ TreeNode* GetPower (Token token_array[], int* cur_token_id)
     }
     else 
     {
-        return GetNumber (TOKENS_DATA);
+        return GetNumOrVar (TOKENS_DATA);
     }
 }
 
 
-// TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
-// {
-//   
-//     if (CUR_TOKEN.value.op_val == OPEN_BR)
-//     {
-//         *cur_token_id += 1;
-//         TreeNode* sub_node = GetExpression (TOKENS_DATA);
-//
-//         if (CUR_TOKEN.value.op_val == CLOSE_BR)
-//         {
-//             *cur_token_id += 1;
-//             return sub_node;
-//         }
-//         else 
-//         {
-//             printf ("Wrong brackets sequence\n");  
-//         }        
-//     }
-//
-//     else if (CUR_TOKEN.type ==OP_T)
-//     {
-//         Options cur_op = CUR_TOKEN.value.op_val;
-//
-//         *cur_token_id += 2; // Skipping operation + bracket
-//         TreeNode* sub_node = GetExpression (TOKENS_DATA);
-//
-//         if (CUR_TOKEN.value.op_val == CLOSE_BR)
-//         {
-//             *cur_token_id += 1;
-//             // return GetOperationNode (sub_node, cur_op);
-//             return 0;
-//         }
-//         else 
-//         {
-//             printf ("Wrong brackets sequence\n");  
-//         }
-//     }
-//     else
-//     {
-//         return GetNumber (TOKENS_DATA);
-//     }
-// }
-
-
-TreeNode* GetNumber (Token token_array[], int* cur_token_id)
+TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
 
@@ -363,17 +345,17 @@ TreeNode* GetNumber (Token token_array[], int* cur_token_id)
 
     if      (CUR_TOKEN.type == NUM_T)
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
     }
     else if (CUR_TOKEN.type == VAR_T)
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         return CreateNode (VAR_T, 0, UNKNOWN, PREV_TOKEN.value.var_name, nullptr, nullptr);
     }
     else 
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         printf ("Unexpected token, returning null\n");
         return nullptr;
     }
@@ -653,6 +635,11 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
                 "label=\" {Type: variable | value: %s}\"] \n \n",
                 node, node->value);
 
+    else if (node->type == NAME_T)
+        __print ("Node%p[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"#19DB27\","
+                "label=\" {Function name |Name: %s}\"] \n \n",
+                node, node->value);
+
     else
     {
         __print ("Node%d[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"red\","
@@ -681,10 +668,10 @@ char* GetOpSign (Options op)
     SWITCH (MUL, "*")
     SWITCH (POW, "^")
     SWITCH (IS_EE, "==")
-    SWITCH (IS_GE, ">=")
-    SWITCH (IS_BE, "<=")
-    SWITCH (IS_GT, ">")
-    SWITCH (IS_BT, "<")
+    SWITCH (IS_GE, "IS_GE") // Graphvis sucks, it doesnt let to write >
+    SWITCH (IS_BE, "IS_BE")
+    SWITCH (IS_GT, "IS_GT")
+    SWITCH (IS_BT, "IS_BT")
     SWITCH (IS_NE, "!=")
     SWITCH (ST, "Statement")
     SWITCH (VAR, "Var")
@@ -693,6 +680,7 @@ char* GetOpSign (Options op)
     SWITCH (IF, "if")
     SWITCH (ELSE, "else")
     SWITCH (PARAM, "Parametr")
+    SWITCH (FUNC, "Function declaration")
 
     default:
         return "?";
