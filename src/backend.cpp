@@ -667,60 +667,32 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
 }
 
 
+#define SWITCH(op, return_statement)   \
+    case op:                            \
+        return return_statement;        \
+
 char* GetOpSign (Options op)
 {
     switch (op)
     {
-    case ADD:
-        return "+";
-
-    case SUB:
-        return "-";
-
-    case DIV:
-        return "/";
-
-    case MUL:
-        return "*";
-
-    case POW:
-        return "^";
-
-    case IS_EE:
-        return "==";
-
-    case IS_GE:
-        return ">=";
-
-    case IS_BE:
-        return "<=";
-
-    case IS_GT:
-        return ">";
-
-    case IS_BT:
-        return "<";
-
-    case IS_NE:
-        return "!=";
-
-    case ST:
-        return "Statement";
-
-    case VAR:
-        return "Var";
-
-    case NIL:
-        return "Null node";
-
-    case EQ:
-        return "=";
-
-    case IF:
-        return "if";
-    
-    case ELSE:
-        return "else";
+    SWITCH (ADD, "+")
+    SWITCH (SUB, "-")
+    SWITCH (DIV, "/")
+    SWITCH (MUL, "*")
+    SWITCH (POW, "^")
+    SWITCH (IS_EE, "==")
+    SWITCH (IS_GE, ">=")
+    SWITCH (IS_BE, "<=")
+    SWITCH (IS_GT, ">")
+    SWITCH (IS_BT, "<")
+    SWITCH (IS_NE, "!=")
+    SWITCH (ST, "Statement")
+    SWITCH (VAR, "Var")
+    SWITCH (NIL, "null node")
+    SWITCH (EQ, "=")
+    SWITCH (IF, "if")
+    SWITCH (ELSE, "else")
+    SWITCH (PARAM, "Parametr")
 
     default:
         return "?";
