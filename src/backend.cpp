@@ -102,7 +102,7 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
     if (CHECK_OP_T (ST))
     {
         *cur_token_id += 1;
-        TreeNode* tmp_node = GetVar (TOKENS_DATA);
+        TreeNode* tmp_node = GetIf (TOKENS_DATA);
         return OP_NODE (ST, tmp_node, GetStatement (TOKENS_DATA));
     }
     else if (CHECK_OP_T (NIL))
@@ -112,20 +112,63 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
     }
     else 
     {
+        return GetIf (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetIf (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (IF))
+    {
+        // printf ("Hey hey\n");
         *cur_token_id += 1;
+
+        TreeNode* statement = GetExpression (TOKENS_DATA);
+        TreeNode* else_node = GetElse (TOKENS_DATA);
+
+        return OP_NODE (IF, statement, else_node);
+    }
+    else 
+    {
         return GetVar (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetElse (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (ELSE))
+    {
+        *cur_token_id += 1;
+        TreeNode* left_statement = GetStatement (TOKENS_DATA);
+        TreeNode* right_statement = GetStatement (TOKENS_DATA);
+
+        return OP_NODE (ELSE, left_statement, right_statement);
+    }
+    else
+    {
+        printf ("===Error, couldn't match else for any if before.===\n");
+        return nullptr;
     }
 }
 
 
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
-    printf ("%d: ", *cur_token_id);
-    printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
+    if (CHECK_OP_T (VAR))
+    {
+        printf ("%d: ", *cur_token_id);
+        printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
 
-    *cur_token_id += 1;
-    TreeNode* tmp_node = GetName (TOKENS_DATA);
-    return OP_NODE(VAR, tmp_node, GetExpression (TOKENS_DATA));
+        *cur_token_id += 1;
+        TreeNode* tmp_node = GetName (TOKENS_DATA);
+        return OP_NODE(VAR, tmp_node, GetExpression (TOKENS_DATA));
+    }
+    else 
+    {
+        return GetNumber (TOKENS_DATA);
+    }
 }
 
 
@@ -229,7 +272,6 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id)
 {
     printf ("%d: mlt/div \n", *cur_token_id);
 
-
     if (CHECK_OP_T (MUL) || CHECK_OP_T (DIV))
     {
         Options cur_option = CUR_TOKEN.value.op_val;
@@ -269,48 +311,48 @@ TreeNode* GetPower (Token token_array[], int* cur_token_id)
 }
 
 
-TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
-{
-    
-    if (CUR_TOKEN.value.op_val == OPEN_BR)
-    {
-        *cur_token_id += 1;
-        TreeNode* sub_node = GetExpression (TOKENS_DATA);
-
-        if (CUR_TOKEN.value.op_val == CLOSE_BR)
-        {
-            *cur_token_id += 1;
-            return sub_node;
-        }
-        else 
-        {
-            printf ("Wrong brackets sequence\n");  
-        }        
-    }
-
-    else if (CUR_TOKEN.type ==OP_T)
-    {
-        Options cur_op = CUR_TOKEN.value.op_val;
-
-        *cur_token_id += 2; // Skipping operation + bracket
-        TreeNode* sub_node = GetExpression (TOKENS_DATA);
-
-        if (CUR_TOKEN.value.op_val == CLOSE_BR)
-        {
-            *cur_token_id += 1;
-            // return GetOperationNode (sub_node, cur_op);
-            return 0;
-        }
-        else 
-        {
-            printf ("Wrong brackets sequence\n");  
-        }
-    }
-    else
-    {
-        return GetNumber (TOKENS_DATA);
-    }
-}
+// TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
+// {
+//   
+//     if (CUR_TOKEN.value.op_val == OPEN_BR)
+//     {
+//         *cur_token_id += 1;
+//         TreeNode* sub_node = GetExpression (TOKENS_DATA);
+//
+//         if (CUR_TOKEN.value.op_val == CLOSE_BR)
+//         {
+//             *cur_token_id += 1;
+//             return sub_node;
+//         }
+//         else 
+//         {
+//             printf ("Wrong brackets sequence\n");  
+//         }        
+//     }
+//
+//     else if (CUR_TOKEN.type ==OP_T)
+//     {
+//         Options cur_op = CUR_TOKEN.value.op_val;
+//
+//         *cur_token_id += 2; // Skipping operation + bracket
+//         TreeNode* sub_node = GetExpression (TOKENS_DATA);
+//
+//         if (CUR_TOKEN.value.op_val == CLOSE_BR)
+//         {
+//             *cur_token_id += 1;
+//             // return GetOperationNode (sub_node, cur_op);
+//             return 0;
+//         }
+//         else 
+//         {
+//             printf ("Wrong brackets sequence\n");  
+//         }
+//     }
+//     else
+//     {
+//         return GetNumber (TOKENS_DATA);
+//     }
+// }
 
 
 TreeNode* GetNumber (Token token_array[], int* cur_token_id)
@@ -461,7 +503,7 @@ void FillTokensArray (Token* token_array)
 
 void SkipSpaces (char* string, int* i)
 {
-    while (isspace (string[*i])) (*i)++;
+    while (isspace(string[*i])) (*i)++;
 }
 
 
@@ -673,6 +715,12 @@ char* GetOpSign (Options op)
 
     case EQ:
         return "=";
+
+    case IF:
+        return "if";
+    
+    case ELSE:
+        return "else";
 
     default:
         return "?";

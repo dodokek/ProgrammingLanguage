@@ -1,1 +1,1 @@
-{ ST { VAR { "X" } { IS_EE {ADD {2} {"X"} } {2} } } { NIL } }
+{ ST {IF {IS_EE{2}{"X"}} {ELSE {1}{2}}}NIL }

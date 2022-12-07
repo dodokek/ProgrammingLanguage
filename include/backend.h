@@ -40,7 +40,7 @@ enum Options
     AND,
     OR,
     EQ,
-    
+
     // Comparison
     IS_EE,
     IS_GE,
@@ -112,6 +112,10 @@ char* GetInputLine ();
 TreeNode* GetGrammar ();
 
 TreeNode* GetStatement (Token token_array[], int* cur_token_id);
+
+TreeNode* GetIf (Token token_array[], int* cur_token_id);
+
+TreeNode* GetElse (Token token_array[], int* cur_token_id);
 
 TreeNode* GetFunction (Token token_array[], int* cur_token_id);
 
