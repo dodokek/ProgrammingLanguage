@@ -1,1 +1,1 @@
-ST FUNC {"main" {PARAM {1} {PARAM {VAR{"X"}{NIL}{NIL}}} {ST {IS_GE {"X"}{123} }{NIL}}} CALL {"main" {PARAM {1}{NIL}}}
+ADD 2 2

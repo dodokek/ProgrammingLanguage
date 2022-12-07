@@ -3,7 +3,7 @@
 
 #include "stringUtils.h"
 #include "fileUtils.h"
-#include "backend.h"
+#include "parser.h"
 
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
@@ -618,7 +618,7 @@ void DrawTree (TreeNode* root)
     
     // Executing dotfile and printing an image
 
-    printf ("Closing the dot file");
+    printf ("Closing the dot file\n\n");
     fclose (dot_file);
 
     char src[MAX_SRC_LEN] = "";

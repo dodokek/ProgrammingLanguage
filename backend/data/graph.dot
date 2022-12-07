@@ -8,51 +8,12 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node00000247fe896870[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Statement}"] 
+    Node00000156970c1760[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: +}"] 
  
-Node00000247fe896670[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Function declaration}"] 
+Node00000156970c1700[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
  
-Node00000247fe891c50[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Function name |Name: main}"] 
+Node00000156970c1730[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
  
-Node00000247fe891c80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Parametr}"] 
- 
-Node00000247fe891cb0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 1}"] 
- 
-Node00000247fe891ce0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Parametr}"] 
- 
-Node00000247fe891d40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Var}"] 
- 
-Node00000247fe891d10[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: X}"] 
- 
-Node00000247fe896640[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Statement}"] 
- 
-Node00000247fe896610[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_GE}"] 
- 
-Node00000247fe891d70[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: X}"] 
- 
-Node00000247fe891da0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 123}"] 
- 
-Node00000247fe896960[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Function call}"] 
- 
-Node00000247fe8966a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Function name |Name: main}"] 
- 
-Node00000247fe8966d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: Parametr}"] 
- 
-Node00000247fe896700[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 1}"] 
- 
-Node00000247fe896870->Node00000247fe896670
-Node00000247fe896670->Node00000247fe891c50
-Node00000247fe891c50->Node00000247fe891c80
-Node00000247fe891c80->Node00000247fe891cb0
-Node00000247fe891c80->Node00000247fe891ce0
-Node00000247fe891ce0->Node00000247fe891d40
-Node00000247fe891d40->Node00000247fe891d10
-Node00000247fe896670->Node00000247fe896640
-Node00000247fe896640->Node00000247fe896610
-Node00000247fe896610->Node00000247fe891d70
-Node00000247fe896610->Node00000247fe891da0
-Node00000247fe896870->Node00000247fe896960
-Node00000247fe896960->Node00000247fe8966a0
-Node00000247fe8966a0->Node00000247fe8966d0
-Node00000247fe8966d0->Node00000247fe896700
+Node00000156970c1760->Node00000156970c1700
+Node00000156970c1760->Node00000156970c1730
 }
