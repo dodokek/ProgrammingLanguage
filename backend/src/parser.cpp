@@ -242,7 +242,7 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
         printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
 
         NEXT_TOKEN;
-        TreeNode* var_name_node = GetNumOrVar (TOKENS_DATA);
+        TreeNode* var_name_node  = GetNumOrVar (TOKENS_DATA);
         TreeNode* equated_st_node = GetExpression (TOKENS_DATA);
 
         return OP_NODE(VAR, var_name_node, equated_st_node);

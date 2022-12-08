@@ -35,7 +35,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case RET:
-            PRINT ("RET\n");
+            PRINT ("ret\n");
             PRINT ("; end of func\n\n");
             break;
 
@@ -43,52 +43,63 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             PrintOperation (l_child);
             PrintOperation (r_child);
 
-            PRINT ("ADD\n");
+            PRINT ("add\n");
             break;
 
         case SUB:
             PrintOperation (l_child);
             PrintOperation (r_child);
 
-            PRINT ("SUB\n");
+            PRINT ("sub\n");
             break;
 
         case MUL:
             PrintOperation (l_child);
             PrintOperation (r_child);
 
-            PRINT ("MUL\n");
+            PRINT ("mul\n");
             break;
 
         case DIV:
             PrintOperation (l_child);
             PrintOperation (r_child);
 
-            PRINT ("DIV\n");
+            PRINT ("div\n");
             break;
 
         case CALL:
-            PRINT ("CALL %s\n", cur_node->left->value.var_name);
+            PRINT ("call %s\n", cur_node->left->value.var_name);
             break;
 
         case IS_EE:
             PrintOperation (l_child);
             PrintOperation (r_child);
-            PRINT ("JNE if_label%d\n", label_counter);
+            PRINT ("jne if_label%d\n\n", label_counter);
 
             break;
         
         case IF:
+            PRINT ("; if begin\n");
             PrintOperation (l_child);
             PrintOperation (r_child);
 
             break;
 
         case ELSE:
+            PRINT ("; if true\n");
             PrintOperation (l_child);
-            PRINT ("if_label%d:\n", label_counter);
+
+            PRINT ("\nif_label%d:\n", label_counter);
+            
             label_counter++;
+            PRINT ("; if false\n");
             PrintOperation (r_child);
+
+            break;
+
+        case VAR:
+            PRINT ("push %lg\n", cur_node->right->value.dbl_val);
+            PRINT ("pop [%d]\n", *(cur_node->left->value.var_name));
 
             break;
 
@@ -103,7 +114,12 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     }
     else if (cur_node->type == NUM_T)
     {
-        PRINT ("PUSH %lg\n", cur_node->value.dbl_val);
+        PRINT ("push %lg\n", cur_node->value.dbl_val);
+    }
+    else if (cur_node->type == VAR_T)
+    {
+        PRINT ("; pushing variable %c\n", *(cur_node->value.var_name));
+        PRINT ("push [%d]\n", *(cur_node->value.var_name));
     }
     else
     {
