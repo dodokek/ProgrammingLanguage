@@ -9,6 +9,5 @@ RET
 PUSH 2
 PUSH 5
 JNE if_label0
-PUSH 1
+CALL main
 if_label0:
-PUSH 2

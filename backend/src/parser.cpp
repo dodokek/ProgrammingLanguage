@@ -52,6 +52,7 @@ TreeNode* TransformNode (TreeNode* node, Types type, double dbl_val, const char*
     node->left = nullptr;
     node->right = nullptr;
 
+    return node;
 }
 
 
@@ -173,7 +174,9 @@ TreeNode* GetParam (Token token_array[], int* cur_token_id)
     else
     {
         printf ("===Error. Undefined parametr sequence===\n");
+        return nullptr;
     }
+
 }
 
 
@@ -541,8 +544,8 @@ void PrintTokens (Token* token_array)
     int i = 0;
     while (token_array[i].value.op_val != TERMINATION_SYM)
     {
-        printf ("Token %d. Type: %d, Dbl value: %lg. Line number %d. Op type: %d\n", i,
-               token_array[i].type, token_array[i].value.dbl_val, token_array[i].line_number, token_array[i].value.op_val);
+        printf ("Token %d. Type: %d, Dbl value: %lg. Line number %d. Op type: %d, name ptr %p\n", i,
+               token_array[i].type, token_array[i].value.dbl_val, token_array[i].line_number, token_array[i].value.op_val, token_array[i].value.var_name);
 
         i++;
     }

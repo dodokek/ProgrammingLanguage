@@ -16,8 +16,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 {
     static int label_counter = 0;
 
-    printf ("Now printing type %d, operation %s, dbl val: %lg\n",
-             cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val);
+    printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
+             cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val, cur_node->value.var_name);
 
     if (cur_node->type == OP_T)
     {
@@ -44,6 +44,31 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             PrintOperation (r_child);
 
             PRINT ("ADD\n");
+            break;
+
+        case SUB:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("SUB\n");
+            break;
+
+        case MUL:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("MUL\n");
+            break;
+
+        case DIV:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("DIV\n");
+            break;
+
+        case CALL:
+            PRINT ("CALL %s\n", cur_node->left->value.var_name);
             break;
 
         case IS_EE:
