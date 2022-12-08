@@ -36,6 +36,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
         case RET:
             PRINT ("RET\n");
+            PRINT ("; end of func\n\n");
             break;
 
         case ADD:
@@ -73,7 +74,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     else if (cur_node->type == NAME_T)
     {
         PRINT ("%s:\n", cur_node->value.var_name);
-        PrintOperation (r_child);
+        // PrintOperation (r_child);
     }
     else if (cur_node->type == NUM_T)
     {
