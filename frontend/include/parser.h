@@ -6,6 +6,7 @@
 #include "stringUtils.h"
 #include "fileUtils.h"
 #include "../../params.h"
+#include "translitor.h"
 
 //-----------------------------------------------
 
@@ -49,7 +50,6 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id);
 
 TreeNode* GetBracketExp (Token token_array[], int* cur_token_id);
 
-void SkipSpaces (char* string, int* i);
 
 TreeNode* GetMltreeRoot ();
 
@@ -71,9 +71,14 @@ TreeNode* GetOperationNode (TreeNode* child_node, Options op);
 
 void FillTokensArray (Token* token_array);
 
-Token CreateToken (Types type, double dbl_val, Options operation, int line_number);
+Token* CommandToToken (char* name);
+
+Token* CreateToken (Types type, double dbl_val, Options operation);
 
 void PrintTokens (Token token_array[]);
+
+
+void SkipSpaces (char** string);
 
 void RecursDrawConnections (TreeNode* node, FILE* dot_file);
 

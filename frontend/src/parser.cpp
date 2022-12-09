@@ -365,31 +365,76 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
 
 //-------Parser->Lecsical analysis----------------------------------
 
+
 void FillTokensArray (Token* token_array)
 {
     FILE* input_file = get_file ("data/input.txt", "r");
-    char* input = GetTextBuffer();
+    char* input = GetTextBuffer(input_file);
     fclose (input_file);
 
+    char* cur_ptr = input;
     int tokens_amount = 0;
 
-    do
+    while (true)
     {
-        
-    }while (*input != '\0')  
+        SkipSpaces (&cur_ptr);
+        if (*cur_ptr == '\0' || *(cur_ptr - 1) == '\0')
+        {
+            token_array[tokens_amount] = *(CreateToken (OP_T, 0, TERMINATION_SYM));
+            break;
+        }
+        else if (isdigit (*cur_ptr))
+        {
+            int len = 0;
+            double num = 0;
+            sscanf (cur_ptr, "%lg%n", &num, &len);
+            cur_ptr += len;
+
+            token_array[tokens_amount] = *(CreateToken (NUM_T, num, UNKNOWN));
+        }
+        else
+        {
+            int len = 0;
+            char command[MAX_NAME_LEN] = "";
+            sscanf (cur_ptr, "%s%n", command, &len);
+
+            char* translit_cmd = TranslitString (command, len);
+            token_array[tokens_amount] = *(CommandToToken (translit_cmd)); 
+
+            tokens_amount++;
+            cur_ptr += len;
+        }
+    }
+
+    free (input);
+}
+
+#define CMD(cmd_code, cmd_name)                   \
+    if (strcmp (cmd_name, name) == 0)             \
+    {                                             \
+        return CreateToken (OP_T, 0, cmd_code);   \
+    } else                                        \
+
+
+Token* CommandToToken (char* name)
+{
+    // CodeGen--------------
+    #include "dictionary.h"
+    // ---------------------
+    {
+        printf ("Could not find name %s in database.\n", name);
+        return nullptr;
+    }
+
 }
 
 
-void SkipSpaces (char* string, int* i)
-{
-    while (strchr (" \n\t\r ", string[*i]))
-        (*i)++;
-}
+#undef CMD
 
 
-Token CreateToken (Types type, double dbl_val, Options operation, int line_number)
+Token* CreateToken (Types type, double dbl_val, Options operation)
 {
-    printf ("====Creating token with type %d and op val %d====\n", type, operation);
+    printf ("====Creating token with type %d and op val %d %s====\n", type, operation, GetOpSign (operation));
 
     Token* new_token = (Token*) calloc (1, sizeof (Token));
 
@@ -398,9 +443,8 @@ Token CreateToken (Types type, double dbl_val, Options operation, int line_numbe
     else if (type == OP_T)  new_token->value.op_val = operation;
     
     new_token->type = type;
-    new_token->line_number = line_number;
 
-    return *new_token;
+    return new_token;
 }
 
 
@@ -409,62 +453,28 @@ void PrintTokens (Token* token_array)
     int i = 0;
     while (token_array[i].value.op_val != TERMINATION_SYM)
     {
-        printf ("Token %d. Type: %d, Dbl value: %lg. Line number %d. Op type: %d, name ptr %p\n", i,
-               token_array[i].type, token_array[i].value.dbl_val, token_array[i].line_number, token_array[i].value.op_val, token_array[i].value.var_name);
+        printf ("\tToken: %s, code: %d\n", 
+                GetOpSign (token_array[i].value.op_val), token_array[i].value.op_val);
 
         i++;
     }
 }
 
 
+void SkipSpaces (char** string)
+{
+    while (strchr (" \n\t\r ", **string))
+        (*string)++;
+}
+
+
 //-------Parser->Lecsical analysis----------------------------------
 
 
-//--Parser.End---------------------------------------------------
+//--Parser.End-----------------------------------------------------
 
 
-#define CMP(operation)                                        \
-    if (strcmp (str, #operation) == 0) {return operation;}    \
-    else 
-
-Options GetOpType (char str[])
-{    
-    CMP (ADD)
-    CMP (SUB)
-    CMP (DIV)
-    CMP (MUL)
-    CMP (POW)
-    CMP (AND)
-    CMP (OR)
-    CMP (EQ)
-    CMP (ST)
-    CMP (IF)
-    CMP (ELSE)
-    CMP (NIL)
-    CMP (VAR)
-    CMP (WHILE)
-    CMP (FUNC)
-    CMP (RET)
-    CMP (CALL)
-    CMP (PARAM)
-    CMP (IS_EE)
-    CMP (IS_GE)
-    CMP (IS_BE)
-    CMP (IS_GT)
-    CMP (IS_BT)
-    CMP (IS_NE)
-    if (*str == '{')      return OPEN_BR;
-    else if (*str == '}') return CLOSE_BR;
-    else if (*str == '\0') return TERMINATION_SYM;
-    {
-        return UNKNOWN;
-    }
-}
-
-#undef CMP
-
-
-//------Dump
+//------Dump--------------------------------------------------------
 
 #define __print(...) fprintf (dot_file, __VA_ARGS__)
 

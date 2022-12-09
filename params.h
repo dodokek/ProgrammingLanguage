@@ -1,3 +1,5 @@
+#ifndef PARAMS_H
+#define PARAMS_H
 enum Sizes
 {
     MAX_IMG_SRC_LEN = 100,
@@ -34,6 +36,7 @@ enum Options
 
     // Comparison
     IS_EE,
+
     IS_GE,
     IS_BE,
     IS_GT,
@@ -96,3 +99,4 @@ struct Token
 
 //----------------------------------------------------------
 
+#endif

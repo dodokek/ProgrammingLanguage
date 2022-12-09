@@ -1,5 +1,3 @@
-#ifndef FRONTEND_H
-#define FRONTEND_H
 
 #include "stringUtils.h"
 #include "fileUtils.h"
@@ -743,7 +741,3 @@ void RecursDrawConnections (TreeNode* node, FILE* dot_file)
 
 
 #undef __print
-
-
-
-#endif

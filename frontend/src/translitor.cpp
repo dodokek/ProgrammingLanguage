@@ -1,9 +1,9 @@
 #include "translitor.h"
 
-char* translit_string (const char* src, size_t size)
+char* TranslitString (const char* src, size_t size)
 {
-    char* rus_string = (char*) calloc (size * 4, sizeof (char));
-    char* begin_ptr  = rus_string;
+    char* translit = (char*) calloc (size * 4, sizeof (char));
+    char* begin_ptr  = translit;
 
     while (*src != '\0')
     {
@@ -14,316 +14,316 @@ char* translit_string (const char* src, size_t size)
             case USELESS1:
                 break;
             case ARUS:
-                *rus_string = 'a';
-                rus_string++;
+                *translit = 'a';
+                translit++;
                 break;
             case BRUS:
-                *rus_string = 'b';
-                rus_string++;
+                *translit = 'b';
+                translit++;
                 break;
             case VRUS:
-                *rus_string = 'v';
-                rus_string++;
+                *translit = 'v';
+                translit++;
                 break;
             case GRUS:
-                *rus_string = 'g';
-                rus_string++;
+                *translit = 'g';
+                translit++;
                 break;
             case DRUS:
-                *rus_string = 'd';
-                rus_string++;
+                *translit = 'd';
+                translit++;
                 break;
             case ERUS:
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'e';
+                translit++;
                 break;
             case ZHRUS:
-                *rus_string = 'z';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'z';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case ZRUS:
-                *rus_string = 'z';
-                rus_string++;
+                *translit = 'z';
+                translit++;
                 break;
             case IRUS:
-                *rus_string = 'i';
-                rus_string++;
+                *translit = 'i';
+                translit++;
                 break;
             case YIRUS:
-                *rus_string = 'i';
-                rus_string++;
+                *translit = 'i';
+                translit++;
                 break;
             case KRUS:
-                *rus_string = 'k';
-                rus_string++;
+                *translit = 'k';
+                translit++;
                 break;
             case LRUS:
-                *rus_string = 'l';
-                rus_string++;
+                *translit = 'l';
+                translit++;
                 break;
             case MRUS:
-                *rus_string = 'm';
-                rus_string++;
+                *translit = 'm';
+                translit++;
                 break;
             case NRUS:
-                *rus_string = 'n';
-                rus_string++;
+                *translit = 'n';
+                translit++;
                 break;
             case ORUS:
-                *rus_string = 'o';
-                rus_string++;
+                *translit = 'o';
+                translit++;
                 break;
             case PRUS:
-                *rus_string = 'p';
-                rus_string++;
+                *translit = 'p';
+                translit++;
                 break;
             case RRUS:
-                *rus_string = 'r';
-                rus_string++;
+                *translit = 'r';
+                translit++;
                 break;
             case SRUS:
-                *rus_string = 's';
-                rus_string++;
+                *translit = 's';
+                translit++;
                 break;
             case TRUS:
-                *rus_string = 't';
-                rus_string++;
+                *translit = 't';
+                translit++;
                 break;
             case URUS:
-                *rus_string = 'u';
-                rus_string++;
+                *translit = 'u';
+                translit++;
                 break;
             case FRUS:
-                *rus_string = 'f';
-                rus_string++;
+                *translit = 'f';
+                translit++;
                 break;
             case HRUS:
-                *rus_string = 'k';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'k';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case TSRUS:
-                *rus_string = 't';
-                rus_string++;
-                *rus_string = 's';
-                rus_string++;
+                *translit = 't';
+                translit++;
+                *translit = 's';
+                translit++;
                 break;
             case CHRUS:
-                *rus_string = 'c';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'c';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case SHRUS:
-                *rus_string = 's';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 's';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case SHCHRUS:
-                *rus_string = 's';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
-                *rus_string = 'c';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 's';
+                translit++;
+                *translit = 'h';
+                translit++;
+                *translit = 'c';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case IERUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'e';
+                translit++;
                 break;
             case YRUS:
-                *rus_string = 'y';
-                rus_string++;
+                *translit = 'y';
+                translit++;
                 break;
             case QRUS:
-                *rus_string = '\'';
-                rus_string++;
+                *translit = '\'';
+                translit++;
                 break;
             case EERUS:
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'e';
+                translit++;
                 break;
             case IURUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'u';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'u';
+                translit++;
                 break;
             case IARUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'a';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'a';
+                translit++;
                 break;
             case ABRUS:
-                *rus_string = 'a';
-                rus_string++;
+                *translit = 'a';
+                translit++;
                 break;
             case BBRUS:
-                *rus_string = 'b';
-                rus_string++;
+                *translit = 'b';
+                translit++;
                 break;
             case VBRUS:
-                *rus_string = 'v';
-                rus_string++;
+                *translit = 'v';
+                translit++;
                 break;
             case GBRUS:
-                *rus_string = 'g';
-                rus_string++;
+                *translit = 'g';
+                translit++;
                 break;
             case DBRUS:
-                *rus_string = 'd';
-                rus_string++;
+                *translit = 'd';
+                translit++;
                 break;
             case EBRUS:
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'e';
+                translit++;
                 break;
             case ZHBRUS:
-                *rus_string = 'z';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'z';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case ZBRUS:
-                *rus_string = 'z';
-                rus_string++;
+                *translit = 'z';
+                translit++;
                 break;
             case IBRUS:
-                *rus_string = 'i';
-                rus_string++;
+                *translit = 'i';
+                translit++;
                 break;
             case YIBRUS:
-                *rus_string = 'i';
-                rus_string++;
+                *translit = 'i';
+                translit++;
                 break;
             case KBRUS:
-                *rus_string = 'k';
-                rus_string++;
+                *translit = 'k';
+                translit++;
                 break;
             case LBRUS:
-                *rus_string = 'l';
-                rus_string++;
+                *translit = 'l';
+                translit++;
                 break;
             case MBRUS:
-                *rus_string = 'm';
-                rus_string++;
+                *translit = 'm';
+                translit++;
                 break;
             case NBRUS:
-                *rus_string = 'n';
-                rus_string++;
+                *translit = 'n';
+                translit++;
                 break;
             case OBRUS:
-                *rus_string = 'o';
-                rus_string++;
+                *translit = 'o';
+                translit++;
                 break;
             case PBRUS:
-                *rus_string = 'p';
-                rus_string++;
+                *translit = 'p';
+                translit++;
                 break;
             case RBRUS:
-                *rus_string = 'r';
-                rus_string++;
+                *translit = 'r';
+                translit++;
                 break;
             case SBRUS:
-                *rus_string = 's';
-                rus_string++;
+                *translit = 's';
+                translit++;
                 break;
             case TBRUS:
-                *rus_string = 't';
-                rus_string++;
+                *translit = 't';
+                translit++;
                 break;
             case UBRUS:
-                *rus_string = 'u';
-                rus_string++;
+                *translit = 'u';
+                translit++;
                 break;
             case FBRUS:
-                *rus_string = 'f';
-                rus_string++;
+                *translit = 'f';
+                translit++;
                 break;
             case HBRUS:
-                *rus_string = 'k';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'k';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case TSBRUS:
-                *rus_string = 't';
-                rus_string++;
-                *rus_string = 's';
-                rus_string++;
+                *translit = 't';
+                translit++;
+                *translit = 's';
+                translit++;
                 break;
             case CHBRUS:
-                *rus_string = 'c';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 'c';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case SHBRUS:
-                *rus_string = 's';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 's';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case SHCHBRUS:
-                *rus_string = 's';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
-                *rus_string = 'c';
-                rus_string++;
-                *rus_string = 'h';
-                rus_string++;
+                *translit = 's';
+                translit++;
+                *translit = 'h';
+                translit++;
+                *translit = 'c';
+                translit++;
+                *translit = 'h';
+                translit++;
                 break;
             case IEBRUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'e';
+                translit++;
                 break;
             case YBRUS:
-                *rus_string = 'y';
-                rus_string++;
+                *translit = 'y';
+                translit++;
                 break;
             case QBRUS:
-                *rus_string = '\'';
-                rus_string++;
+                *translit = '\'';
+                translit++;
                 break;
             case EEBRUS:
-                *rus_string = 'e';
-                rus_string++;
+                *translit = 'e';
+                translit++;
                 break;
             case IUBRUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'u';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'u';
+                translit++;
                 break;
             case IABRUS:
-                *rus_string = 'i';
-                rus_string++;
-                *rus_string = 'a';
-                rus_string++;
+                *translit = 'i';
+                translit++;
+                *translit = 'a';
+                translit++;
                 break;
             default:
-                *rus_string = *src;
-                rus_string++;
+                *translit = *src;
+                translit++;
                 break;
         }
-        printf ("Now i got %c\n", *(rus_string-1));
+        // printf ("Now i got %c\n", *(translit-1));
         src++;
-        printf ("Src: %d\n", *src);
+        // printf ("Src: %d\n", *src);
     }
 
-    *rus_string = '\0';
+    *translit = '\0';
 
     return begin_ptr;
 }

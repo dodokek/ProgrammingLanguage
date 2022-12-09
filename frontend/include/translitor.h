@@ -6,7 +6,6 @@
 #include "stringUtils.h"
 
 
-
 enum RussianSymb // Thanks @aleksplast for that very much
 {
     ARUS = -80,
@@ -78,7 +77,7 @@ enum RussianSymb // Thanks @aleksplast for that very much
 };
 
 
-char* translit_string (const char* src, size_t size);
+char* TranslitString (const char* src, size_t size);
 
 
 #endif
