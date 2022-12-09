@@ -6,6 +6,8 @@ CMD(MUL, "miaiaiaiau");
 CMD(DIV, "miiuiaiaiaiau");
 CMD(OPEN_BR, "poidem_zhrat'")
 CMD(CLOSE_BR, "poidem_botat'")
+CMD(OPEN_BR, "(")
+CMD(CLOSE_BR, ")")
 CMD(FUNC, "vatafak")
 CMD(RET, "lee_kuda_presh'")
 CMD(VAR, "eto_eshche_chto")
@@ -26,3 +28,4 @@ CMD(SEMI_COL, ";")
 // лее_куда_прешь
 // это_еще_что
 // ватафак
+// бурняяяяя

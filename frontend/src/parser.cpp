@@ -72,12 +72,95 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
     {
         NEXT_TOKEN;
         TreeNode* name_node = GetVar (TOKENS_DATA);
-        TreeNode* val_node  = GetNumOrName (TOKENS_DATA);
+        TreeNode* val_node  = GetExpression (TOKENS_DATA);
         return OP_NODE (VAR, name_node, val_node);
     }
     else 
     {
         return GetNumOrName (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetExpression (Token token_array[], int* cur_token_id)
+{
+    TreeNode* top_operation_node = GetMlt (token_array, cur_token_id);
+
+    while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
+    {
+        Options last_op = CUR_TOKEN.value.op_val;
+        *cur_token_id += 1;
+
+        TreeNode* right_node = GetMlt (token_array, cur_token_id);
+
+        if (last_op == ADD)
+            top_operation_node = ADD (top_operation_node, right_node);
+        else
+            top_operation_node = SUB (top_operation_node, right_node);
+    }   
+
+    return top_operation_node;
+}
+
+
+TreeNode* GetMlt (Token token_array[], int* cur_token_id)
+{
+    TreeNode* top_operation_node = GetPower (token_array, cur_token_id);
+
+    while (CUR_TOKEN.value.op_val == MUL || CUR_TOKEN.value.op_val == DIV)
+    {
+        Options last_op = CUR_TOKEN.value.op_val;
+        *cur_token_id += 1;
+
+        TreeNode* right_node = GetPower (token_array, cur_token_id);
+
+        if (last_op == MUL)
+            top_operation_node = MUL (top_operation_node, right_node);
+        else
+            top_operation_node = DIV (top_operation_node, right_node);
+    }       
+
+    return top_operation_node;
+}
+
+
+TreeNode* GetPower (Token token_array[], int* cur_token_id)
+{
+    TreeNode* top_operation_node = GetBracketExp (token_array, cur_token_id);
+
+    while (CUR_TOKEN.value.op_val == POW)
+    {
+        *cur_token_id += 1;
+
+        TreeNode* right_node = GetBracketExp (token_array, cur_token_id);
+        top_operation_node = POW (top_operation_node, right_node);
+    }       
+
+    return top_operation_node;
+}
+
+
+TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
+{
+    
+    if (CUR_TOKEN.value.op_val == OPEN_BR)
+    {
+        *cur_token_id += 1;
+        TreeNode* sub_node = GetExpression (token_array, cur_token_id);
+
+        if (CUR_TOKEN.value.op_val == CLOSE_BR)
+        {
+            *cur_token_id += 1;
+            return sub_node;
+        }
+        else 
+        {
+            printf ("Wrong brackets sequence\n");  
+        }        
+    }
+    else
+    {
+        return GetNumOrName (token_array, cur_token_id);
     }
 }
 
