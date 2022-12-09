@@ -40,7 +40,7 @@ TreeNode* DestructTree (TreeNode* root)
 
 //---<Parser>-------------------------------------------
 
-
+/*
 TreeNode* GetGrammar () 
 {
     Token token_array[MAX_TOKENS];
@@ -360,133 +360,30 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
         printf ("Unexpected token, returning null\n");
         return nullptr;
     }
-}
-
-
-char* GetInputLine ()
-{
-    char* buffer = (char*) calloc (MAX_SRC_LEN, sizeof (char));
-
-    FILE* input_file = get_file (input_path, "r");
-
-    fgets (buffer, MAX_SRC_LEN, input_file);
-
-    fclose (input_file);
-
-    return buffer;   
-}
+} */
 
 
 //-------Parser->Lecsical analysis----------------------------------
 
 void FillTokensArray (Token* token_array)
 {
-    char* input = GetInputLine();
+    FILE* input_file = get_file ("data/input.txt", "r");
+    char* input = GetTextBuffer();
+    fclose (input_file);
+
     int tokens_amount = 0;
-    int input_len = (int) strlen(input);
 
-    for (int i = 0; i <= input_len;)
+    do
     {
-        SkipSpaces (input, &i);
         
-        if (isalpha(input[i]))
-        {
-            printf ("Now at %c\n", input[i]);
-
-            char op_name[MAX_NAME_LEN] = "";
-
-            int len = 0;
-            sscanf (input + i, "%[^{} ]%n", op_name, &len);
-            i += len;
-
-            Options operation = GetOpType (op_name);
-            TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
-            tokens_amount++;
-
-            // {
-            // if (*tmp_line == '(')
-            // {
-            //     char op_name[100] = "";
-            //
-            //     int len = 0;
-            //     sscanf (input + i, "%[^( ]%n", op_name, &len);
-            //     i += len;
-            //    
-            //     Options operation = GetOpType (op_name);
-            //     TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
-            //     tokens_amount++;
-            // }   
-            // else // variable handler
-            // {
-            //     TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i);
-            //
-            //     int len = 0;
-            //     sscanf (input + i, "%[^+-*/() ]%n", TOP_TOKEN.value.var_name, &len);
-            //     i += len;
-            //
-            //     printf ("Working with var, its len: %d, String %s\n", len, input + i);
-            //     tokens_amount++;
-            // }
-            // }
-        }
-        else if (input[i] == '"')
-        {
-            i++;
-            printf ("Now at %c\n", input[i]);
-
-            TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i); 
-
-            int len = 0;
-            sscanf (input + i, "%[^\" ]%n", TOP_TOKEN.value.var_name, &len);
-            i += len;
-
-            if (input[i] == '"')
-            {
-                printf ("Skipping fucker\n");
-                i++;
-            }
-
-            tokens_amount++;
-        } 
-        else if (isdigit (input[i]))
-        {
-            printf ("Now at %c\n", input[i]);
-
-            printf ("Proccessing digit %c\n", input[i]);
-
-            double num = 0;
-
-            int len;
-            sscanf (input + i, "%lg%n", &num, &len);
-            i += len;
-
-            TOP_TOKEN = CreateToken (NUM_T, num, UNKNOWN, i);
-            tokens_amount++;
-        }
-        else if (input[i] == '{' || input[i] == '}')
-        {
-            printf ("Skipping %c\n", input[i]);
-            i++;
-        }
-        else if (input[i] == '\0')
-        {
-            TOP_TOKEN = CreateToken (OP_T, 0, TERMINATION_SYM, i);
-            i++;
-            tokens_amount++;    
-        }
-        else
-        {
-            printf ("Now at %c\n", input[i]);
-
-            printf ("======== Could not match pattern %s, %d ========== \n", input + i, i);
-        }
-    } 
+    }while (*input != '\0')  
 }
 
 
 void SkipSpaces (char* string, int* i)
 {
-    while (isspace(string[*i])) (*i)++;
+    while (strchr (" \n\t\r ", string[*i]))
+        (*i)++;
 }
 
 
