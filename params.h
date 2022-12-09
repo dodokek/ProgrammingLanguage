@@ -59,6 +59,7 @@ enum Options
     OPEN_BR,
     CLOSE_BR,
     TERMINATION_SYM,
+    SEMI_COL,
 };
 
 const double ACCURACY = 0.000001;

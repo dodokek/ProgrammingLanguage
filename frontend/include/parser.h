@@ -12,6 +12,8 @@
 
 const char input_path[] = "data/input.txt";
 
+const int VAR_OFFSET = 4;
+
 //---------------------------------------------
 
 char* GetInputLine ();

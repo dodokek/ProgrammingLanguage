@@ -6,9 +6,13 @@ CMD(MUL, "miaiaiaiau");
 CMD(DIV, "miiuiaiaiaiau");
 CMD(OPEN_BR, "poidem_zhrat'")
 CMD(CLOSE_BR, "poidem_botat'")
-CMD(FUNC, "vatafak");
-CMD(RET, "lee_kuda_presh'");
-CMD(VAR, "eto_eshche_chto");
+CMD(FUNC, "vatafak")
+CMD(RET, "lee_kuda_presh'")
+CMD(VAR, "eto_eshche_chto")
+CMD(CALL, "burniaiaiaiaia")
+CMD(IS_EE, "==")
+CMD(SEMI_COL, ";")
+
 
 // Надпись по русски:
 // куда_епта
