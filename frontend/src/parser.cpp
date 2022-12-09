@@ -566,6 +566,7 @@ Options GetOpType (char str[])
 
 #undef CMP
 
+
 //------Dump
 
 #define __print(...) fprintf (dot_file, __VA_ARGS__)

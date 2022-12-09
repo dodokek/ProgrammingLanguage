@@ -127,7 +127,8 @@ char* GetTextBuffer (FILE* file)
     fseek(file, 0L, SEEK_SET);
 
     char* buffer = (char*) calloc (size, sizeof (char));
-    fgets (buffer, size, file);
+    
+    fread (buffer, sizeof(char), size, file);
 
     return buffer;
 }
