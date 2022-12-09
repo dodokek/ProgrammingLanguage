@@ -50,7 +50,7 @@ TreeNode* GetGrammar ()
     int token_id = 0;
     int* cur_token_id = &token_id;
 
-    TreeNode* root = GetVar(TOKENS_DATA); 
+    TreeNode* root = GetStatement(TOKENS_DATA); 
 
     if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
         printf ("G: Got termination symbol, ending\n");
@@ -62,11 +62,25 @@ TreeNode* GetGrammar ()
 }
 
 
+TreeNode* GetStatement (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+    printf ("St: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CUR_TOKEN.value.op_val == TERMINATION_SYM) return nullptr;
+
+    NEXT_TOKEN;
+    TreeNode* left_child = GetVar (TOKENS_DATA);
+    TreeNode* next_statement = GetStatement (TOKENS_DATA);
+
+    return OP_NODE (ST, left_child, next_statement);
+}
+
+
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
-
-    printf ("St: Now at %d\n", CUR_TOKEN.value.op_val);
+    printf ("Var: Now at %d\n", CUR_TOKEN.value.op_val);
 
     if (CHECK_OP_T (VAR))
     {
