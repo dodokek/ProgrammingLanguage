@@ -28,9 +28,7 @@ TreeNode* GetFuncHeader (Token token_array[], int* cur_token_id);
 
 TreeNode* GetParam (Token token_array[], int* cur_token_id);
 
-TreeNode* GetIf (Token token_array[], int* cur_token_id);
-
-TreeNode* GetElse (Token token_array[], int* cur_token_id);
+TreeNode* GetIfElse (Token token_array[], int* cur_token_id);
 
 TreeNode* GetCall (Token token_array[], int* cur_token_id);
 

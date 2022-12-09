@@ -69,11 +69,43 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
 
     if (CUR_TOKEN.value.op_val == TERMINATION_SYM) return nullptr;
 
-    NEXT_TOKEN;
-    TreeNode* left_child = GetVar (TOKENS_DATA);
+    TreeNode* left_child = GetIfElse (TOKENS_DATA);
     TreeNode* next_statement = GetStatement (TOKENS_DATA);
 
     return OP_NODE (ST, left_child, next_statement);
+}
+
+
+TreeNode* GetIfElse (Token token_array[], int *cur_token_id)
+{
+    printf("%d: ", *cur_token_id);
+    printf("If: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (IF))
+    {
+        printf ("I suck dicks\n");
+
+        NEXT_TOKEN;
+
+        TreeNode* condition = GetExpression (TOKENS_DATA);
+        TreeNode* if_body   = GetStatement (TOKENS_DATA);
+
+        if (CUR_TOKEN.value.op_val != ELSE)
+        {
+            printf ("Something wrong in if/else syntax\n");
+            return nullptr;
+        }
+        printf ("I suck dicks\n");
+
+        NEXT_TOKEN;
+        TreeNode* else_body = GetStatement (TOKENS_DATA);
+        
+        return OP_NODE (IF, condition, OP_NODE (ELSE, if_body, else_body));
+    }
+    else
+    {
+        return GetVar (TOKENS_DATA);
+    }
 }
 
 
@@ -87,6 +119,7 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
         NEXT_TOKEN;
         TreeNode* name_node = GetVar (TOKENS_DATA);
         TreeNode* val_node  = GetExpression (TOKENS_DATA);
+
         return OP_NODE (VAR, name_node, val_node);
     }
     else 
