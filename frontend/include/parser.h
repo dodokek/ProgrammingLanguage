@@ -48,7 +48,7 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id);
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id);
 
-TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id);
+TreeNode* GetNumOrName (Token token_array[], int* cur_token_id);
 
 TreeNode* GetBracketExp (Token token_array[], int* cur_token_id);
 

@@ -40,7 +40,7 @@ TreeNode* DestructTree (TreeNode* root)
 
 //---<Parser>-------------------------------------------
 
-/*
+
 TreeNode* GetGrammar () 
 {
     Token token_array[MAX_TOKENS];
@@ -50,7 +50,7 @@ TreeNode* GetGrammar ()
     int token_id = 0;
     int* cur_token_id = &token_id;
 
-    TreeNode* root = GetStatement(TOKENS_DATA); 
+    TreeNode* root = GetVar(TOKENS_DATA); 
 
     if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
         printf ("G: Got termination symbol, ending\n");
@@ -62,29 +62,49 @@ TreeNode* GetGrammar ()
 }
 
 
-TreeNode* GetStatement (Token token_array[], int* cur_token_id)
+TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
 
     printf ("St: Now at %d\n", CUR_TOKEN.value.op_val);
 
-    if (CHECK_OP_T (ST))
+    if (CHECK_OP_T (VAR))
     {
         NEXT_TOKEN;
-        TreeNode* tmp_node = GetFunction (TOKENS_DATA);
-        return OP_NODE (ST, tmp_node, GetStatement (TOKENS_DATA));
-    }
-    else if (CHECK_OP_T (NIL))
-    {
-        NEXT_TOKEN;
-        return nullptr;
+        TreeNode* name_node = GetVar (TOKENS_DATA);
+        TreeNode* val_node  = GetNumOrName (TOKENS_DATA);
+        return OP_NODE (VAR, name_node, val_node);
     }
     else 
     {
-        return GetFunction (TOKENS_DATA);
+        return GetNumOrName (TOKENS_DATA);
     }
 }
 
+
+TreeNode* GetNumOrName (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+
+    printf ("Getting number %lg, type %d\n", CUR_TOKEN.value.dbl_val, CUR_TOKEN.type);
+
+    if      (CUR_TOKEN.type == NUM_T)
+    {
+        NEXT_TOKEN;
+        return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
+    }
+    else if (CUR_TOKEN.type == VAR_T)
+    {
+        NEXT_TOKEN;
+        return CreateNode (VAR_T, 0, UNKNOWN, PREV_TOKEN.value.var_name, nullptr, nullptr);
+    }
+    else 
+    {
+        NEXT_TOKEN;
+        printf ("Unexpected token, returning null\n");
+        return nullptr;
+    }
+}
 
 
 //-------Parser->Lecsical analysis----------------------------------
@@ -115,6 +135,7 @@ void FillTokensArray (Token* token_array)
             cur_ptr += len;
 
             token_array[tokens_amount] = *(CreateToken (NUM_T, num, UNKNOWN));
+            tokens_amount++;
         }
         else if (*cur_ptr == '^')
         {
@@ -172,7 +193,10 @@ Token* CommandToToken (char* name)
 
 Token* CreateToken (Types type, double dbl_val, Options operation)
 {
-    printf ("====Creating token with type %d and op val %d %s====\n", type, operation, GetOpSign (operation));
+    static int token_counter = 0;
+
+    printf ("===%d: Creating token with type %d and op val %d, op name: %s. dbl val: %lg====\n", token_counter, type, operation, GetOpSign (operation), dbl_val);
+    token_counter++;
 
     Token* new_token = (Token*) calloc (1, sizeof (Token));
 
@@ -189,8 +213,9 @@ Token* CreateToken (Types type, double dbl_val, Options operation)
 void PrintTokens (Token* token_array)
 {
     int i = 0;
-    while (token_array[i].value.op_val != TERMINATION_SYM)
+    while (token_array[i].value.op_val != TERMINATION_SYM || token_array[i].type != OP_T)
     {
+        printf ("%d: ", i);
         printf ("\tToken: %s, code: %d\n", 
                 GetOpSign (token_array[i].value.op_val),
                 token_array[i].value.op_val
@@ -206,6 +231,7 @@ void PrintTokens (Token* token_array)
         }
         i++;
     }
+    printf ("----End of tokenizer----\n\n");
 }
 
 
@@ -247,6 +273,7 @@ char* GetOpSign (Options op)
     SWITCH (RET, "Return of function")
     SWITCH (OPEN_BR, "Enter zone")
     SWITCH (CLOSE_BR, "Exit zone")
+    SWITCH (TERMINATION_SYM, "Termination symbol")
 
     default:
         return "?";
