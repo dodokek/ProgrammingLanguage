@@ -8,7 +8,7 @@
 
 //-----------------------------------------------
 
-const char input_path[] = "data/input.txt";
+const char input_path[] = "../frontend/data/tree.txt";
 
 //-----------------------------------------------
 

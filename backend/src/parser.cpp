@@ -687,7 +687,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
 
 #define SWITCH(op, return_statement)   \
     case op:                            \
-        return return_statement;        \
+        return #op;        \
 
 char* GetOpSign (Options op)
 {

@@ -523,7 +523,7 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
 
     PRINT (" { ");
 
-    if      (cur_node->type == NUM_T) PRINT ("%d", cur_node->value.dbl_val);
+    if      (cur_node->type == NUM_T) PRINT ("%lg", cur_node->value.dbl_val);
     else if (cur_node->type == VAR_T)
     {
         PRINT ("\"%s\"", cur_node->value.var_name);
