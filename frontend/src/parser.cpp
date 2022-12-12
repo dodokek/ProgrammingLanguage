@@ -79,10 +79,65 @@ TreeNode* GetStatement (Token token_array[], int* cur_token_id)
         return nullptr;
     }
 
-    TreeNode* left_child = GetIfElse (TOKENS_DATA);
+    TreeNode* left_child = GetFunction (TOKENS_DATA);
     TreeNode* next_statement = GetStatement (TOKENS_DATA);
 
     return OP_NODE (ST, left_child, next_statement);
+}
+
+
+TreeNode* GetFunction (Token token_array[], int *cur_token_id)
+{
+    printf("%d: ", *cur_token_id);
+    printf("Function: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (FUNC))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* header_node = GetFuncHeader (TOKENS_DATA);
+        TreeNode* body_node   = GetStatement (TOKENS_DATA);
+    
+        return OP_NODE (FUNC, header_node, body_node);
+    }
+    else
+    {
+        return GetIfElse (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetFuncHeader (Token token_array[], int *cur_token_id)
+{
+    printf("%d: ", *cur_token_id);
+    printf("Function header: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    TreeNode* name_node  = GetNumOrName (TOKENS_DATA);
+    TreeNode* param_node = GetParam (TOKENS_DATA);
+
+    name_node->left = param_node;
+
+    return name_node;
+}
+
+
+TreeNode* GetParam (Token token_array[], int *cur_token_id)
+{
+    printf("%d: ", *cur_token_id);
+    printf("Param: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (OPEN_BR)) NEXT_TOKEN;
+    if (CUR_TOKEN.value.op_val == CLOSE_BR)
+    {
+        printf ("Exiting params.\n");
+        NEXT_TOKEN;
+        return nullptr;
+    }
+
+    TreeNode* param_node = GetVar (TOKENS_DATA);
+    TreeNode* next_param_node = GetParam (TOKENS_DATA);
+
+    return OP_NODE (PARAM, param_node, next_param_node);
 }
 
 
@@ -261,8 +316,7 @@ TreeNode* GetNumOrName (Token token_array[], int* cur_token_id)
     }
     else 
     {
-        NEXT_TOKEN;
-        printf ("Unexpected token, returning null\n");
+        printf ("Didn't find any nums or vars, returning null\n");
         return nullptr;
     }
 }
@@ -436,6 +490,7 @@ char* GetOpSign (Options op)
     SWITCH (CLOSE_BR, "Exit zone")
     SWITCH (TERMINATION_SYM, "Termination symbol")
     SWITCH (WHILE, "While")
+    SWITCH (SEMI_COL, "semi col")
 
     default:
         return "?";

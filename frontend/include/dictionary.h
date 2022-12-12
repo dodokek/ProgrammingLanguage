@@ -10,12 +10,13 @@ CMD(DIV, "miiuiaiaiaiau");
 
 CMD(OPEN_BR, "{")
 CMD(CLOSE_BR, "valim")
-CMD(FUNC, "vatafak")
+CMD(FUNC, "funk")
 CMD(RET, "lee_kuda_presh'")
 CMD(VAR, "var")
 CMD(CALL, "burniaiaiaiaia")
 CMD(OPEN_BR, "(")
 CMD(CLOSE_BR, ")")
+CMD(CLOSE_BR, "vse")
 
 CMD(IS_EE, "==")
 CMD(SEMI_COL, ";")
