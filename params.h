@@ -36,7 +36,6 @@ enum Options
 
     // Comparison
     IS_EE,
-
     IS_GE,
     IS_BE,
     IS_GT,

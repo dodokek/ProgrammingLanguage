@@ -190,10 +190,46 @@ TreeNode* GetWhile (Token token_array[], int* cur_token_id)
     }
     else
     {
-        return GetVar (TOKENS_DATA);
+        return GetRet (TOKENS_DATA);
     }
 }
 
+
+TreeNode* GetRet (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+    printf ("Return: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (RET))
+    {
+        NEXT_TOKEN;
+
+        return OP_NODE (RET, nullptr, nullptr);
+    }
+    else 
+    {
+        return GetCall (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetCall (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+    printf ("Call: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (CALL))
+    {
+        NEXT_TOKEN;
+        TreeNode* func_name_node = GetNumOrName (TOKENS_DATA);
+
+        return OP_NODE (CALL, func_name_node, nullptr);
+    }
+    else 
+    {
+        return GetVar (TOKENS_DATA);
+    }
+}
 
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
@@ -217,6 +253,38 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
 
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
+    printf ("%d: ", *cur_token_id);
+    printf ("Epxression: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    TreeNode* left_expression = GetAddSub (TOKENS_DATA);
+
+    if (
+        CUR_TOKEN.value.op_val == EQ    ||
+        CUR_TOKEN.value.op_val == IS_EE ||
+        CUR_TOKEN.value.op_val == IS_GE ||
+        CUR_TOKEN.value.op_val == IS_BE ||
+        CUR_TOKEN.value.op_val == IS_GT ||
+        CUR_TOKEN.value.op_val == IS_BT ||
+        CUR_TOKEN.value.op_val == IS_NE
+       ) 
+    {
+        Options operation =  CUR_TOKEN.value.op_val;
+        
+        NEXT_TOKEN;
+        TreeNode* right_expression = GetAddSub (TOKENS_DATA);
+    
+        return OP_NODE (operation, left_expression, right_expression);
+    }
+
+    return left_expression;
+}
+
+
+TreeNode* GetAddSub (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+    printf ("Add Sub: Now at %d\n", CUR_TOKEN.value.op_val);
+
     TreeNode* top_operation_node = GetMlt (token_array, cur_token_id);
 
     while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
@@ -274,8 +342,7 @@ TreeNode* GetPower (Token token_array[], int* cur_token_id)
 
 
 TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
-{
-    
+{ 
     if (CUR_TOKEN.value.op_val == OPEN_BR)
     {
         *cur_token_id += 1;
@@ -339,7 +406,7 @@ void FillTokensArray (Token* token_array)
         SkipSpaces (&cur_ptr);
         if (*cur_ptr == '\0' || *(cur_ptr - 1) == '\0')
         {
-            token_array[tokens_amount] = *(CreateToken (OP_T, 0, TERMINATION_SYM));
+            TOP_TOKEN = *(CreateToken (OP_T, 0, TERMINATION_SYM));
             break;
         }
         else if (isdigit (*cur_ptr))
@@ -349,18 +416,18 @@ void FillTokensArray (Token* token_array)
             sscanf (cur_ptr, "%lg%n", &num, &len);
             cur_ptr += len;
 
-            token_array[tokens_amount] = *(CreateToken (NUM_T, num, UNKNOWN));
+            TOP_TOKEN = *(CreateToken (NUM_T, num, UNKNOWN));
             tokens_amount++;
         }
         else if (*cur_ptr == '^')
         {
             cur_ptr += VAR_OFFSET;
 
-            token_array[tokens_amount] = *(CreateToken (VAR_T, 0, UNKNOWN));  
+            TOP_TOKEN = *(CreateToken (VAR_T, 0, UNKNOWN));  
             
             int len = 0;
-            sscanf (cur_ptr, "%s%n", token_array[tokens_amount].value.var_name, &len);
-            token_array[tokens_amount].value.var_name = TranslitString (token_array[tokens_amount].value.var_name, len);
+            sscanf (cur_ptr, "%s%n", TOP_TOKEN.value.var_name, &len);
+            TOP_TOKEN.value.var_name = TranslitString (TOP_TOKEN.value.var_name, len);
 
             tokens_amount++;
             cur_ptr += len;
@@ -373,7 +440,7 @@ void FillTokensArray (Token* token_array)
             sscanf (cur_ptr, "%s%n", command, &len);
 
             char* translit_cmd = TranslitString (command, len);
-            token_array[tokens_amount] = *(CommandToToken (translit_cmd)); 
+            TOP_TOKEN = *(CommandToToken (translit_cmd)); 
 
             tokens_amount++;
             cur_ptr += len;
@@ -529,6 +596,10 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
         PRINT ("\"%s\"", cur_node->value.var_name);
         if (cur_node->left) RecPrintNode (cur_node->left, out_file);
     }
+    else if (cur_node->value.op_val == RET)
+    {
+        PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
+    }
     else
     {
         PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
@@ -544,12 +615,9 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
     PRINT (" } ");
 }
 
-
 #undef PRINT
 
-
 //--Write on disk. End---------------------------------------------
-
 
 
 //------Dump. Begin--------------------------------------------------------

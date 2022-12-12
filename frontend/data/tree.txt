@@ -1,1 +1,1 @@
- {  ST  {  FUNC  { "main" }  {  ST  { 2 }  { NIL }  }  }  {  ST  {  VAR  { "Y" }  { 20 }  }  {  ST  {  IF  {  ADD  { 2 }  { 2 }  }  {  ELSE  {  ST  {  VAR  { "Y" }  { 2 }  }  { NIL }  }  {  ST  {  VAR  { "Y" }  { 2 }  }  { NIL }  }  }  }  { NIL }  }  }  } 
+ {  ST  {  IF  {  IS_EE  { 2 }  { 2 }  }  {  ELSE  {  ST  { 2 }  { NIL }  }  {  ST  { 3 }  { NIL }  }  }  }  { NIL }  } 

@@ -4,24 +4,31 @@ CMD(ELSE, "ai_ladno");
 CMD(WHILE, "poka")
 
 CMD(ADD, "+");
-CMD(SUB, "styrit'");
+CMD(SUB, "-");
 CMD(MUL, "miaiaiaiau");
 CMD(DIV, "miiuiaiaiaiau");
+CMD(POW, "^");
+
+CMD(EQ, "=");
+CMD(IS_EE, "pakhnet_znakomo")
+CMD(IS_GE, ">=")
+CMD(IS_BE, "<=")
+CMD(IS_GT, ">")
+CMD(IS_BT, "<")
+CMD(IS_NE, "!=")
 
 CMD(OPEN_BR, "{")
-CMD(CLOSE_BR, "valim")
-CMD(FUNC, "funk")
-CMD(RET, "lee_kuda_presh'")
-CMD(VAR, "var")
-CMD(CALL, "burniaiaiaiaia")
 CMD(OPEN_BR, "(")
 CMD(CLOSE_BR, ")")
-CMD(CLOSE_BR, "vse")
-
-CMD(IS_EE, "==")
 CMD(SEMI_COL, ";")
+CMD(CLOSE_BR, "valim")
 
+CMD(FUNC, "funk")
+CMD(RET, "lee_kuda_presh'")
 
+CMD(VAR, "var")
+CMD(CALL, "kis_kis")
+CMD(CLOSE_BR, "vse")
 
 
 // Надпись по русски:
