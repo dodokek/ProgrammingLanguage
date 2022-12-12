@@ -1,6 +1,8 @@
 CMD(IF, "kuda_epta");
 CMD(ELSE, "ai_ladno");
 
+CMD(WHILE, "poka")
+
 CMD(ADD, "+");
 CMD(SUB, "styrit'");
 CMD(MUL, "miaiaiaiau");

@@ -105,13 +105,33 @@ TreeNode* GetIfElse (Token token_array[], int *cur_token_id)
             printf ("Something wrong in if/else syntax\n");
             return nullptr;
         }
-        printf ("I suck dicks\n");
 
         NEXT_TOKEN;
 
         TreeNode* else_body = GetStatement (TOKENS_DATA);
         
         return OP_NODE (IF, condition, OP_NODE (ELSE, if_body, else_body));
+    }
+    else
+    {
+        return GetWhile (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetWhile (Token token_array[], int* cur_token_id)
+{
+    printf("%d: ", *cur_token_id);
+    printf("While: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (WHILE))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* condition    = GetExpression (TOKENS_DATA);
+        TreeNode* while_body   = GetStatement (TOKENS_DATA);
+        
+        return OP_NODE (WHILE, condition, while_body);
     }
     else
     {
@@ -415,6 +435,7 @@ char* GetOpSign (Options op)
     SWITCH (OPEN_BR, "Enter zone")
     SWITCH (CLOSE_BR, "Exit zone")
     SWITCH (TERMINATION_SYM, "Termination symbol")
+    SWITCH (WHILE, "While")
 
     default:
         return "?";
