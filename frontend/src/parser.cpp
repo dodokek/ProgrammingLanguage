@@ -65,9 +65,19 @@ TreeNode* GetGrammar ()
 TreeNode* GetStatement (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
-    printf ("St: Now at %d\n", CUR_TOKEN.value.op_val);
+    printf ("St: Now at operation %d\n", CUR_TOKEN.value.op_val);
 
     if (CUR_TOKEN.value.op_val == TERMINATION_SYM) return nullptr;
+    if (CUR_TOKEN.value.op_val == SEMI_COL)
+    {
+        NEXT_TOKEN; 
+        return GetStatement (TOKENS_DATA);
+    }
+    if (CUR_TOKEN.value.op_val == CLOSE_BR)
+    {
+        NEXT_TOKEN;
+        return nullptr;
+    }
 
     TreeNode* left_child = GetIfElse (TOKENS_DATA);
     TreeNode* next_statement = GetStatement (TOKENS_DATA);
@@ -98,6 +108,7 @@ TreeNode* GetIfElse (Token token_array[], int *cur_token_id)
         printf ("I suck dicks\n");
 
         NEXT_TOKEN;
+
         TreeNode* else_body = GetStatement (TOKENS_DATA);
         
         return OP_NODE (IF, condition, OP_NODE (ELSE, if_body, else_body));

@@ -1,16 +1,16 @@
 CMD(IF, "kuda_epta");
 CMD(ELSE, "ai_ladno");
 
-CMD(ADD, "skatat'");
+CMD(ADD, "+");
 CMD(SUB, "styrit'");
 CMD(MUL, "miaiaiaiau");
 CMD(DIV, "miiuiaiaiaiau");
 
-CMD(OPEN_BR, "poidem_zhrat'")
-CMD(CLOSE_BR, "poidem_botat'")
+CMD(OPEN_BR, "{")
+CMD(CLOSE_BR, "valim")
 CMD(FUNC, "vatafak")
 CMD(RET, "lee_kuda_presh'")
-CMD(VAR, "eto_eshche_chto")
+CMD(VAR, "var")
 CMD(CALL, "burniaiaiaiaia")
 CMD(OPEN_BR, "(")
 CMD(CLOSE_BR, ")")
