@@ -79,6 +79,9 @@ Token* CreateToken (Types type, double dbl_val, Options operation);
 
 void PrintTokens (Token token_array[]);
 
+void RecPrintNode (TreeNode* cur_node, FILE* out_file);
+
+void PrintTreeInFile (TreeNode* root);
 
 void SkipSpaces (char** string);
 

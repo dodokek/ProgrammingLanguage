@@ -459,13 +459,13 @@ void SkipSpaces (char** string)
 
 #define SWITCH(op, return_statement)   \
     case op:                            \
-        return return_statement;        \
+        return #op;        \
 
 char* GetOpSign (Options op)
 {
     switch (op)
     {
-    SWITCH (ADD, "+")
+    SWITCH (ADD, "ADD")
     SWITCH (SUB, "-")
     SWITCH (DIV, "/")
     SWITCH (MUL, "*")
@@ -499,12 +499,60 @@ char* GetOpSign (Options op)
 
 
 //-------Parser->Lecsical analysis----------------------------------
-
-
 //--Parser.End-----------------------------------------------------
 
 
-//------Dump--------------------------------------------------------
+//--Write on disk. Begin-------------------------------------------
+
+#define PRINT(...) fprintf (out_file, __VA_ARGS__)
+
+void PrintTreeInFile (TreeNode* root)
+{
+    FILE* out_file = get_file ("data/tree.txt", "w+");
+
+    RecPrintNode (root, out_file);
+
+    fclose (out_file);
+    printf ("Closing out file successfully\n");
+}
+
+
+void RecPrintNode (TreeNode* cur_node, FILE* out_file)
+{
+    printf ("Printing node with op type: %d\n", cur_node->value.op_val);
+
+    PRINT (" { ");
+
+    if      (cur_node->type == NUM_T) PRINT ("%d", cur_node->value.dbl_val);
+    else if (cur_node->type == VAR_T)
+    {
+        PRINT ("\"%s\"", cur_node->value.var_name);
+        if (cur_node->left) RecPrintNode (cur_node->left, out_file);
+    }
+    else
+    {
+        PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
+    
+        if (cur_node->left) RecPrintNode (cur_node->left, out_file);
+        else PRINT (" { NIL } ");
+
+        if (cur_node->right) RecPrintNode (cur_node->right, out_file);
+        else PRINT (" { NIL } ");
+    }
+
+
+    PRINT (" } ");
+}
+
+
+#undef PRINT
+
+
+//--Write on disk. End---------------------------------------------
+
+
+
+//------Dump. Begin--------------------------------------------------------
 
 #define __print(...) fprintf (dot_file, __VA_ARGS__)
 

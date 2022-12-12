@@ -9,4 +9,6 @@ int main()
     TreeNode* root = GetGrammar ();
 
     DrawTree (root);
+
+    PrintTreeInFile (root);
 }
