@@ -6,11 +6,19 @@
 #include "fileUtils.h"
 #include "../../params.h"
 
+
 //-----------------------------------------------
 
 const char input_path[] = "../frontend/data/tree.txt";
 
 //-----------------------------------------------
+
+
+void PrintCmdsInFile (TreeNode* root);
+
+void PrintOperation (TreeNode* cur_node, FILE* cmds_file);
+
+int GetVarIndx (const char* var_name);
 
 char* GetInputLine ();
 
@@ -85,5 +93,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file);
 void DrawTree (TreeNode* root);
 
 char* GetOpSign (Options op);
+
+#define PRINT(...) fprintf (cmds_file, __VA_ARGS__)
 
 #endif

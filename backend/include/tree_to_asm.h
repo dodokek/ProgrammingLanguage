@@ -8,8 +8,8 @@
 #define PRINT(...) fprintf (cmds_file, __VA_ARGS__)
 
 
-void PrintCmdsInFile (TreeNode* root);
+void PrintCmdsInFile (TreeNode* root, Variable variables[]);
 
-void PrintOperation (TreeNode* cur_node, FILE* cmds_file);
+void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Variable variables[]);
 
 #endif

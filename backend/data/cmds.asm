@@ -1,6 +1,14 @@
+push 2
+pop [0]
+push 2
+pop [1]
+push 2
+pop [2]
 ; if begin
-push 2
-push 2
+; pushing variable bebra
+push [0]
+; pushing variable saker
+push [2]
 jne if_label0
 
 ; if true

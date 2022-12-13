@@ -3,6 +3,13 @@
 #include "fileUtils.h"
 #include "parser.h"
 
+
+// Gods forgive me for this global variable i am not govnocoder.
+Variable VARIABLES_ARRAY[MAX_VARIABLES] = {};
+int VARIABLES_AMOUNT = 0;
+// Gods forgive me for this global variable i am not govnocoder.
+
+
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
 {
@@ -381,6 +388,10 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
     }
     else if (CUR_TOKEN.type == VAR_T)
     {
+        VARIABLES_ARRAY[VARIABLES_AMOUNT].name     = CUR_TOKEN.value.var_name;
+        VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;
+        VARIABLES_AMOUNT++;
+
         NEXT_TOKEN;
         return CreateNode (VAR_T, 0, UNKNOWN, PREV_TOKEN.value.var_name, nullptr, nullptr);
     }
@@ -551,9 +562,158 @@ void PrintTokens (Token* token_array)
 
 
 //-------Parser->Lecsical analysis----------------------------------
-
-
 //--Parser.End---------------------------------------------------
+
+
+//--Tree to asm. Begin-----------------------------------------------
+
+
+void PrintCmdsInFile (TreeNode* root)
+{
+    FILE* cmds_file = get_file ("data/cmds.asm", "w+");
+
+    PrintOperation (root, cmds_file);
+
+    fclose (cmds_file);
+}
+
+
+void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
+{
+    static int label_counter = 0;
+
+    printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
+             cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val, cur_node->value.var_name);
+
+    if (cur_node->type == OP_T)
+    {
+        switch (cur_node->value.op_val)
+        {
+        case ST:
+            PrintOperation (l_child);
+            if (cur_node->right) PrintOperation (r_child);
+            break;
+        
+        case FUNC:
+            PRINT ("; function \n");
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+            break;
+
+        case RET:
+            PRINT ("ret\n");
+            PRINT ("; end of func\n\n");
+            break;
+
+        case ADD:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("add\n");
+            break;
+
+        case SUB:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("sub\n");
+            break;
+
+        case MUL:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("mul\n");
+            break;
+
+        case DIV:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            PRINT ("div\n");
+            break;
+
+        case CALL:
+            PRINT ("call %s\n", cur_node->left->value.var_name);
+            break;
+
+        case IS_EE:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+            PRINT ("jne if_label%d\n\n", label_counter);
+
+            break;
+        
+        case IF:
+            PRINT ("; if begin\n");
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+
+            break;
+
+        case ELSE:
+            PRINT ("; if true\n");
+            PrintOperation (l_child);
+
+            PRINT ("\nif_label%d:\n", label_counter);
+            
+            label_counter++;
+            PRINT ("; if false\n");
+            PrintOperation (r_child);
+
+            break;
+
+        case VAR:
+
+
+            PRINT ("push %lg\n", cur_node->right->value.dbl_val);
+            PRINT ("pop [%d]\n", GetVarIndx(cur_node->left->value.var_name));
+
+            break;
+
+        default:
+            break;
+        }
+    }
+    else if (cur_node->type == NAME_T)
+    {
+        PRINT ("%s:\n", cur_node->value.var_name);
+        // PrintOperation (r_child);
+    }
+    else if (cur_node->type == NUM_T)
+    {
+        PRINT ("push %lg\n", cur_node->value.dbl_val);
+    }
+    else if (cur_node->type == VAR_T)
+    {
+        PRINT ("; pushing variable %s\n", cur_node->value.var_name);
+        PRINT ("push [%d]\n", GetVarIndx(cur_node->value.var_name));
+    }
+    else
+    {
+        printf ("Error while translating to asm, unknown command, type %d, op %d\n",
+                cur_node->type, cur_node->value.op_val);
+    }
+
+    return;
+}
+
+
+int GetVarIndx (const char* var_name)
+{
+    for (int cur_indx = 0; cur_indx < VARIABLES_AMOUNT; cur_indx++)
+    {
+        if (strcmp (var_name, VARIABLES_ARRAY[cur_indx].name) == 0)
+            return VARIABLES_ARRAY[cur_indx].ram_indx;
+    }
+
+    printf ("Didn't found match fot %s in db\n", var_name);
+    return 0;
+}
+
+
+//--Tree to asm. End-------------------------------------------------
+
 
 
 #define CMP(operation)                                        \

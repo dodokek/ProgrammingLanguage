@@ -1,1 +1,1 @@
- {  ST  {  IF  {  IS_EE  { 2 }  { 2 }  }  {  ELSE  {  ST  { 2 }  { NIL }  }  {  ST  { 3 }  { NIL }  }  }  }  { NIL }  } 
+ {  ST  {  VAR  { "bebra" }  { 2 }  }  {  ST  {  VAR  { "kok" }  { 2 }  }  {  ST  {  VAR  { "saker" }  { 2 }  }  {  ST  {  IF  {  IS_EE  { "bebra" }  { "saker" }  }  {  ELSE  {  ST  { 2 }  { NIL }  }  {  ST  { 3 }  { NIL }  }  }  }  { NIL }  }  }  }  } 

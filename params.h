@@ -1,12 +1,14 @@
 #ifndef PARAMS_H
 #define PARAMS_H
+
+
 enum Sizes
 {
     MAX_IMG_SRC_LEN = 100,
     STACK_INIT_CAP = 5,
     MAX_NAME_LEN = 100,
     MAX_SRC_LEN = 500,
-    MAX_VARIABLES = 10,
+    MAX_VARIABLES = 100,
     MAX_TOKEN_LEN = 10,
     MAX_TOKENS = 200,
 };
@@ -94,6 +96,13 @@ struct Token
     Values value;
 
     int line_number;
+};
+
+
+struct Variable
+{
+    int ram_indx;
+    const char* name;
 };
 
 
