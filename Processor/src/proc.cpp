@@ -67,8 +67,8 @@ void Execute (Processor* CpuInfo)
 
 int ProcessCommand (Stack* self, const char* code, int* ip, Processor* CpuInfo)
 {
-    #define DEF_CMD(name, len, offset, code) \
-        case name:                   \
+    #define DEF_CMD(name, id, len, offset, code) \
+        case id:                   \
             code                     \
             break;              
 

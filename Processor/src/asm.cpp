@@ -6,7 +6,7 @@ int main()
 {
     Text RawCommands = {};
 
-    FILE* RawCmdFile = get_file ("../examples/quadratic.asm", "r");
+    FILE* RawCmdFile = get_file ("../examples/FactorialExm.asm", "r");
     FILE* CmdFile    = get_file ("../data/cmds.bin", "wb+");
 
     HandleTextStruct (&RawCommands, RawCmdFile); // read the file with commands
@@ -210,9 +210,9 @@ int IsJmp (Assembler* AsmInfo, char* line)
 {
     int cmd_len = 0;
 
-    #define DEF_CMD(name, id, offset, code)  \
+    #define DEF_CMD(name, num, id, offset, code)  \
         cmd_len = strlen (#name);            \
-        if (strncmp (#name,  line, cmd_len) == 0) return ParseJmp (AsmInfo, line + cmd_len, name);  
+        if (strncmp (#name,  line, cmd_len) == 0) return ParseJmp (AsmInfo, line + cmd_len, num);  
     
     //-----------------------------------------------------
 
@@ -308,7 +308,7 @@ int GetRegNum (char* reg)
 int GetCmdNum (char* cmd)
 {
     printf ("Getting number of line %s\n\n", cmd);
-    #define DEF_CMD(name, num, offset, code) \
+    #define DEF_CMD(name, id, num, offset, code) \
     if (strcmp (cmd, #name) == 0) return num; \
     else
 

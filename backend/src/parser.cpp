@@ -286,7 +286,7 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
     }
     else 
     {
-        Options cur_op = CUR_TOKEN.value.op_val;
+        Options cur_op = CUR_TOKEN.value.op_val;    
 
         NEXT_TOKEN;
 

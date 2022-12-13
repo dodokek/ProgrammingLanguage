@@ -19,7 +19,7 @@ void StartDisasm()
 
     for (int ip = SERVICE_DATA_LEN; ip < CpuInfo.cmds_amount; ip++)
     {
-        #define DEF_CMD(name, id, offset, code)                               \
+        #define DEF_CMD(name, num, id, offset, code)                               \
         if ((CpuInfo.cmds[ip] & CMD_BITMASK) == id)                           \
         {                                                                     \
             fprintf (DisasFile, "Ip %d: %s ", ip, #name);                     \

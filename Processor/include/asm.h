@@ -58,8 +58,8 @@ struct Assembler
 
 enum Commands
 {
-    #define DEF_CMD(name, num, offset, code) \
-    name = num,
+    #define DEF_CMD(name, id, num, offset, code) \
+    id = num,
 
     #include "codegen/cmds.h"
 
