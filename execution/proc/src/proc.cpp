@@ -37,8 +37,7 @@ void ReadHeader (Processor* CpuInfo, char* code)
 
 char* ReadCommandsFile ()
 {
-    FILE* CmdFile = get_file ("../data/cmds.bin", "rb");
-
+    FILE* CmdFile = get_file ("data/cmds.bin", "rb");
 
     char* buffer = (char*) calloc (sizeof (elem_t), MAX_BIN_SIZE);  // IF_CRINGE (buffer) return BAD_...;
     fread (buffer, sizeof (elem_t), MAX_CMDS_AMOUNT, CmdFile);
@@ -74,7 +73,7 @@ int ProcessCommand (Stack* self, const char* code, int* ip, Processor* CpuInfo)
 
     switch (*code & CMD_BITMASK)
     {
-        #include "../include/codegen/cmds.h"
+        #include "../../general_includes/codegen/cmds.h"
 
         default:
             printf ("SIGILL %d\n", *code);

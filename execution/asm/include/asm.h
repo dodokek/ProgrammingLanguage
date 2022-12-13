@@ -3,7 +3,7 @@
 
 #include "fileUtils.h"
 #include "stringUtils.h"
-#include "stack.h"
+#include "../../general_includes/config.h"
 
 
 enum LEN
@@ -38,7 +38,6 @@ enum SIZES
 };
 
 
-
 struct Label 
 {
     char name[MAX_CMD_LEN];
@@ -46,7 +45,6 @@ struct Label
 };
 
 
-// 
 struct Assembler
 {
     char* commands;
@@ -61,7 +59,7 @@ enum Commands
     #define DEF_CMD(name, id, num, offset, code) \
     id = num,
 
-    #include "codegen/cmds.h"
+    #include "../../general_includes/codegen/cmds.h"
 
     #undef DEF_CMD
 };
@@ -112,8 +110,6 @@ void StartAsm();
 int HandlePushPop (Assembler* AsmInfo, char* cur_cmd_line, int cmd_type);
 
 int GetRegNum (char* reg);
-
-void ProcessPush (Stack* self, int arr);
 
 int ParseJmp (Assembler* AsmInfo, char* cur_cmd_line, int jmp_type);
 

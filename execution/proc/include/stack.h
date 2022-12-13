@@ -13,7 +13,7 @@
 #include <assert.h>
 #include <stdint.h>
 
-#include "config.h"
+#include "../../general_includes/config.h"
 
 struct StackInfo
 {

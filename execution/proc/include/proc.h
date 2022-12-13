@@ -4,7 +4,7 @@
 #include "stack.h"
 #include "fileUtils.h"
 #include "fileUtils.h"
-#include "asm.h"
+#include "../../asm/include/asm.h"
 
 
 //-----------------------------------------------

@@ -6,8 +6,8 @@ int main()
 {
     Text RawCommands = {};
 
-    FILE* RawCmdFile = get_file ("../examples/FactorialExm.asm", "r");
-    FILE* CmdFile    = get_file ("../data/cmds.bin", "wb+");
+    FILE* RawCmdFile = get_file ("data/examples/FactorialExm.asm", "r");
+    FILE* CmdFile    = get_file ("../proc/data/cmds.bin", "wb+");
 
     HandleTextStruct (&RawCommands, RawCmdFile); // read the file with commands
 
@@ -90,7 +90,7 @@ int LineToCommands (char* line, Assembler* AsmInfo)
 
     //----------------------------------------------------------------
 
-    #include "../include/codegen/line_to_cmds.h"
+    #include "../../general_includes/codegen/line_to_cmds.h"
 
     /*else*/
     {
@@ -216,7 +216,7 @@ int IsJmp (Assembler* AsmInfo, char* line)
     
     //-----------------------------------------------------
 
-    #include "../include/codegen/cmds.h"
+    #include "../../general_includes/codegen/cmds.h"
     
     //-----------------------------------------------------
 
@@ -313,7 +313,7 @@ int GetCmdNum (char* cmd)
     else
 
     //------------------
-    #include "../include/codegen/cmds.h"
+    #include "../../general_includes/codegen/cmds.h"
     {
         printf ("=========SIGILL %d:==========\n", *cmd);
         return -1;
