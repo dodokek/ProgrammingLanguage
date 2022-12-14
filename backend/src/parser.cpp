@@ -159,6 +159,8 @@ TreeNode* GetFuncHeader (Token token_array[], int* cur_token_id)
 
 TreeNode* GetParam (Token token_array[], int* cur_token_id)
 {
+    printf ("%d: Checking params\n", *cur_token_id);
+
     if (CHECK_OP_T (PARAM))
     {
         NEXT_TOKEN;
@@ -234,6 +236,36 @@ TreeNode* GetCall (Token token_array[], int* cur_token_id)
     }
     else
     {
+        return GetInOut (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetInOut (Token token_array[], int* cur_token_id)
+{
+    printf ("Now cheching in/out\n");
+    printf ("Got token with op %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (IN))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* param_node = GetParam (TOKENS_DATA);
+
+        NEXT_TOKEN;
+        return OP_NODE (IN, param_node, nullptr);
+    }
+    else if (CHECK_OP_T (OUT))
+    {
+        NEXT_TOKEN;
+
+        TreeNode* param_node = GetParam (TOKENS_DATA);
+
+        NEXT_TOKEN;
+        return OP_NODE (OUT, param_node, nullptr);
+    }
+    else
+    {
         return GetVar (TOKENS_DATA);
     }
 }
@@ -275,9 +307,15 @@ TreeNode* GetRet (Token token_array[], int* cur_token_id)
 
 TreeNode* GetExpression (Token token_array[], int* cur_token_id)
 {
-    printf ("%d: \n", *cur_token_id);
+    printf ("%d: Expression \n", *cur_token_id);
 
-    if(
+    if (CUR_TOKEN.value.op_val == NIL)
+    {
+        printf ("\t Found nill, returning\n");
+        NEXT_TOKEN;
+        return nullptr;
+    }
+    else if(
         CUR_TOKEN.value.op_val != EQ    &&
         CUR_TOKEN.value.op_val != IS_EE &&
         CUR_TOKEN.value.op_val != IS_GE &&
@@ -286,11 +324,6 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
         CUR_TOKEN.value.op_val != IS_BT &&
         CUR_TOKEN.value.op_val != IS_NE
     ) return GetAddSub (TOKENS_DATA);
-    else if (CUR_TOKEN.value.op_val == NIL)
-    {
-        NEXT_TOKEN;
-        return nullptr;
-    }
     else 
     {
         Options cur_op = CUR_TOKEN.value.op_val;    
@@ -664,10 +697,20 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case VAR:
-
-
             PRINT ("push %lg\n", cur_node->right->value.dbl_val);
             PRINT ("pop [%d]\n", GetVarIndx(cur_node->left->value.var_name));
+
+            break;
+
+        case IN:
+            PRINT ("in \n");
+            PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->left->left->value.var_name));
+
+            break;
+
+        case OUT:
+            PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->left->value.var_name));
+            PRINT ("out \n");
 
             break;
 
@@ -746,6 +789,8 @@ Options GetOpType (char str[])
     CMP (IS_GT)
     CMP (IS_BT)
     CMP (IS_NE)
+    CMP (IN)
+    CMP (OUT)
     if (*str == '{')      return OPEN_BR;
     else if (*str == '}') return CLOSE_BR;
     else if (*str == '\0') return TERMINATION_SYM;
@@ -853,7 +898,7 @@ char* GetOpSign (Options op)
 {
     switch (op)
     {
-    SWITCH (ADD, "+")
+    SWITCH (ADD, "ADD")
     SWITCH (SUB, "-")
     SWITCH (DIV, "/")
     SWITCH (MUL, "*")
@@ -874,6 +919,13 @@ char* GetOpSign (Options op)
     SWITCH (FUNC, "Function declaration")
     SWITCH (CALL, "Function call")
     SWITCH (RET, "Return of function")
+    SWITCH (OPEN_BR, "Enter zone")
+    SWITCH (CLOSE_BR, "Exit zone")
+    SWITCH (TERMINATION_SYM, "Termination symbol")
+    SWITCH (WHILE, "While")
+    SWITCH (SEMI_COL, "semi col")
+    SWITCH (IN, "Input")
+    SWITCH (OUT, "Output")
 
     default:
         return "?";

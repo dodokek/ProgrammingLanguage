@@ -56,6 +56,9 @@ enum Options
     CALL,
     PARAM,
 
+    OUT,
+    IN,
+
     // Only for tokenizer
     OPEN_BR,
     CLOSE_BR,

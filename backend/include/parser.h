@@ -38,6 +38,8 @@ TreeNode* GetElse (Token token_array[], int* cur_token_id);
 
 TreeNode* GetCall (Token token_array[], int* cur_token_id);
 
+TreeNode* GetInOut (Token token_array[], int* cur_token_id);
+
 TreeNode* GetVar (Token token_array[], int* cur_token_id);
 
 TreeNode* GetName (Token token_array[], int* cur_token_id);

@@ -227,9 +227,36 @@ TreeNode* GetCall (Token token_array[], int* cur_token_id)
     }
     else 
     {
+        return GetInOut (TOKENS_DATA);
+    }
+}
+
+
+TreeNode* GetInOut (Token token_array[], int* cur_token_id)
+{
+    printf ("%d: ", *cur_token_id);
+    printf ("InOut: Now at %d\n", CUR_TOKEN.value.op_val);
+
+    if (CHECK_OP_T (IN))
+    {
+        NEXT_TOKEN;
+        TreeNode* param_node = GetParam(TOKENS_DATA);
+
+        return OP_NODE (IN, param_node, nullptr);
+    }
+    else if (CHECK_OP_T (OUT))
+    {
+        NEXT_TOKEN;
+        TreeNode* param_node = GetParam(TOKENS_DATA);
+
+        return OP_NODE (OUT, param_node, nullptr);
+    }
+    else 
+    {
         return GetVar (TOKENS_DATA);
     }
 }
+
 
 TreeNode* GetVar (Token token_array[], int* cur_token_id)
 {
@@ -558,6 +585,8 @@ char* GetOpSign (Options op)
     SWITCH (TERMINATION_SYM, "Termination symbol")
     SWITCH (WHILE, "While")
     SWITCH (SEMI_COL, "semi col")
+    SWITCH (IN, "Input")
+    SWITCH (OUT, "Output")
 
     default:
         return "?";

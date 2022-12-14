@@ -30,6 +30,9 @@ CMD(VAR, "var")
 CMD(CALL, "kis_kis")
 CMD(CLOSE_BR, "vse")
 
+CMD(IN, "in")
+CMD(OUT, "out")
+
 
 // Надпись по русски:
 // куда_епта
