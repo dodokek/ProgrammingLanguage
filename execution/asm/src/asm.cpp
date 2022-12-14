@@ -6,7 +6,9 @@ int main()
 {
     Text RawCommands = {};
 
-    FILE* RawCmdFile = get_file ("data/examples/FactorialExm.asm", "r");
+
+    FILE* RawCmdFile = get_file ("../../backend/data/cmds.asm", "r");
+    // FILE* RawCmdFile = get_file ("data/examples/FactorialExm.asm", "r");
     FILE* CmdFile    = get_file ("../proc/data/cmds.bin", "wb+");
 
     HandleTextStruct (&RawCommands, RawCmdFile); // read the file with commands
@@ -308,8 +310,9 @@ int GetRegNum (char* reg)
 int GetCmdNum (char* cmd)
 {
     printf ("Getting number of line %s\n\n", cmd);
+
     #define DEF_CMD(name, id, num, offset, code) \
-    if (strcmp (cmd, #name) == 0) return num; \
+    if (strncmp (cmd, #name, 3) == 0) return num; \
     else
 
     //------------------

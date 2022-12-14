@@ -5,7 +5,7 @@ CMD(WHILE, "poka")
 
 CMD(ADD, "+");
 CMD(SUB, "-");
-CMD(MUL, "miaiaiaiau");
+CMD(MUL, "miaia");
 CMD(DIV, "miiuiaiaiaiau");
 CMD(POW, "^");
 
@@ -15,7 +15,7 @@ CMD(IS_GE, ">=")
 CMD(IS_BE, "<=")
 CMD(IS_GT, ">")
 CMD(IS_BT, "<")
-CMD(IS_NE, "!=")
+CMD(IS_NE, "pakhnet_neznakomo")
 
 CMD(OPEN_BR, "{")
 CMD(OPEN_BR, "(")

@@ -605,6 +605,9 @@ void PrintCmdsInFile (TreeNode* root)
 {
     FILE* cmds_file = get_file ("data/cmds.asm", "w+");
 
+    PRINT ("call main\nhlt\n\n");
+    PRINT ("; let the chaos begin\n\n");
+
     PrintOperation (root, cmds_file);
 
     fclose (cmds_file);
@@ -677,6 +680,13 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
             break;
         
+        case IS_NE:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+            PRINT ("je if_label%d\n\n", label_counter);
+
+            break;
+
         case IF:
             PRINT ("; if begin\n");
             PrintOperation (l_child);
@@ -685,19 +695,19 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case ELSE:
-            PRINT ("; if true\n");
+            PRINT ("; if false\n");
             PrintOperation (l_child);
 
             PRINT ("\nif_label%d:\n", label_counter);
             
             label_counter++;
-            PRINT ("; if false\n");
+            PRINT ("; if true\n");
             PrintOperation (r_child);
 
             break;
 
         case VAR:
-            PRINT ("push %lg\n", cur_node->right->value.dbl_val);
+            PrintOperation (r_child);
             PRINT ("pop [%d]\n", GetVarIndx(cur_node->left->value.var_name));
 
             break;
@@ -756,7 +766,6 @@ int GetVarIndx (const char* var_name)
 
 
 //--Tree to asm. End-------------------------------------------------
-
 
 
 #define CMP(operation)                                        \
