@@ -1,7 +1,7 @@
 
 #include "stringUtils.h"
 #include "fileUtils.h"
-#include "parser.h"
+#include "parser_backend.h"
 
 
 // Gods forgive me for this global variable i am not govnocoder.
@@ -178,9 +178,15 @@ TreeNode* GetParam (Token token_array[], int* cur_token_id)
 
         return nullptr;
     }
+    else if (CHECK_OP_T (NIL))
+    {
+        NEXT_TOKEN;
+
+        return nullptr;
+    }
     else
     {
-        printf ("===Error. Undefined parametr sequence===\n");
+        printf ("===Zero params given, skipping===\n");
         return nullptr;
     }
 
@@ -430,8 +436,8 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
     }
     else 
     {
-        NEXT_TOKEN;
-        printf ("Unexpected token, returning null\n");
+        printf ("Might stuck in termination symbol, am i?\n");
+        printf ("\tGot token: Type %d, operation: %s\n", CUR_TOKEN.type, GetOpSign(CUR_TOKEN.value.op_val));
         return nullptr;
     }
 }
@@ -476,32 +482,6 @@ void FillTokensArray (Token* token_array)
             Options operation = GetOpType (op_name);
             TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
             tokens_amount++;
-
-            // {
-            // if (*tmp_line == '(')
-            // {
-            //     char op_name[100] = "";
-            //
-            //     int len = 0;
-            //     sscanf (input + i, "%[^( ]%n", op_name, &len);
-            //     i += len;
-            //    
-            //     Options operation = GetOpType (op_name);
-            //     TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
-            //     tokens_amount++;
-            // }   
-            // else // variable handler
-            // {
-            //     TOP_TOKEN = CreateToken (VAR_T, 0, UNKNOWN, i);
-            //
-            //     int len = 0;
-            //     sscanf (input + i, "%[^+-*/() ]%n", TOP_TOKEN.value.var_name, &len);
-            //     i += len;
-            //
-            //     printf ("Working with var, its len: %d, String %s\n", len, input + i);
-            //     tokens_amount++;
-            // }
-            // }
         }
         else if (input[i] == '"')
         {
@@ -616,6 +596,8 @@ void PrintCmdsInFile (TreeNode* root)
 
 void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 {
+    assert (cur_node != nullptr);
+
     static int label_counter = 0;
 
     printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
@@ -747,6 +729,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
         printf ("Error while translating to asm, unknown command, type %d, op %d\n",
                 cur_node->type, cur_node->value.op_val);
     }
+    PRINT ("; ----------\n");
 
     return;
 }

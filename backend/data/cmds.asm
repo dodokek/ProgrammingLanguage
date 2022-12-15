@@ -5,38 +5,52 @@ hlt
 
 ; function 
 main:
-push 2
-pop [1]
+; ----------
+in 
+pop [1] 
+; ----------
+push 0
+; ----------
+pop [2]
+; ----------
 call fak
+; ----------
 push [1] 
 out 
+; ----------
 ret
 ; end of func
 
+; ----------
+; ----------
+; ----------
+; ----------
+; ----------
+; ----------
+; ----------
 ; function 
 fak:
+; ----------
 ; pushing variable kot
 push [1]
-push 1
-sub
-pop [5]
+; ----------
 ; pushing variable kot
 push [1]
-; pushing variable lotok
-push [5]
-add
+; ----------
+mul
+; ----------
 pop [1]
+; ----------
+push 1
+; ----------
+; pushing variable schet
+push [2]
+; ----------
+add
+; ----------
+pop [2]
+; ----------
 ; if begin
-; pushing variable kot
-push [1]
-push 20
-je if_label0
-
-; if false
-call fak
-
-if_label0:
-; if true
-ret
-; end of func
-
+; pushing variable schet
+push [2]
+; ----------
