@@ -71,7 +71,7 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id)
         VARIABLES_AMOUNT++;
         
         NEXT_TOKEN;
-        return NAME_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
+        return VAR_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
     }
     else if (CUR_TOKEN.type == NUM_T)
     {

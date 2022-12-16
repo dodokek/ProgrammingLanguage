@@ -9,6 +9,7 @@
 #define DIGIT_NODE(num) CreateNode (NUM_T, num, UNKNOWN, nullptr, nullptr, nullptr)
 #define OP_NODE(op, l, r) CreateNode (OP_T, 0, op, nullptr, l, r)
 #define NAME_NODE(name, l, r) CreateNode (NAME_T, 0, UNKNOWN, name, l, r)
+#define VAR_NODE(name, l, r) CreateNode (VAR_T, 0, UNKNOWN, name, l, r)
 
 #define ADD(L, R) CreateNode (OP_T, 0, ADD, nullptr, L, R)
 #define SUB(L, R) CreateNode (OP_T, 0, SUB, nullptr, L, R)
