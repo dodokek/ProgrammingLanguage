@@ -75,383 +75,31 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id)
     }
     else if (CUR_TOKEN.type == NUM_T)
     {
+        printf ("Hell yeah, num %lg\n", CUR_TOKEN.value.dbl_val);
+
         NEXT_TOKEN;
         return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
     }
-    else if (CHECK_OP_T (TERMINATION_SYM) )
+    else if (CHECK_OP_T (TERMINATION_SYM))
     {
         printf ("End of tokens, returning\n");
         return nullptr;
     }
-    else if (CHECK_OP_T (NIL) )
+    else if (CHECK_OP_T (NIL))
     {
+        NEXT_TOKEN;
         printf ("Got NIL, returning\n");
         return nullptr;
     }
     else
     {
         Options cur_opt = CUR_TOKEN.value.op_val;
-        NEXT_TOKEN;                                    
+        NEXT_TOKEN;                     
+
         TreeNode* left_child = RecGetChild (TOKENS_DATA);        
         TreeNode* right_child = RecGetChild (TOKENS_DATA);       
-        return OP_NODE (cur_opt, left_child, right_child);
         
-    }
-}
-
-
-
-TreeNode* GetStatement (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: ", *cur_token_id);
-
-    printf ("St: Now at %d\n", CUR_TOKEN.value.op_val);
-
-    if (CHECK_OP_T (ST))
-    {
-        NEXT_TOKEN;
-        TreeNode* tmp_node = GetFunction (TOKENS_DATA);
-        return OP_NODE (ST, tmp_node, GetStatement (TOKENS_DATA));
-    }
-    else if (CHECK_OP_T (NIL))
-    {
-        NEXT_TOKEN;
-        return nullptr;
-    }
-    else 
-    {
-        return GetFunction (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetFunction (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (FUNC))
-    {
-        NEXT_TOKEN;
-
-        TreeNode* functction_header = GetFuncHeader (TOKENS_DATA); 
-        TreeNode* functction_body   = GetStatement (TOKENS_DATA); 
-
-        return OP_NODE (FUNC, functction_header, functction_body);
-    }
-    else 
-    {
-        return GetIf (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetFuncHeader (Token token_array[], int* cur_token_id)
-{
-    if (CUR_TOKEN.type != VAR_T)
-        printf ("===Error missing function name===\n");
-
-    TreeNode* func_name_node = GetNumOrVar (TOKENS_DATA);
-    func_name_node->type = NAME_T;
-
-    printf ("Got name %s\n", func_name_node->value.var_name);
-
-    func_name_node->left = GetParam (TOKENS_DATA);
-
-    return func_name_node;
-}
-
-
-TreeNode* GetParam (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: Checking params\n", *cur_token_id);
-
-    if (CHECK_OP_T (PARAM))
-    {
-        NEXT_TOKEN;
-        
-        TreeNode* param_node = OP_NODE (PARAM, nullptr, nullptr);
-
-        param_node->left  = GetVar (TOKENS_DATA);
-        param_node->right = GetParam (TOKENS_DATA);
-
-        return param_node;
-    }
-    else if (CHECK_OP_T (NIL))
-    {
-        NEXT_TOKEN;
-
-        return nullptr;
-    }
-    else if (CHECK_OP_T (NIL))
-    {
-        NEXT_TOKEN;
-
-        return nullptr;
-    }
-    else
-    {
-        printf ("===Zero params given, skipping===\n");
-        return nullptr;
-    }
-
-}
-
-
-TreeNode* GetIf (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (IF))
-    {
-        // printf ("Hey hey\n");
-        NEXT_TOKEN;
-
-        TreeNode* statement = GetStatement (TOKENS_DATA);
-        TreeNode* else_node = GetElse (TOKENS_DATA);
-
-        return OP_NODE (IF, statement, else_node);
-    }
-    else 
-    {
-        return GetCall (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetElse (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (ELSE))
-    {
-        NEXT_TOKEN;
-        TreeNode* left_statement = GetStatement (TOKENS_DATA);
-        TreeNode* right_statement = GetStatement (TOKENS_DATA);
-
-        return OP_NODE (ELSE, left_statement, right_statement);
-    }
-    else
-    {
-        printf ("===Error, couldn't match else for any if before.===\n");
-        return nullptr;
-    }
-}
-
-
-TreeNode* GetCall (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (CALL))
-    {
-        NEXT_TOKEN;
-
-        TreeNode* function_header_node = GetFuncHeader (TOKENS_DATA);
-
-        return OP_NODE (CALL, function_header_node, nullptr);
-    }
-    else
-    {
-        return GetInOut (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetInOut (Token token_array[], int* cur_token_id)
-{
-    printf ("Now cheching in/out\n");
-    printf ("Got token with op %d\n", CUR_TOKEN.value.op_val);
-
-    if (CHECK_OP_T (IN))
-    {
-        NEXT_TOKEN;
-
-        TreeNode* param_node = GetParam (TOKENS_DATA);
-
-        NEXT_TOKEN;
-        return OP_NODE (IN, param_node, nullptr);
-    }
-    else if (CHECK_OP_T (OUT))
-    {
-        NEXT_TOKEN;
-
-        TreeNode* param_node = GetParam (TOKENS_DATA);
-
-        NEXT_TOKEN;
-        return OP_NODE (OUT, param_node, nullptr);
-    }
-    else if (CHECK_OP_T (TERMINATION_SYM))
-    {
-        printf ("\tTermination symbol again\n");
-
-        return nullptr;
-    }
-    else
-    {
-        return GetVar (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetVar (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (VAR))
-    {
-        printf ("%d: ", *cur_token_id);
-        printf ("Var: Now at %d %d\n", CUR_TOKEN.value.op_val, __LINE__);
-
-        NEXT_TOKEN;
-        TreeNode* var_name_node  = GetNumOrVar (TOKENS_DATA);
-        TreeNode* equated_st_node = GetExpression (TOKENS_DATA);
-
-        return OP_NODE(VAR, var_name_node, equated_st_node);
-    }
-    else 
-    {
-        return GetRet (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetRet (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (RET))
-    {
-        NEXT_TOKEN;
-        return OP_NODE (RET, nullptr, nullptr);
-    }
-    else 
-    {
-        return GetExpression (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetExpression (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: Expression \n", *cur_token_id);
-
-    if (CUR_TOKEN.value.op_val == NIL)
-    {
-        printf ("\t Found nill, returning\n");
-        NEXT_TOKEN;
-        return nullptr;
-    }
-    else if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
-    {
-        printf ("\tYay, termination symbol\n");
-        return nullptr;
-    }
-    else if(
-        CUR_TOKEN.value.op_val != EQ    &&
-        CUR_TOKEN.value.op_val != IS_EE &&
-        CUR_TOKEN.value.op_val != IS_GE &&
-        CUR_TOKEN.value.op_val != IS_BE &&
-        CUR_TOKEN.value.op_val != IS_GT &&
-        CUR_TOKEN.value.op_val != IS_BT &&
-        CUR_TOKEN.value.op_val != IS_NE
-    ) return GetAddSub (TOKENS_DATA);
-    else 
-    {
-        Options cur_op = CUR_TOKEN.value.op_val;    
-
-        NEXT_TOKEN;
-
-        TreeNode* left_node  = GetExpression (TOKENS_DATA);
-        TreeNode* right_node = GetExpression (TOKENS_DATA);
-
-        return OP_NODE (cur_op, left_node, right_node);
-    }
-}
-
-
-TreeNode* GetAddSub (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: add/sub \n", *cur_token_id);
-
-
-    if (CHECK_OP_T (ADD) || CHECK_OP_T (SUB))
-    {
-        Options cur_option = CUR_TOKEN.value.op_val;
-
-        NEXT_TOKEN;
-
-        TreeNode* left_node  = GetExpression (TOKENS_DATA);
-        TreeNode* right_node = GetExpression (TOKENS_DATA);
-
-        if (cur_option == ADD)
-            return ADD (left_node, right_node);
-        else
-            return SUB (left_node, right_node);
-    }
-    else 
-    {
-        return GetMlt (TOKENS_DATA);
-    }
-}
-
-
-
-TreeNode* GetMlt (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: mlt/div \n", *cur_token_id);
-
-    if (CHECK_OP_T (MUL) || CHECK_OP_T (DIV))
-    {
-        Options cur_option = CUR_TOKEN.value.op_val;
-
-        NEXT_TOKEN;
-
-        TreeNode* left_node =  GetExpression (TOKENS_DATA);
-        TreeNode* right_node = GetExpression (TOKENS_DATA);
-
-        if (cur_option == MUL)
-            return MUL (left_node, right_node);
-        else
-            return DIV (left_node, right_node);
-    }
-    else 
-    {
-        return GetPower (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetPower (Token token_array[], int* cur_token_id)
-{
-    if (CHECK_OP_T (POW))
-    {
-        NEXT_TOKEN;
-
-        TreeNode* left_node =  GetExpression (TOKENS_DATA);
-        TreeNode* right_node = GetExpression (TOKENS_DATA);
-        
-        return POW (left_node, right_node);    
-    }
-    else 
-    {
-        return GetNumOrVar (TOKENS_DATA);
-    }
-}
-
-
-TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
-{
-    printf ("%d: ", *cur_token_id);
-
-    printf ("Getting number %lg, type %d\n", CUR_TOKEN.value.dbl_val, CUR_TOKEN.type);
-
-    if      (CUR_TOKEN.type == NUM_T)
-    {
-        NEXT_TOKEN;
-        return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
-    }
-    else if (CUR_TOKEN.type == VAR_T)
-    {
-        VARIABLES_ARRAY[VARIABLES_AMOUNT].name     = CUR_TOKEN.value.var_name;
-        VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;
-        VARIABLES_AMOUNT++;
-
-        NEXT_TOKEN;
-        return CreateNode (VAR_T, 0, UNKNOWN, PREV_TOKEN.value.var_name, nullptr, nullptr);
-    }
-    else 
-    {
-        printf ("Might stuck in termination symbol, am i?\n");
-        printf ("\tGot token: Type %d, operation: %s\n", CUR_TOKEN.type, GetOpSign(CUR_TOKEN.value.op_val));
-        return nullptr;
+        return OP_NODE (cur_opt, left_child, right_child);      
     }
 }
 
@@ -607,7 +255,7 @@ void PrintCmdsInFile (TreeNode* root)
 
 void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 {
-    assert (cur_node != nullptr);
+    if (!cur_node) return;
 
     static int label_counter = 0;
 
@@ -616,6 +264,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
     if (cur_node->type == OP_T)
     {
+        printf ("Switch op_t: %d\n", cur_node->value.op_val);
         switch (cur_node->value.op_val)
         {
         case ST:
@@ -719,6 +368,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         default:
+            printf ("Unknown command!\n");
             break;
         }
     }

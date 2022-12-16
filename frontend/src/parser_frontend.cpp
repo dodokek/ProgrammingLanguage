@@ -448,7 +448,7 @@ void FillTokensArray (Token* token_array)
         }
         else if (*cur_ptr == '^')
         {
-            cur_ptr += VAR_OFFSET;
+            cur_ptr += VAR_OFFSET; // skips the ^_^: prefix in variables
 
             TOP_TOKEN = *(CreateToken (VAR_T, 0, UNKNOWN));  
             
@@ -457,7 +457,6 @@ void FillTokensArray (Token* token_array)
 
             tokens_amount++;
             cur_ptr += len;
-
         }
         else
         {
@@ -625,10 +624,6 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
         PRINT ("\"%s\"", cur_node->value.var_name);
         if (cur_node->left) RecPrintNode (cur_node->left, out_file);
     }
-    else if (cur_node->value.op_val == RET)
-    {
-        PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
-    }
     else
     {
         PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
@@ -664,6 +659,7 @@ void DrawTree (TreeNode* root)
     // Writing header info
     const char header[] = R"(
     digraph g {
+        bgcolor="lightblue";
         dpi      = 200;
         fontname = "Comic Sans MS";
         fontsize = 20;
