@@ -10,8 +10,6 @@
 
 //-----------------------------------------------
 
-const char input_path[] = "data/input.txt";
-
 const int VAR_OFFSET = 4;
 
 
@@ -46,6 +44,8 @@ TreeNode* GetAddSub (Token token_array[], int* cur_token_id);
 TreeNode* GetMlt (Token token_array[], int* cur_token_id);
 
 TreeNode* GetPower (Token token_array[], int* cur_token_id);
+
+TreeNode* GetSpecOperations (Token token_array[], int* cur_token_id);
 
 TreeNode* GetNumOrName (Token token_array[], int* cur_token_id);
 

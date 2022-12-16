@@ -2,6 +2,7 @@
 #include "stringUtils.h"
 #include "fileUtils.h"
 
+const char input_path[] = "data/input.txt";
 
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
@@ -273,7 +274,7 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
     }
     else 
     {
-        return GetNumOrName (TOKENS_DATA);
+        return GetSpecOperations (TOKENS_DATA);
     }
 }
 
@@ -392,6 +393,31 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
 }
 
 
+TreeNode* GetSpecOperations (Token token_array[], int* cur_token_id)
+{
+    if (CHECK_OP_T (SIN))
+    {
+        NEXT_TOKEN;
+        return OP_NODE (SIN, GetBracketExp (TOKENS_DATA), nullptr);
+    }
+    else if (CHECK_OP_T (COS))
+    {
+        NEXT_TOKEN;
+        return OP_NODE (COS, GetBracketExp (TOKENS_DATA), nullptr);
+    }
+    else if (CHECK_OP_T (SQRT))
+    {
+        NEXT_TOKEN;
+        return OP_NODE (SQRT, GetBracketExp (TOKENS_DATA), nullptr);
+    }
+    else 
+    {
+        return GetNumOrName (TOKENS_DATA);
+    }
+    
+}
+
+
 TreeNode* GetNumOrName (Token token_array[], int* cur_token_id)
 {
     printf ("%d: ", *cur_token_id);
@@ -462,7 +488,7 @@ void FillTokensArray (Token* token_array)
         {
             char command[MAX_NAME_LEN] = "";
             sscanf (cur_ptr, "%s%n", command, &len);
-
+            printf ("Scanned string %s\n", command);
             char* translit_cmd = TranslitString (command, len);
             TOP_TOKEN = *(CommandToToken (translit_cmd)); 
 
@@ -586,6 +612,9 @@ char* GetOpSign (Options op)
     SWITCH (SEMI_COL, "semi col")
     SWITCH (IN, "Input")
     SWITCH (OUT, "Output")
+    SWITCH (SIN, "Output")
+    SWITCH (COS, "Output")
+    SWITCH (SQRT, "Output")
 
     default:
         return "?";

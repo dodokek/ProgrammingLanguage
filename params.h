@@ -35,6 +35,9 @@ enum Options
     AND,
     OR,
     EQ,
+    SQRT,
+    SIN,
+    COS,
 
     // Comparison
     IS_EE,

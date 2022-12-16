@@ -72,6 +72,11 @@
     right_child = RecGetChild (TOKENS_DATA);       \
     return OP_NODE (name, left_child, right_child);
 
+#define ADD_TO_NAMETABLE    \ 
+    VARIABLES_ARRAY[VARIABLES_AMOUNT].name = CUR_TOKEN.value.var_name; \
+    VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;     \
+    VARIABLES_AMOUNT++;                                                \
+
 
 //----------------
 

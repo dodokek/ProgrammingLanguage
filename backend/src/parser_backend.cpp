@@ -3,6 +3,7 @@
 #include "fileUtils.h"
 #include "parser_backend.h"
 
+const char input_path[] = "../frontend/data/tree.txt";
 
 // Gods forgive me for this global variable i am not govnocoder.
 Variable VARIABLES_ARRAY[MAX_VARIABLES] = {};
@@ -55,23 +56,29 @@ TreeNode* GetGrammar ()
     int token_id = 0;
     int* cur_token_id = &token_id;
 
-    return RecGetChild (TOKENS_DATA);
+    return RecGetChild (TOKENS_DATA, NOT_FUNC);
 }
 
 
-TreeNode* RecGetChild (Token token_array[], int* cur_token_id)
+TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name)
 {
     printf ("Now working with token type %d, operation %s\n", CUR_TOKEN.type, GetOpSign (CUR_TOKEN.value.op_val));
 
     if (CUR_TOKEN.type == VAR_T)
     {
-        printf ("Hehe name %s\n", CUR_TOKEN.value.var_name);
-        VARIABLES_ARRAY[VARIABLES_AMOUNT].name = CUR_TOKEN.value.var_name;
-        VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;
-        VARIABLES_AMOUNT++;
+        printf ("Hehe name %s and %d\n", CUR_TOKEN.value.var_name, is_func_name);
+        if (is_func_name)
+        {
+            NEXT_TOKEN;
+            return NAME_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
+        }
+        else 
+        {
+            ADD_TO_NAMETABLE;
+            NEXT_TOKEN;
+            return VAR_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
+        }
         
-        NEXT_TOKEN;
-        return VAR_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
     }
     else if (CUR_TOKEN.type == NUM_T)
     {
@@ -94,10 +101,18 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id)
     else
     {
         Options cur_opt = CUR_TOKEN.value.op_val;
+        printf ("\n\n Cur opt is %s\n\n", GetOpSign (cur_opt));
+        TreeNode* left_child = nullptr;
+        TreeNode* right_child = nullptr;
+        
         NEXT_TOKEN;                     
 
-        TreeNode* left_child = RecGetChild (TOKENS_DATA);        
-        TreeNode* right_child = RecGetChild (TOKENS_DATA);       
+        if (cur_opt == FUNC)
+            left_child = RecGetChild (TOKENS_DATA, IS_FUNC);        
+        else
+            left_child = RecGetChild (TOKENS_DATA, NOT_FUNC);        
+
+        right_child = RecGetChild (TOKENS_DATA, NOT_FUNC);       
         
         return OP_NODE (cur_opt, left_child, right_child);      
     }
@@ -367,8 +382,23 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
             break;
 
+        case SIN:
+            PrintOperation (l_child);
+            PRINT ("sin\n");
+            break;
+
+        case COS:
+            PrintOperation (l_child);
+            PRINT ("sin\n");
+            break;
+
+        case SQRT:
+            PrintOperation (l_child);
+            PRINT ("sin\n");
+            break;
+
         default:
-            printf ("Unknown command!\n");
+            printf ("Unknown command! %d\n", cur_node->value.op_val);
             break;
         }
     }
@@ -444,7 +474,9 @@ Options GetOpType (char str[])
     CMP (IS_BT)
     CMP (IS_NE)
     CMP (IN)
-    CMP (OUT)
+    CMP (SIN)
+    CMP (COS)
+    CMP (SQRT)
     if (*str == '{')      return OPEN_BR;
     else if (*str == '}') return CLOSE_BR;
     else if (*str == '\0') return TERMINATION_SYM;

@@ -8,6 +8,9 @@ CMD(SUB, "-");
 CMD(MUL, "miaia");
 CMD(DIV, "miiuiaiaiaiau");
 CMD(POW, "^");
+CMD(COS, "cos");
+CMD(SIN, "sin");
+CMD(SQRT, "sqrt");
 
 CMD(EQ, "=");
 CMD(IS_EE, "pakhnet_znakomo")
