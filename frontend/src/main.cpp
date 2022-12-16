@@ -11,4 +11,6 @@ int main()
     DrawTree (root);
 
     PrintTreeInFile (root);
+
+    DestructTree (root);
 }

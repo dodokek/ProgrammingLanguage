@@ -9,8 +9,8 @@ enum Sizes
     MAX_NAME_LEN = 100,
     MAX_SRC_LEN = 500,
     MAX_VARIABLES = 100,
-    MAX_TOKEN_LEN = 10,
-    MAX_TOKENS = 200,
+    MAX_TOKEN_LEN = 100,
+    MAX_TOKENS = 300,
 };
 
 
@@ -67,7 +67,6 @@ enum Options
 };
 
 const double ACCURACY = 0.000001;
-
 
 //---------------------------------------------
 

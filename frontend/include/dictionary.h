@@ -20,7 +20,7 @@ CMD(IS_NE, "pakhnet_neznakomo")
 CMD(OPEN_BR, "{")
 CMD(OPEN_BR, "(")
 CMD(CLOSE_BR, ")")
-CMD(SEMI_COL, ";")
+CMD(SEMI_COL, "miau")
 CMD(CLOSE_BR, "valim")
 
 CMD(FUNC, "funk")

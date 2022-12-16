@@ -7,4 +7,6 @@ int main()
     DrawTree (root);
 
     PrintCmdsInFile (root);
+
+    DestructTree (root);
 }

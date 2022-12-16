@@ -317,7 +317,7 @@ TreeNode* GetAddSub (Token token_array[], int* cur_token_id)
     while (CUR_TOKEN.value.op_val == ADD || CUR_TOKEN.value.op_val == SUB)
     {
         Options last_op = CUR_TOKEN.value.op_val;
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* right_node = GetMlt (token_array, cur_token_id);
 
@@ -338,7 +338,7 @@ TreeNode* GetMlt (Token token_array[], int* cur_token_id)
     while (CUR_TOKEN.value.op_val == MUL || CUR_TOKEN.value.op_val == DIV)
     {
         Options last_op = CUR_TOKEN.value.op_val;
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* right_node = GetPower (token_array, cur_token_id);
 
@@ -358,7 +358,7 @@ TreeNode* GetPower (Token token_array[], int* cur_token_id)
 
     while (CUR_TOKEN.value.op_val == POW)
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
 
         TreeNode* right_node = GetBracketExp (token_array, cur_token_id);
         top_operation_node = POW (top_operation_node, right_node);
@@ -372,12 +372,12 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
 { 
     if (CUR_TOKEN.value.op_val == OPEN_BR)
     {
-        *cur_token_id += 1;
+        NEXT_TOKEN;
         TreeNode* sub_node = GetExpression (token_array, cur_token_id);
 
         if (CUR_TOKEN.value.op_val == CLOSE_BR)
         {
-            *cur_token_id += 1;
+            NEXT_TOKEN;
             return sub_node;
         }
         else 
@@ -427,6 +427,7 @@ void FillTokensArray (Token* token_array)
 
     char* cur_ptr = input;
     int tokens_amount = 0;
+    int len = 0;
 
     while (true)
     {
@@ -438,7 +439,6 @@ void FillTokensArray (Token* token_array)
         }
         else if (isdigit (*cur_ptr))
         {
-            int len = 0;
             double num = 0;
             sscanf (cur_ptr, "%lg%n", &num, &len);
             cur_ptr += len;
@@ -452,7 +452,6 @@ void FillTokensArray (Token* token_array)
 
             TOP_TOKEN = *(CreateToken (VAR_T, 0, UNKNOWN));  
             
-            int len = 0;
             sscanf (cur_ptr, "%s%n", TOP_TOKEN.value.var_name, &len);
             TOP_TOKEN.value.var_name = TranslitString (TOP_TOKEN.value.var_name, len);
 
@@ -462,7 +461,6 @@ void FillTokensArray (Token* token_array)
         }
         else
         {
-            int len = 0;
             char command[MAX_NAME_LEN] = "";
             sscanf (cur_ptr, "%s%n", command, &len);
 
@@ -476,6 +474,7 @@ void FillTokensArray (Token* token_array)
 
     free (input);
 }
+
 
 #define CMD(cmd_code, cmd_name)                   \
     if (strcmp (cmd_name, name) == 0)             \
@@ -551,9 +550,10 @@ void SkipSpaces (char** string)
 }
 
 
-#define SWITCH(op, return_statement)   \
+#define SWITCH(op, return_statement)    \
     case op:                            \
-        return #op;        \
+        return #op;                     \    
+
 
 char* GetOpSign (Options op)
 {
@@ -673,8 +673,7 @@ void DrawTree (TreeNode* root)
         style = "rounded, filled",color = green, penwidth = 2]
 
     )";
-
-    
+ 
     __print (header);
 
     InitGraphvisNode (root, dot_file);

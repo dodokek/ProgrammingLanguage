@@ -31,36 +31,6 @@ TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* va
 }
 
 
-TreeNode* CopyNode (TreeNode* node_to_cpy)
-{
-    TreeNode* new_node = (TreeNode*) calloc (1, sizeof (TreeNode));
-    if (!new_node) return nullptr;
-
-    *new_node = *node_to_cpy;
-
-    return new_node;
-}
-
-
-TreeNode* TransformNode (TreeNode* node, Types type, double dbl_val, const char* var_name)
-{
-    node->type = type;
-    
-    if (type == NUM_T)
-        node->value.dbl_val = dbl_val;
-    else
-        node->value.var_name = var_name;
-
-    if (node->left)  free (node->left);
-    if (node->right) free (node->right);
-
-    node->left = nullptr;
-    node->right = nullptr;
-
-    return node;
-}
-
-
 TreeNode* DestructTree (TreeNode* root)
 {
     if (root->left)  DestructTree (root->left);
@@ -270,6 +240,12 @@ TreeNode* GetInOut (Token token_array[], int* cur_token_id)
         NEXT_TOKEN;
         return OP_NODE (OUT, param_node, nullptr);
     }
+    else if (CHECK_OP_T (TERMINATION_SYM))
+    {
+        printf ("\tTermination symbol again\n");
+
+        return nullptr;
+    }
     else
     {
         return GetVar (TOKENS_DATA);
@@ -319,6 +295,11 @@ TreeNode* GetExpression (Token token_array[], int* cur_token_id)
     {
         printf ("\t Found nill, returning\n");
         NEXT_TOKEN;
+        return nullptr;
+    }
+    else if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
+    {
+        printf ("\tYay, termination symbol\n");
         return nullptr;
     }
     else if(
@@ -446,9 +427,7 @@ TreeNode* GetNumOrVar (Token token_array[], int* cur_token_id)
 char* GetInputLine ()
 {
     char* buffer = (char*) calloc (MAX_SRC_LEN, sizeof (char));
-
     FILE* input_file = get_file (input_path, "r");
-
     fgets (buffer, MAX_SRC_LEN, input_file);
 
     fclose (input_file);
@@ -690,6 +669,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
         case VAR:
             PrintOperation (r_child);
+            PRINT ("; popping variable %s\n", cur_node->left->value.var_name);
             PRINT ("pop [%d]\n", GetVarIndx(cur_node->left->value.var_name));
 
             break;
