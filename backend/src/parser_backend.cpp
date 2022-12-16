@@ -13,13 +13,11 @@ int VARIABLES_AMOUNT = 0;
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
 {
-    // printf ("Creating node with type %d\n", type);
-
     TreeNode* new_node = (TreeNode*) calloc (1, sizeof (TreeNode));
     if (!new_node) return nullptr;
 
     if      (type == NUM_T) new_node->value.dbl_val  = dbl_val;
-    else if (type == VAR_T) new_node->value.var_name = var_name;
+    else if (type == VAR_T || type == NAME_T) new_node->value.var_name = var_name;
     else if (type == OP_T)  new_node->value.op_val   = op_val;
     
     new_node->left   = left_child;
@@ -57,16 +55,50 @@ TreeNode* GetGrammar ()
     int token_id = 0;
     int* cur_token_id = &token_id;
 
-    TreeNode* root = GetStatement(TOKENS_DATA); 
-
-    if (CUR_TOKEN.value.op_val == TERMINATION_SYM)
-        printf ("G: Got termination symbol, ending\n");
-    else
-        printf ("!!! Compilation error, cur Token: Type: %d, Dbl value: %lg. Line number %d. Op type: %d\n",
-               CUR_TOKEN.type, CUR_TOKEN.value.dbl_val, CUR_TOKEN.line_number, CUR_TOKEN.value.op_val);
-
-    return root;
+    return RecGetChild (TOKENS_DATA);
 }
+
+
+TreeNode* RecGetChild (Token token_array[], int* cur_token_id)
+{
+    printf ("Now working with token type %d, operation %s\n", CUR_TOKEN.type, GetOpSign (CUR_TOKEN.value.op_val));
+
+    if (CUR_TOKEN.type == VAR_T)
+    {
+        printf ("Hehe name %s\n", CUR_TOKEN.value.var_name);
+        VARIABLES_ARRAY[VARIABLES_AMOUNT].name = CUR_TOKEN.value.var_name;
+        VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;
+        VARIABLES_AMOUNT++;
+        
+        NEXT_TOKEN;
+        return NAME_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
+    }
+    else if (CUR_TOKEN.type == NUM_T)
+    {
+        NEXT_TOKEN;
+        return DIGIT_NODE (PREV_TOKEN.value.dbl_val);
+    }
+    else if (CHECK_OP_T (TERMINATION_SYM) )
+    {
+        printf ("End of tokens, returning\n");
+        return nullptr;
+    }
+    else if (CHECK_OP_T (NIL) )
+    {
+        printf ("Got NIL, returning\n");
+        return nullptr;
+    }
+    else
+    {
+        Options cur_opt = CUR_TOKEN.value.op_val;
+        NEXT_TOKEN;                                    
+        TreeNode* left_child = RecGetChild (TOKENS_DATA);        
+        TreeNode* right_child = RecGetChild (TOKENS_DATA);       
+        return OP_NODE (cur_opt, left_child, right_child);
+        
+    }
+}
+
 
 
 TreeNode* GetStatement (Token token_array[], int* cur_token_id)

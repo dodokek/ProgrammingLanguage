@@ -1,1 +1,1 @@
- {  ST  {  VAR  { "kot" }  { 2 }  }  { NIL }  } 
+ {  ST  {  IF  {  IS_NE  { 2 }  { 2 }  }  {  ELSE  {  ST  {  VAR  { "kot" }  { 1 }  }  { NIL }  }  {  ST  {  VAR  { "kot" }  { 3 }  }  { NIL }  }  }  }  { NIL }  } 

@@ -24,6 +24,8 @@ char* GetInputLine ();
 
 TreeNode* GetGrammar ();
 
+TreeNode* RecGetChild (Token token_array[], int* cur_token_id);
+
 TreeNode* GetStatement (Token token_array[], int* cur_token_id);
 
 TreeNode* GetFunction (Token token_array[], int* cur_token_id);

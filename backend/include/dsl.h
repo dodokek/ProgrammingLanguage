@@ -63,6 +63,17 @@
 
 //----Tree to asm-----------------
 
+// Some additions
+
+#define RET_COMMON_OP(name)                        \
+    NEXT_TOKEN;                                    \
+    left_child = RecGetChild (TOKENS_DATA);        \
+    right_child = RecGetChild (TOKENS_DATA);       \
+    return OP_NODE (name, left_child, right_child);
+
+
+//----------------
+
 
 
 #endif
