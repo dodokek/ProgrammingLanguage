@@ -77,8 +77,7 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
             ADD_TO_NAMETABLE;
             NEXT_TOKEN;
             return VAR_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
-        }
-        
+        } 
     }
     else if (CUR_TOKEN.type == NUM_T)
     {
@@ -97,6 +96,18 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
         NEXT_TOKEN;
         printf ("Got NIL, returning\n");
         return nullptr;
+    }
+    else if (CHECK_OP_T (VOID))
+    {
+        NEXT_TOKEN;
+        printf ("No return value.\n");
+        return OP_NODE (VOID, nullptr, nullptr);
+    }
+    else if (CHECK_OP_T (TYPE))
+    {
+        NEXT_TOKEN;
+        printf ("Need to return number, fella.\n");
+        return OP_NODE (TYPE, nullptr, nullptr);
     }
     else
     {
@@ -397,6 +408,14 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             PRINT ("sin\n");
             break;
 
+        case VOID:
+            PRINT (";no return params\n");
+            break;
+
+        case TYPE:
+            PRINT (";have to return something\n");
+            break;
+
         default:
             printf ("Unknown command! %d\n", cur_node->value.op_val);
             break;
@@ -477,6 +496,8 @@ Options GetOpType (char str[])
     CMP (SIN)
     CMP (COS)
     CMP (SQRT)
+    CMP (VOID)
+    CMP (TYPE)
     if (*str == '{')      return OPEN_BR;
     else if (*str == '}') return CLOSE_BR;
     else if (*str == '\0') return TERMINATION_SYM;
@@ -612,6 +633,12 @@ char* GetOpSign (Options op)
     SWITCH (SEMI_COL, "semi col")
     SWITCH (IN, "Input")
     SWITCH (OUT, "Output")
+    SWITCH (COS, "cos")
+    SWITCH (SIN, "sin")
+    SWITCH (SQRT, "sqrt")
+    SWITCH (VOID, "void")
+    SWITCH (TYPE, "type")
+
 
     default:
         return "?";
