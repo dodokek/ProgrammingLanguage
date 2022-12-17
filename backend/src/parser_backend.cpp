@@ -271,6 +271,8 @@ void PrintCmdsInFile (TreeNode* root)
 
     PrintOperation (root, cmds_file);
 
+
+    printf ("Successfully closing asm file\n");
     fclose (cmds_file);
 }
 
@@ -286,7 +288,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
     if (cur_node->type == OP_T)
     {
-        printf ("Switch op_t: %d\n", cur_node->value.op_val);
+        printf ("Switch op_t: %s\n",GetOpSign(cur_node->value.op_val));
         switch (cur_node->value.op_val)
         {
         case ST:
@@ -378,14 +380,15 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case IN:
-            PRINT ("in \n");
-            PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->left->left->value.var_name));
-
+            PRINT ("; getting variable %s\n", cur_node->left->left->value.var_name);
+            PRINT ("in\n");
+            PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
             break;
 
         case OUT:
-            PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->left->value.var_name));
-            PRINT ("out \n");
+            PRINT ("; printing variable %s\n", cur_node->left->left->value.var_name);
+            PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
+            PRINT ("out\n");
 
             break;
 
@@ -489,6 +492,7 @@ Options GetOpType (char str[])
     CMP (IS_BT)
     CMP (IS_NE)
     CMP (IN)
+    CMP (OUT)
     CMP (SIN)
     CMP (COS)
     CMP (SQRT)
@@ -585,7 +589,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
                 "label=\" {Op type: %d | value: unknown type}\"] \n \n",
                 node, node->type);
     }
-    printf ("Exiting\n");
+    // printf ("Exiting\n");
 
     if (node->left) InitGraphvisNode (node->left, dot_file);
     if (node->right) InitGraphvisNode (node->right, dot_file);

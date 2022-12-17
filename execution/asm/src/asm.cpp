@@ -309,10 +309,11 @@ int GetRegNum (char* reg)
 
 int GetCmdNum (char* cmd)
 {
-    printf ("Getting number of line %s\n\n", cmd);
+
+    printf ("\nGetting number of line %s, strlen is %d\n\n", cmd, strlen(cmd));
 
     #define DEF_CMD(name, id, num, offset, code) \
-    if (strncmp (cmd, #name, 3) == 0) return num; \
+    if (strcmp (cmd, #name) == 0) return num; \
     else
 
     //------------------
