@@ -66,6 +66,9 @@ void Execute (Processor* CpuInfo)
 
 int ProcessCommand (Stack* self, const char* code, int* ip, Processor* CpuInfo)
 {
+    printf ("Recieved command %d, ip %d\n", *code & CMD_BITMASK, *ip);
+
+
     #define DEF_CMD(name, id, len, offset, code) \
         case id:                   \
             code                     \

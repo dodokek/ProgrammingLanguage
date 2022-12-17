@@ -530,11 +530,11 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             }
             else
             {
-                PRINT ("; printing variable %s\n", cur_node->left->left->value.var_name);
-                PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
+                PRINT ("; printing variable %s\n", cur_node->left->value.var_name);
+                PRINT ("push [%d] \n", GetVarIndx (cur_node->left->value.var_name));
                 PRINT ("out\n");
             }
-            
+
             if (cur_node->right) PrintOperation (r_child);
 
             break;
@@ -551,7 +551,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
         case SQRT:
             PrintOperation (l_child);
-            PRINT ("sin\n");
+            PRINT ("sqr\n");
             break;
 
         case VOID:
@@ -563,7 +563,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         default:
-            printf ("Unknown command! %d\n", cur_node->value.op_val);
+            printf ("\n\nUnknown command! %d\n\n", cur_node->value.op_val);
             break;
         }
     }
@@ -649,6 +649,7 @@ Options GetOpType (char str[])
     else if (*str == '}') return CLOSE_BR;
     else if (*str == '\0') return TERMINATION_SYM;
     {
+        printf ("======Error, now suck type!====\n");
         return UNKNOWN;
     }
 }
