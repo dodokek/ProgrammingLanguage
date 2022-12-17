@@ -411,6 +411,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     if (!cur_node) return;
 
     static int label_counter = 0;
+    static Options previous_option = UNKNOWN;
 
     printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
              cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val, cur_node->value.var_name);
@@ -509,15 +510,32 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case IN:
-            PRINT ("; getting variable %s\n", cur_node->left->left->value.var_name);
-            PRINT ("in\n");
-            PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
+            previous_option = IN;
+            PrintOperation (l_child);
+
             break;
 
         case OUT:
-            PRINT ("; printing variable %s\n", cur_node->left->left->value.var_name);
-            PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
-            PRINT ("out\n");
+            previous_option = OUT;
+            PrintOperation (l_child);
+
+            break;
+
+        case PARAM:
+            if (previous_option == IN)
+            {
+                PRINT ("; getting variable %s\n", cur_node->left->value.var_name);
+                PRINT ("in\n");
+                PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->value.var_name));
+            }
+            else
+            {
+                PRINT ("; printing variable %s\n", cur_node->left->left->value.var_name);
+                PRINT ("push [%d] \n", GetVarIndx (cur_node->left->left->value.var_name));
+                PRINT ("out\n");
+            }
+            
+            if (cur_node->right) PrintOperation (r_child);
 
             break;
 
