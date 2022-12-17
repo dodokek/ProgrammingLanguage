@@ -48,27 +48,10 @@ push 1
 sub
 ; ----------
 ; popping variable kotik_pomen'bshe
-pop [5]
-; ----------
-; pushing variable kotik_pomen'bshe
-push [5]
-; ----------
-; pushing variable kotik
-push [0]
-; ----------
-mul
+pop [4]
 ; ----------
 ; popping variable kotik
 pop [0]
-; ----------
-; if begin
-; pushing variable k
-push [10]
-; ----------
-jne if_label0
-
-; ----------
-; ----------
 ; ----------
 ; ----------
 ; ----------

@@ -21,6 +21,7 @@ enum Types
     OP_T,
     SPEC_T,
     NAME_T,
+    NAME_SHORT_T,
 };
 
 

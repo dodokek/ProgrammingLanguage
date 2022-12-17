@@ -114,6 +114,8 @@ TreeNode* GetFuncHeader (Token token_array[], int *cur_token_id)
     printf("Function header: Now at %d\n", CUR_TOKEN.value.op_val);
 
     TreeNode* name_node  = GetNumOrName (TOKENS_DATA);
+    name_node->type = NAME_T;
+
     TreeNode* param_node = GetParam (TOKENS_DATA);
 
     name_node->left = param_node;
@@ -223,6 +225,7 @@ TreeNode* GetCall (Token token_array[], int* cur_token_id)
     {
         NEXT_TOKEN;
         TreeNode* func_name_node = GetNumOrName (TOKENS_DATA);
+        func_name_node->type = NAME_SHORT_T;
 
         return OP_NODE (CALL, func_name_node, nullptr);
     }
@@ -643,11 +646,20 @@ void PrintTreeInFile (TreeNode* root)
 
 void RecPrintNode (TreeNode* cur_node, FILE* out_file)
 {
-    printf ("Printing node with op type: %d\n", cur_node->value.op_val);
+    printf ("Printing node type: %d with op type: %d\n",
+             cur_node->type, cur_node->value.op_val);
 
     PRINT (" { ");
 
     if      (cur_node->type == NUM_T) PRINT ("%lg", cur_node->value.dbl_val);
+    else if (cur_node->type == NAME_T)
+    {
+        PRINT ("\"%s\" { NIL } { VOID { NIL } { NIL } }", cur_node->value.var_name);
+    }
+    else if (cur_node->type == NAME_SHORT_T)
+    {
+        PRINT ("\"%s\" { NIL } { NIL } ", cur_node->value.var_name);
+    }
     else if (cur_node->type == VAR_T)
     {
         PRINT ("\"%s\"", cur_node->value.var_name);
@@ -743,7 +755,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
                 "label=\" {Type: variable | value: %s}\"] \n \n",
                 node, node->value);
 
-    else if (node->type == NAME_T)
+    else if (node->type == NAME_T || node->type == NAME_SHORT_T)
         __print ("Node%p[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"#19DB27\","
                 "label=\" {Function name |Name: %s}\"] \n \n",
                 node, node->value);

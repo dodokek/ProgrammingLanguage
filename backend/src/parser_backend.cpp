@@ -63,14 +63,17 @@ TreeNode* GetGrammar ()
 TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name)
 {
     printf ("Now working with token type %d, operation %s\n", CUR_TOKEN.type, GetOpSign (CUR_TOKEN.value.op_val));
-
+    printf ("Token num %d: ", *cur_token_id);
     if (CUR_TOKEN.type == VAR_T)
     {
         printf ("Hehe name %s and %d\n", CUR_TOKEN.value.var_name, is_func_name);
         if (is_func_name)
         {
+            const char* cur_name = CUR_TOKEN.value.var_name;
             NEXT_TOKEN;
-            return NAME_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
+            TreeNode* param_node = RecGetChild (TOKENS_DATA, NOT_FUNC);
+            TreeNode* type_node  = RecGetChild (TOKENS_DATA, NOT_FUNC);
+            return NAME_NODE (cur_name, param_node, type_node);
         }
         else 
         {
@@ -94,31 +97,19 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
     else if (CHECK_OP_T (NIL))
     {
         NEXT_TOKEN;
-        printf ("Got NIL, returning\n");
+        printf ("Skipping nil\n");
         return nullptr;
     }
-    else if (CHECK_OP_T (VOID))
-    {
-        NEXT_TOKEN;
-        printf ("No return value.\n");
-        return OP_NODE (VOID, nullptr, nullptr);
-    }
-    else if (CHECK_OP_T (TYPE))
-    {
-        NEXT_TOKEN;
-        printf ("Need to return number, fella.\n");
-        return OP_NODE (TYPE, nullptr, nullptr);
-    }
-    else
+    else 
     {
         Options cur_opt = CUR_TOKEN.value.op_val;
-        printf ("\n\n Cur opt is %s\n\n", GetOpSign (cur_opt));
+        printf ("Cur opt is %s\n", GetOpSign (cur_opt));
         TreeNode* left_child = nullptr;
         TreeNode* right_child = nullptr;
         
         NEXT_TOKEN;                     
 
-        if (cur_opt == FUNC)
+        if (cur_opt == FUNC || cur_opt == CALL)
             left_child = RecGetChild (TOKENS_DATA, IS_FUNC);        
         else
             left_child = RecGetChild (TOKENS_DATA, NOT_FUNC);        
@@ -562,7 +553,7 @@ void DrawTree (TreeNode* root)
 void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialises every node 
 {
     assert (node != nullptr);
-
+    printf ("Entering node type %d, name %p\n", node->type, node->value.var_name);
     if (node->type == NUM_T)
         __print ("Node%p[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"#DB8E21\","
                 "label=\" {Type: number | value: %lg}\"] \n \n",
@@ -580,7 +571,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
 
     else if (node->type == NAME_T)
         __print ("Node%p[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"#19DB27\","
-                "label=\" {Function name |Name: %s}\"] \n \n",
+                "label=\" {Function name | Name: %s}\"] \n \n",
                 node, node->value);
 
     else
@@ -589,6 +580,7 @@ void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialis
                 "label=\" {Op type: %d | value: unknown type}\"] \n \n",
                 node, node->type);
     }
+    printf ("Exiting\n");
 
     if (node->left) InitGraphvisNode (node->left, dot_file);
     if (node->right) InitGraphvisNode (node->right, dot_file);
