@@ -83,4 +83,9 @@ void DrawTree (TreeNode* root);
 
 char* GetOpSign (Options op);
 
+void TreeToOriginalLang (TreeNode* root);
+
+void RecToOrigin (TreeNode* cur_node, FILE* out_file);
+
+
 #endif

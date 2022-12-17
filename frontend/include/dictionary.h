@@ -29,7 +29,7 @@ CMD(CLOSE_BR, "valim")
 CMD(FUNC, "funk")
 CMD(RET, "lee_kuda_presh'")
 
-CMD(VAR, "var")
+CMD(VAR, "niukh_niukh")
 CMD(CALL, "kis_kis")
 CMD(CLOSE_BR, "vse")
 

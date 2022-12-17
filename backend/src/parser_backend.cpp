@@ -62,7 +62,7 @@ TreeNode* GetGrammar ()
 
 TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name)
 {
-    printf ("Now working with token type %d, operation %s\n", CUR_TOKEN.type, GetOpSign (CUR_TOKEN.value.op_val));
+    printf ("Now working with token type %d, operation %s, %d\n", CUR_TOKEN.type, GetOpSign (CUR_TOKEN.value.op_val), CUR_TOKEN.value.op_val);
     printf ("Token num %d: ", *cur_token_id);
     if (CUR_TOKEN.type == VAR_T)
     {
@@ -141,19 +141,24 @@ void FillTokensArray (Token* token_array)
     int tokens_amount = 0;
     int input_len = (int) strlen(input);
 
+    printf ("%s\n", input);
+
+
     for (int i = 0; i <= input_len;)
     {
         SkipSpaces (input, &i);
         
         if (isalpha(input[i]))
         {
-            printf ("Now at %c\n", input[i]);
+            printf ("Now at %c, ind %d out of %d\n", input[i], i, strlen(input)); // for dbg only
 
             char op_name[MAX_NAME_LEN] = "";
 
             int len = 0;
             sscanf (input + i, "%[^{} ]%n", op_name, &len);
             i += len;
+
+            printf ("\n\tGot string %s\n", op_name);
 
             Options operation = GetOpType (op_name);
             TOP_TOKEN = CreateToken (OP_T, 0, operation, i); 
@@ -553,7 +558,7 @@ void DrawTree (TreeNode* root)
 void InitGraphvisNode (TreeNode* node, FILE* dot_file)   // Recursivly initialises every node 
 {
     assert (node != nullptr);
-    printf ("Entering node type %d, name %p\n", node->type, node->value.var_name);
+    // printf ("Entering node type %d, name %p\n", node->type, node->value.var_name);
     if (node->type == NUM_T)
         __print ("Node%p[shape=record, width=0.2, style=\"filled\", color=\"red\", fillcolor=\"#DB8E21\","
                 "label=\" {Type: number | value: %lg}\"] \n \n",
