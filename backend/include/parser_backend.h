@@ -59,6 +59,8 @@ void DrawTree (TreeNode* root);
 
 char* GetOpSign (Options op);
 
+int SimplifyTree (TreeNode* cur_node);
+
 TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name);
 
 #define PRINT(...) fprintf (cmds_file, __VA_ARGS__)

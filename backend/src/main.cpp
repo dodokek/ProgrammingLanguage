@@ -4,6 +4,8 @@ int main()
 {
     TreeNode* root = GetGrammar ();
 
+    SimplifyTree (root);
+
     DrawTree (root);
 
     PrintCmdsInFile (root);

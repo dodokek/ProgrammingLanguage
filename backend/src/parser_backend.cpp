@@ -44,6 +44,24 @@ TreeNode* DestructTree (TreeNode* root)
 }
 
 
+TreeNode* TransformNode (TreeNode* node, Types type, double dbl_val, const char* var_name)
+{
+    node->type = type;
+    
+    if (type == NUM_T)
+        node->value.dbl_val = dbl_val;
+    else
+        node->value.var_name = var_name;
+
+    if (node->left)  free (node->left);
+    if (node->right) free (node->right);
+
+    node->left = nullptr;
+    node->right = nullptr;
+
+}
+
+
 //---<Parser>-------------------------------------------
 
 
@@ -118,6 +136,117 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
         
         return OP_NODE (cur_opt, left_child, right_child);      
     }
+}
+
+
+int SimplifyTree (TreeNode* cur_node)
+{
+    assert (cur_node != nullptr);
+
+    int simpl_amount = 0;
+
+    if (cur_node->left)  simpl_amount  += SimplifyTree (cur_node->left);
+    if (cur_node->right) simpl_amount  += SimplifyTree (cur_node->right);
+    
+    if (!cur_node->left || !cur_node->right) return 0;
+
+    if (CUR_T == OP_T && L_TYPE != OP_T && R_TYPE != OP_T)
+    {
+        if (CUR_OP == MUL)
+        {
+            if      (isZero (L_DBL) && L_TYPE == NUM_T)
+            {
+                printf ("Simplifying <Zero> case left\n");
+
+                TransformNode (cur_node, NUM_T, 0, nullptr);
+                return 1;
+            }
+
+            else if (isZero (R_DBL) && R_TYPE == NUM_T)
+            {
+                printf ("Simplifying <Zero> case right\n");
+
+                TransformNode (cur_node, NUM_T, 0, nullptr);
+                return 1;
+            }
+
+            else if (isEqual (R_DBL, 1))
+            {
+                printf ("Simplifying <one> case right\n");
+
+                if (L_TYPE == NUM_T)
+                {
+                    TransformNode (cur_node, NUM_T, L_DBL, nullptr);
+                    return 1;
+                }
+                if (L_TYPE == VAR_T)
+                {    
+                    TransformNode (cur_node, VAR_T, 0, L_VAR);
+                    return 1;
+                }
+            }
+
+            else if (isEqual (L_DBL, 1))
+            {
+                printf ("Simplifying <one> case left\n");
+                if (R_TYPE == NUM_T)
+                {
+                    TransformNode (cur_node, NUM_T, R_DBL, nullptr);
+                    return 1;
+                }
+                if (R_TYPE == VAR_T)
+                {   
+                    TransformNode (cur_node, VAR_T, 0, R_VAR);
+                    return 1;
+                }
+            }
+        }
+        
+        if (L_TYPE == NUM_T && R_TYPE == NUM_T)
+        {
+            if (CUR_OP == ADD)
+            {
+                printf ("Oh, two numbers, ADD!\n");
+                TransformNode (cur_node, NUM_T, L_DBL + R_DBL, nullptr);
+                return 1;
+            }
+            else if (CUR_OP == MUL)
+            {
+                printf ("Oh, two numbers, MUL!\n");
+                TransformNode (cur_node, NUM_T, L_DBL * R_DBL, nullptr);
+                return 1;
+            }
+            else if (CUR_OP == SUB)
+            {
+                printf ("Oh, two numbers, MUL!\n");
+                TransformNode (cur_node, NUM_T, L_DBL - R_DBL, nullptr);
+                return 1;
+            }
+            else if (CUR_OP == DIV)
+            {
+                printf ("Oh, two numbers, MUL!\n");
+                TransformNode (cur_node, NUM_T, L_DBL / R_DBL, nullptr);
+                return 1;
+            }
+        }
+    }
+
+    return simpl_amount;
+}
+
+
+bool isZero (double num)
+{
+    printf ("recieved num %lg\n", num);
+    if (abs(num) <= ACCURACY) return true;
+
+    return false;
+}
+
+
+bool isEqual (double num1, double num2)
+{
+    return (abs (num1 - num2) < ACCURACY) ? 1 : 0;
 }
 
 
