@@ -262,18 +262,6 @@ bool isEqual (double num1, double num2)
 }
 
 
-char* GetInputLine ()
-{
-    char* buffer = (char*) calloc (MAX_SRC_LEN, sizeof (char));
-    FILE* input_file = get_file (input_path, "r");
-    fgets (buffer, MAX_SRC_LEN, input_file);
-
-    fclose (input_file);
-
-    return buffer;   
-}
-
-
 //-------Parser->Lecsical analysis----------------------------------
 
 void FillTokensArray (Token* token_array)
@@ -281,7 +269,7 @@ void FillTokensArray (Token* token_array)
     char* input = GetInputLine();
     int tokens_amount = 0;
     int input_len = (int) strlen(input);
-
+    
     printf ("%s\n", input);
 
 
@@ -362,7 +350,7 @@ void FillTokensArray (Token* token_array)
 
 void SkipSpaces (char* string, int* i)
 {
-    while (isspace(string[*i])) (*i)++;
+    while (string[*i] == '\n' || string[*i] == ' ' || string[*i] == '\r') (*i)++;
 }
 
 
@@ -727,6 +715,22 @@ void DrawTree (TreeNode* root)
     img_counter++;
 
     return;
+}
+
+
+char* GetInputLine ()
+{
+    char* buffer = (char*) calloc (MAX_SRC_LEN, sizeof (char));
+    FILE* input_file = get_file (input_path, "r");
+    
+    fseek (input_file, 0L, SEEK_END);
+    int file_len = ftell (input_file);
+    fseek (input_file, 0L, SEEK_SET);
+
+    fread (buffer, sizeof(char), file_len, input_file);
+    
+    fclose (input_file);
+    return buffer;   
 }
 
 
