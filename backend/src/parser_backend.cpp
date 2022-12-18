@@ -118,6 +118,18 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
         printf ("Skipping nil\n");
         return nullptr;
     }
+    else if (CHECK_OP_T (VOID))
+    {
+        NEXT_TOKEN;
+        printf ("Skipping nil\n");
+        return nullptr;
+    }
+    else if (CHECK_OP_T (TYPE))
+    {
+        NEXT_TOKEN;
+        printf ("Skipping nil\n");
+        return nullptr;
+    }
     else 
     {
         Options cur_opt = CUR_TOKEN.value.op_val;
@@ -419,6 +431,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     if (cur_node->type == OP_T)
     {
         printf ("Switch op_t: %s\n",GetOpSign(cur_node->value.op_val));
+        int cur_label_num = -1;
+     
         switch (cur_node->value.op_val)
         {
         case ST:
@@ -445,8 +459,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case SUB:
-            PrintOperation (l_child);
             PrintOperation (r_child);
+            PrintOperation (l_child);
 
             PRINT ("sub\n");
             break;
@@ -459,8 +473,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case DIV:
-            PrintOperation (l_child);
             PrintOperation (r_child);
+            PrintOperation (l_child);
 
             PRINT ("div\n");
             break;
@@ -483,6 +497,13 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
             break;
 
+        case IS_BT:
+            PrintOperation (l_child);
+            PrintOperation (r_child);
+            PRINT ("jae if_label%d\n\n", label_counter);
+
+            break;
+
         case IF:
             PRINT ("; if begin\n");
             PrintOperation (l_child);
@@ -491,15 +512,17 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case ELSE:
-            PRINT ("; if false\n");
-            PrintOperation (l_child);
-
-            PRINT ("\nif_label%d:\n", label_counter);
-            
+            cur_label_num = label_counter;
             label_counter++;
             PRINT ("; if true\n");
+            PrintOperation (l_child);
+            PRINT ("jmp else_label%d\n", cur_label_num);
+
+            PRINT ("\nif_label%d:\n", cur_label_num);
+            PRINT ("; if false\n");
             PrintOperation (r_child);
 
+            PRINT ("\nelse_label%d:\n", cur_label_num);
             break;
 
         case VAR:

@@ -320,6 +320,7 @@ int GetCmdNum (char* cmd)
     #include "../../general_includes/codegen/cmds.h"
     {
         printf ("=========SIGILL %d:==========\n", *cmd);
+        scanf ("");
         return -1;
     }
     //------------------

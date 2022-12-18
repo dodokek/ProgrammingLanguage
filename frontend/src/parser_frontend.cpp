@@ -391,7 +391,7 @@ TreeNode* GetBracketExp (Token token_array[], int* cur_token_id)
     }
     else
     {
-        return GetNumOrName (token_array, cur_token_id);
+        return GetSpecOperations (token_array, cur_token_id);
     }
 }
 
@@ -654,7 +654,7 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
     if      (cur_node->type == NUM_T) PRINT ("%lg", cur_node->value.dbl_val);
     else if (cur_node->type == NAME_T)
     {
-        PRINT ("\"%s\" { NIL } { VOID { NIL } { NIL } } ", cur_node->value.var_name);
+        PRINT ("\"%s\" { NIL } { VOID } ", cur_node->value.var_name);
     }
     else if (cur_node->type == NAME_SHORT_T)
     {

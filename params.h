@@ -6,11 +6,11 @@ enum Sizes
 {
     MAX_IMG_SRC_LEN = 100,
     STACK_INIT_CAP = 5,
-    MAX_NAME_LEN = 100,
-    MAX_SRC_LEN = 10000,
-    MAX_VARIABLES = 100,
-    MAX_TOKEN_LEN = 100,
-    MAX_TOKENS = 300,
+    MAX_NAME_LEN = 200,
+    MAX_SRC_LEN = 20000,
+    MAX_VARIABLES = 200,
+    MAX_TOKEN_LEN = 400,
+    MAX_TOKENS = 500,
 };
 
 

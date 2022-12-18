@@ -66,7 +66,7 @@ void Execute (Processor* CpuInfo)
 
 int ProcessCommand (Stack* self, const char* code, int* ip, Processor* CpuInfo)
 {
-    printf ("Recieved command %d, ip %d\n", *code & CMD_BITMASK, *ip);
+    // printf ("Recieved command %d, ip %d\n", *code & CMD_BITMASK, *ip);
 
 
     #define DEF_CMD(name, id, len, offset, code) \
@@ -80,6 +80,7 @@ int ProcessCommand (Stack* self, const char* code, int* ip, Processor* CpuInfo)
 
         default:
             printf ("SIGILL %d\n", *code);
+            scanf ("");
             return 1;
     }
 
