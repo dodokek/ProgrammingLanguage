@@ -8,306 +8,426 @@
         graph[fillcolor = lightgreen, ranksep = 1.3, nodesep = 0.5,
         style = "rounded, filled",color = green, penwidth = 2]
 
-    Node000001cb167a3360[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+    Node000001aeafd240e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a3120[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: FUNC}"] 
+Node000001aeafd23f90[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: FUNC}"] 
  
-Node000001cb16931cc0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Function name | Name: main}"] 
+Node000001aeafea1cc0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Function name | Name: main}"] 
  
-Node000001cb167a30f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd23e40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb1693ee00[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IN}"] 
+Node000001aeafea1d50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
  
-Node000001cb1693edd0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafea1cf0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: zhopka}"] 
  
-Node000001cb16931cf0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+Node000001aeafea1d20[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 3802}"] 
  
-Node000001cb16931db0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd23db0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb16931d20[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafeaee90[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IN}"] 
  
-Node000001cb16931d80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafeaee60[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb16931d50[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
+Node000001aeafea1d80[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
  
-Node000001cb167a3090[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafeaee30[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a2440[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+Node000001aeafea1db0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb1693ee30[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+Node000001aeafeaee00[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a2200[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+Node000001aeafeaedd0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
  
-Node000001cb1693eec0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+Node000001aeafd242c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb1693ee60[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafd22c50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
  
-Node000001cb1693ee90[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafeaeec0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
  
-Node000001cb167a20e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+Node000001aeafd22980[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
  
-Node000001cb167a21a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+Node000001aeafd22b60[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
  
-Node000001cb1693eef0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 4}"] 
+Node000001aeafeaeef0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb1693ef20[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+Node000001aeafeaef20[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb167a2410[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
+Node000001aeafd228f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
  
-Node000001cb167a3000[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22bf0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
  
-Node000001cb167a2110[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+Node000001aeafd22b90[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 4}"] 
  
-Node000001cb167a2230[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd22920[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
  
-Node000001cb167a22c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+Node000001aeafd22ad0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
  
-Node000001cb167a3060[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd23de0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2910[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
+Node000001aeafd22bc0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
  
-Node000001cb167a2380[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_EE}"] 
+Node000001aeafd22aa0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a22f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+Node000001aeafd22b00[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
  
-Node000001cb167a2320[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+Node000001aeafd24470[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2970[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
+Node000001aeafd23120[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
  
-Node000001cb167a2580[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22c20[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_EE}"] 
  
-Node000001cb167a23b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+Node000001aeafd229b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
  
-Node000001cb167a2170[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
+Node000001aeafd229e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a2290[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
+Node000001aeafd22d30[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
  
-Node000001cb167a21d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+Node000001aeafd23390[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2140[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+Node000001aeafd23030[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
  
-Node000001cb167a2350[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
+Node000001aeafd22a40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_EE}"] 
  
-Node000001cb167a2260[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafd22950[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb167a29d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22a10[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a2670[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+Node000001aeafd22ee0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
  
-Node000001cb167a26a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd23060[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a23e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
+Node000001aeafd23240[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
  
-Node000001cb167a2880[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22b30[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a2700[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
+Node000001aeafd22a70[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: zhopka}"] 
  
-Node000001cb167a2ac0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd232a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2760[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+Node000001aeafd23150[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
  
-Node000001cb167a25b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
+Node000001aeafd22d90[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2c40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 3802}"] 
+Node000001aeafd23450[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
  
-Node000001cb167a2df0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd23270[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
  
-Node000001cb167a32a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
+Node000001aeafd23090[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
  
-Node000001cb167a2b50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_BT}"] 
+Node000001aeafd23300[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
  
-Node000001cb167a28b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+Node000001aeafd233c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a27c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+Node000001aeafd23480[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: c}"] 
  
-Node000001cb167a2f10[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
+Node000001aeafd22f40[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb167a2c70[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd230f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2bb0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+Node000001aeafd23330[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
  
-Node000001cb167a25e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd230c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a2a00[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
+Node000001aeafd22eb0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
  
-Node000001cb167a2850[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22dc0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2520[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+Node000001aeafd23000[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
  
-Node000001cb167a27f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd231b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2940[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
+Node000001aeafd23180[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
  
-Node000001cb167a28e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22df0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
  
-Node000001cb167a2820[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
+Node000001aeafd23360[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 1337}"] 
  
-Node000001cb167a3330[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd24080[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2be0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+Node000001aeafd23bd0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
  
-Node000001cb167a2a90[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik1}"] 
+Node000001aeafd231e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_EE}"] 
  
-Node000001cb167a2b20[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
+Node000001aeafd232d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
  
-Node000001cb167a26d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ADD}"] 
+Node000001aeafd23420[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a2a30[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+Node000001aeafd235a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
  
-Node000001cb167a29a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+Node000001aeafd238d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a24f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafd22f10[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
  
-Node000001cb167a2790[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SQRT}"] 
+Node000001aeafd23210[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
  
-Node000001cb167a2af0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+Node000001aeafd22f70[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
  
-Node000001cb167a2640[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+Node000001aeafd22d00[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
  
-Node000001cb167a2a60[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+Node000001aeafd233f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a2b80[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+Node000001aeafd22d60[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
  
-Node000001cb167a33c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd22e80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
  
-Node000001cb167a31b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+Node000001aeafd22e20[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
  
-Node000001cb167a2c10[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik2}"] 
+Node000001aeafd22e50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
  
-Node000001cb167a3270[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
+Node000001aeafd23c30[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2fd0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+Node000001aeafd237b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
  
-Node000001cb167a2610[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+Node000001aeafd22fd0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a2550[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+Node000001aeafd22fa0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: otvet}"] 
  
-Node000001cb167a2730[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+Node000001aeafd23720[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a3240[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SQRT}"] 
+Node000001aeafd236c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
  
-Node000001cb167a3030[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+Node000001aeafd23540[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2f70[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+Node000001aeafd23930[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
  
-Node000001cb167a2f40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+Node000001aeafd24260[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2ee0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+Node000001aeafd24230[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IF}"] 
  
-Node000001cb167a32d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd23a20[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: IS_BT}"] 
  
-Node000001cb167a2d90[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+Node000001aeafd23870[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
  
-Node000001cb167a2eb0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd23810[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
  
-Node000001cb167a3300[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik1}"] 
+Node000001aeafd24410[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ELSE}"] 
  
-Node000001cb167a30c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+Node000001aeafd23a50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
  
-Node000001cb167a2fa0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik2}"] 
+Node000001aeafd239f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
  
-Node000001cb167a2e80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+Node000001aeafd23600[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
  
-Node000001cb167a31e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
+Node000001aeafd235d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
  
-Node000001cb167a3360->Node000001cb167a3120
-Node000001cb167a3120->Node000001cb16931cc0
-Node000001cb167a3120->Node000001cb167a30f0
-Node000001cb167a30f0->Node000001cb1693ee00
-Node000001cb1693ee00->Node000001cb1693edd0
-Node000001cb1693edd0->Node000001cb16931cf0
-Node000001cb1693edd0->Node000001cb16931db0
-Node000001cb16931db0->Node000001cb16931d20
-Node000001cb16931db0->Node000001cb16931d80
-Node000001cb16931d80->Node000001cb16931d50
-Node000001cb167a30f0->Node000001cb167a3090
-Node000001cb167a3090->Node000001cb167a2440
-Node000001cb167a2440->Node000001cb1693ee30
-Node000001cb167a2440->Node000001cb167a2200
-Node000001cb167a2200->Node000001cb1693eec0
-Node000001cb1693eec0->Node000001cb1693ee60
-Node000001cb1693eec0->Node000001cb1693ee90
-Node000001cb167a2200->Node000001cb167a20e0
-Node000001cb167a20e0->Node000001cb167a21a0
-Node000001cb167a21a0->Node000001cb1693eef0
-Node000001cb167a21a0->Node000001cb1693ef20
-Node000001cb167a20e0->Node000001cb167a2410
-Node000001cb167a3090->Node000001cb167a3000
-Node000001cb167a3000->Node000001cb167a2110
-Node000001cb167a2110->Node000001cb167a2230
-Node000001cb167a2230->Node000001cb167a22c0
-Node000001cb167a3000->Node000001cb167a3060
-Node000001cb167a3060->Node000001cb167a2910
-Node000001cb167a2910->Node000001cb167a2380
-Node000001cb167a2380->Node000001cb167a22f0
-Node000001cb167a2380->Node000001cb167a2320
-Node000001cb167a2910->Node000001cb167a2970
-Node000001cb167a2970->Node000001cb167a2580
-Node000001cb167a2580->Node000001cb167a23b0
-Node000001cb167a23b0->Node000001cb167a2170
-Node000001cb167a23b0->Node000001cb167a2290
-Node000001cb167a2290->Node000001cb167a21d0
-Node000001cb167a21d0->Node000001cb167a2140
-Node000001cb167a21d0->Node000001cb167a2350
-Node000001cb167a2290->Node000001cb167a2260
-Node000001cb167a2580->Node000001cb167a29d0
-Node000001cb167a29d0->Node000001cb167a2670
-Node000001cb167a2670->Node000001cb167a26a0
-Node000001cb167a26a0->Node000001cb167a23e0
-Node000001cb167a29d0->Node000001cb167a2880
-Node000001cb167a2880->Node000001cb167a2700
-Node000001cb167a2970->Node000001cb167a2ac0
-Node000001cb167a2ac0->Node000001cb167a2760
-Node000001cb167a2760->Node000001cb167a25b0
-Node000001cb167a2760->Node000001cb167a2c40
-Node000001cb167a3060->Node000001cb167a2df0
-Node000001cb167a2df0->Node000001cb167a32a0
-Node000001cb167a32a0->Node000001cb167a2b50
-Node000001cb167a2b50->Node000001cb167a28b0
-Node000001cb167a2b50->Node000001cb167a27c0
-Node000001cb167a32a0->Node000001cb167a2f10
-Node000001cb167a2f10->Node000001cb167a2c70
-Node000001cb167a2c70->Node000001cb167a2bb0
-Node000001cb167a2bb0->Node000001cb167a25e0
-Node000001cb167a25e0->Node000001cb167a2a00
-Node000001cb167a2c70->Node000001cb167a2850
-Node000001cb167a2850->Node000001cb167a2520
-Node000001cb167a2520->Node000001cb167a27f0
-Node000001cb167a27f0->Node000001cb167a2940
-Node000001cb167a2850->Node000001cb167a28e0
-Node000001cb167a28e0->Node000001cb167a2820
-Node000001cb167a2f10->Node000001cb167a3330
-Node000001cb167a3330->Node000001cb167a2be0
-Node000001cb167a2be0->Node000001cb167a2a90
-Node000001cb167a2be0->Node000001cb167a2b20
-Node000001cb167a2b20->Node000001cb167a26d0
-Node000001cb167a26d0->Node000001cb167a2a30
-Node000001cb167a2a30->Node000001cb167a29a0
-Node000001cb167a2a30->Node000001cb167a24f0
-Node000001cb167a26d0->Node000001cb167a2790
-Node000001cb167a2790->Node000001cb167a2af0
-Node000001cb167a2b20->Node000001cb167a2640
-Node000001cb167a2640->Node000001cb167a2a60
-Node000001cb167a2640->Node000001cb167a2b80
-Node000001cb167a3330->Node000001cb167a33c0
-Node000001cb167a33c0->Node000001cb167a31b0
-Node000001cb167a31b0->Node000001cb167a2c10
-Node000001cb167a31b0->Node000001cb167a3270
-Node000001cb167a3270->Node000001cb167a2fd0
-Node000001cb167a2fd0->Node000001cb167a2610
-Node000001cb167a2610->Node000001cb167a2550
-Node000001cb167a2610->Node000001cb167a2730
-Node000001cb167a2fd0->Node000001cb167a3240
-Node000001cb167a3240->Node000001cb167a3030
-Node000001cb167a3270->Node000001cb167a2f70
-Node000001cb167a2f70->Node000001cb167a2f40
-Node000001cb167a2f70->Node000001cb167a2ee0
-Node000001cb167a33c0->Node000001cb167a32d0
-Node000001cb167a32d0->Node000001cb167a2d90
-Node000001cb167a2d90->Node000001cb167a2eb0
-Node000001cb167a2eb0->Node000001cb167a3300
-Node000001cb167a2eb0->Node000001cb167a30c0
-Node000001cb167a30c0->Node000001cb167a2fa0
-Node000001cb167a2df0->Node000001cb167a2e80
-Node000001cb167a2e80->Node000001cb167a31e0
+Node000001aeafd237e0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd23a80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+ 
+Node000001aeafd23960[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+ 
+Node000001aeafd23c90[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: pustota}"] 
+ 
+Node000001aeafd23900[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd23750[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
+ 
+Node000001aeafd24200[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd23b40[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+ 
+Node000001aeafd23990[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik1}"] 
+ 
+Node000001aeafd23b10[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
+ 
+Node000001aeafd23b70[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ADD}"] 
+ 
+Node000001aeafd23ae0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+ 
+Node000001aeafd23ab0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+ 
+Node000001aeafd238a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+ 
+Node000001aeafd23510[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SQRT}"] 
+ 
+Node000001aeafd23c00[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+ 
+Node000001aeafd23570[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+ 
+Node000001aeafd23840[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+ 
+Node000001aeafd239c0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+ 
+Node000001aeafd23d80[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd23d50[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: VAR}"] 
+ 
+Node000001aeafd23c60[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik2}"] 
+ 
+Node000001aeafd24170[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: DIV}"] 
+ 
+Node000001aeafd23690[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+ 
+Node000001aeafd23630[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SUB}"] 
+ 
+Node000001aeafd23ba0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 0}"] 
+ 
+Node000001aeafd236f0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: b}"] 
+ 
+Node000001aeafd23660[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: SQRT}"] 
+ 
+Node000001aeafd23780[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: miaukriminant}"] 
+ 
+Node000001aeafd24110[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: MUL}"] 
+ 
+Node000001aeafd23e70[shape=record, width=0.2, style="filled", color="red", fillcolor="#DB8E21",label=" {Type: number | value: 2}"] 
+ 
+Node000001aeafd23ea0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: a}"] 
+ 
+Node000001aeafd24140[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd241a0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: OUT}"] 
+ 
+Node000001aeafd241d0[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+ 
+Node000001aeafd240b0[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik1}"] 
+ 
+Node000001aeafd24440[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: PARAM}"] 
+ 
+Node000001aeafd24290[shape=record, width=0.2, style="filled", color="red", fillcolor="#19DB27",label=" {Type: variable | value: kotik2}"] 
+ 
+Node000001aeafd23e10[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: ST}"] 
+ 
+Node000001aeafd23d20[shape=record, width=0.2, style="filled", color="red", fillcolor="#DBB585",label=" {Type: operation | value: RET}"] 
+ 
+Node000001aeafd240e0->Node000001aeafd23f90
+Node000001aeafd23f90->Node000001aeafea1cc0
+Node000001aeafd23f90->Node000001aeafd23e40
+Node000001aeafd23e40->Node000001aeafea1d50
+Node000001aeafea1d50->Node000001aeafea1cf0
+Node000001aeafea1d50->Node000001aeafea1d20
+Node000001aeafd23e40->Node000001aeafd23db0
+Node000001aeafd23db0->Node000001aeafeaee90
+Node000001aeafeaee90->Node000001aeafeaee60
+Node000001aeafeaee60->Node000001aeafea1d80
+Node000001aeafeaee60->Node000001aeafeaee30
+Node000001aeafeaee30->Node000001aeafea1db0
+Node000001aeafeaee30->Node000001aeafeaee00
+Node000001aeafeaee00->Node000001aeafeaedd0
+Node000001aeafd23db0->Node000001aeafd242c0
+Node000001aeafd242c0->Node000001aeafd22c50
+Node000001aeafd22c50->Node000001aeafeaeec0
+Node000001aeafd22c50->Node000001aeafd22980
+Node000001aeafd22980->Node000001aeafd22b60
+Node000001aeafd22b60->Node000001aeafeaeef0
+Node000001aeafd22b60->Node000001aeafeaef20
+Node000001aeafd22980->Node000001aeafd228f0
+Node000001aeafd228f0->Node000001aeafd22bf0
+Node000001aeafd22bf0->Node000001aeafd22b90
+Node000001aeafd22bf0->Node000001aeafd22920
+Node000001aeafd228f0->Node000001aeafd22ad0
+Node000001aeafd242c0->Node000001aeafd23de0
+Node000001aeafd23de0->Node000001aeafd22bc0
+Node000001aeafd22bc0->Node000001aeafd22aa0
+Node000001aeafd22aa0->Node000001aeafd22b00
+Node000001aeafd23de0->Node000001aeafd24470
+Node000001aeafd24470->Node000001aeafd23120
+Node000001aeafd23120->Node000001aeafd22c20
+Node000001aeafd22c20->Node000001aeafd229b0
+Node000001aeafd22c20->Node000001aeafd229e0
+Node000001aeafd23120->Node000001aeafd22d30
+Node000001aeafd22d30->Node000001aeafd23390
+Node000001aeafd23390->Node000001aeafd23030
+Node000001aeafd23030->Node000001aeafd22a40
+Node000001aeafd22a40->Node000001aeafd22950
+Node000001aeafd22a40->Node000001aeafd22a10
+Node000001aeafd23030->Node000001aeafd22ee0
+Node000001aeafd22ee0->Node000001aeafd23060
+Node000001aeafd23060->Node000001aeafd23240
+Node000001aeafd23240->Node000001aeafd22b30
+Node000001aeafd22b30->Node000001aeafd22a70
+Node000001aeafd23060->Node000001aeafd232a0
+Node000001aeafd232a0->Node000001aeafd23150
+Node000001aeafd22ee0->Node000001aeafd22d90
+Node000001aeafd22d90->Node000001aeafd23450
+Node000001aeafd23450->Node000001aeafd23270
+Node000001aeafd23450->Node000001aeafd23090
+Node000001aeafd23090->Node000001aeafd23300
+Node000001aeafd23300->Node000001aeafd233c0
+Node000001aeafd23300->Node000001aeafd23480
+Node000001aeafd23090->Node000001aeafd22f40
+Node000001aeafd22d90->Node000001aeafd230f0
+Node000001aeafd230f0->Node000001aeafd23330
+Node000001aeafd23330->Node000001aeafd230c0
+Node000001aeafd230c0->Node000001aeafd22eb0
+Node000001aeafd230f0->Node000001aeafd22dc0
+Node000001aeafd22dc0->Node000001aeafd23000
+Node000001aeafd22d30->Node000001aeafd231b0
+Node000001aeafd231b0->Node000001aeafd23180
+Node000001aeafd23180->Node000001aeafd22df0
+Node000001aeafd23180->Node000001aeafd23360
+Node000001aeafd24470->Node000001aeafd24080
+Node000001aeafd24080->Node000001aeafd23bd0
+Node000001aeafd23bd0->Node000001aeafd231e0
+Node000001aeafd231e0->Node000001aeafd232d0
+Node000001aeafd231e0->Node000001aeafd23420
+Node000001aeafd23bd0->Node000001aeafd235a0
+Node000001aeafd235a0->Node000001aeafd238d0
+Node000001aeafd238d0->Node000001aeafd22f10
+Node000001aeafd22f10->Node000001aeafd23210
+Node000001aeafd22f10->Node000001aeafd22f70
+Node000001aeafd22f70->Node000001aeafd22d00
+Node000001aeafd22d00->Node000001aeafd233f0
+Node000001aeafd22d00->Node000001aeafd22d60
+Node000001aeafd22f70->Node000001aeafd22e80
+Node000001aeafd22e80->Node000001aeafd22e20
+Node000001aeafd22e80->Node000001aeafd22e50
+Node000001aeafd238d0->Node000001aeafd23c30
+Node000001aeafd23c30->Node000001aeafd237b0
+Node000001aeafd237b0->Node000001aeafd22fd0
+Node000001aeafd22fd0->Node000001aeafd22fa0
+Node000001aeafd23c30->Node000001aeafd23720
+Node000001aeafd23720->Node000001aeafd236c0
+Node000001aeafd235a0->Node000001aeafd23540
+Node000001aeafd23540->Node000001aeafd23930
+Node000001aeafd24080->Node000001aeafd24260
+Node000001aeafd24260->Node000001aeafd24230
+Node000001aeafd24230->Node000001aeafd23a20
+Node000001aeafd23a20->Node000001aeafd23870
+Node000001aeafd23a20->Node000001aeafd23810
+Node000001aeafd24230->Node000001aeafd24410
+Node000001aeafd24410->Node000001aeafd23a50
+Node000001aeafd23a50->Node000001aeafd239f0
+Node000001aeafd239f0->Node000001aeafd23600
+Node000001aeafd23600->Node000001aeafd235d0
+Node000001aeafd23a50->Node000001aeafd237e0
+Node000001aeafd237e0->Node000001aeafd23a80
+Node000001aeafd23a80->Node000001aeafd23960
+Node000001aeafd23960->Node000001aeafd23c90
+Node000001aeafd237e0->Node000001aeafd23900
+Node000001aeafd23900->Node000001aeafd23750
+Node000001aeafd24410->Node000001aeafd24200
+Node000001aeafd24200->Node000001aeafd23b40
+Node000001aeafd23b40->Node000001aeafd23990
+Node000001aeafd23b40->Node000001aeafd23b10
+Node000001aeafd23b10->Node000001aeafd23b70
+Node000001aeafd23b70->Node000001aeafd23ae0
+Node000001aeafd23ae0->Node000001aeafd23ab0
+Node000001aeafd23ae0->Node000001aeafd238a0
+Node000001aeafd23b70->Node000001aeafd23510
+Node000001aeafd23510->Node000001aeafd23c00
+Node000001aeafd23b10->Node000001aeafd23570
+Node000001aeafd23570->Node000001aeafd23840
+Node000001aeafd23570->Node000001aeafd239c0
+Node000001aeafd24200->Node000001aeafd23d80
+Node000001aeafd23d80->Node000001aeafd23d50
+Node000001aeafd23d50->Node000001aeafd23c60
+Node000001aeafd23d50->Node000001aeafd24170
+Node000001aeafd24170->Node000001aeafd23690
+Node000001aeafd23690->Node000001aeafd23630
+Node000001aeafd23630->Node000001aeafd23ba0
+Node000001aeafd23630->Node000001aeafd236f0
+Node000001aeafd23690->Node000001aeafd23660
+Node000001aeafd23660->Node000001aeafd23780
+Node000001aeafd24170->Node000001aeafd24110
+Node000001aeafd24110->Node000001aeafd23e70
+Node000001aeafd24110->Node000001aeafd23ea0
+Node000001aeafd23d80->Node000001aeafd24140
+Node000001aeafd24140->Node000001aeafd241a0
+Node000001aeafd241a0->Node000001aeafd241d0
+Node000001aeafd241d0->Node000001aeafd240b0
+Node000001aeafd241d0->Node000001aeafd24440
+Node000001aeafd24440->Node000001aeafd24290
+Node000001aeafd24260->Node000001aeafd23e10
+Node000001aeafd23e10->Node000001aeafd23d20
 }
