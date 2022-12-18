@@ -49,11 +49,6 @@ sub
 ; popping variable miaukriminant
 pop [4]
 ; ----------
-; printing variable miaukriminant
-push [4] 
-out
-; ----------
-; ----------
 ; if begin
 ; pushing variable a
 push [1]
@@ -102,10 +97,10 @@ sub
 div
 ; ----------
 ; popping variable otvet
-pop [13]
+pop [12]
 ; ----------
 ; printing variable otvet
-push [13] 
+push [12] 
 out
 ; ----------
 ; ----------
@@ -128,7 +123,7 @@ if_label0:
 push 1337
 ; ----------
 ; popping variable pustota
-pop [17]
+pop [16]
 ; ----------
 ; ----------
 
@@ -162,10 +157,10 @@ sub
 div
 ; ----------
 ; popping variable otvet
-pop [13]
+pop [12]
 ; ----------
 ; printing variable otvet
-push [13] 
+push [12] 
 out
 ; ----------
 ; ----------
@@ -180,11 +175,6 @@ jmp else_label2
 
 if_label2:
 ; if false
-ret
-; end of func
-
-; ----------
-; ----------
 
 else_label2:
 ; ----------
@@ -200,12 +190,12 @@ jae if_label3
 ; ----------
 ; if true
 ; printing variable pustota
-push [17] 
+push [16] 
 out
 ; ----------
 ; ----------
 ; printing variable pustota
-push [17] 
+push [16] 
 out
 ; ----------
 ; ----------
@@ -244,7 +234,7 @@ add
 div
 ; ----------
 ; popping variable kotik1
-pop [26]
+pop [25]
 ; ----------
 push 2
 ; ----------
@@ -270,13 +260,13 @@ sub
 div
 ; ----------
 ; popping variable kotik2
-pop [30]
+pop [29]
 ; ----------
 ; printing variable kotik1
-push [26] 
+push [25] 
 out
 ; printing variable kotik2
-push [30] 
+push [29] 
 out
 ; ----------
 ; ----------
@@ -291,7 +281,6 @@ else_label3:
 ret
 ; end of func
 
-; ----------
 ; ----------
 ; ----------
 ; ----------

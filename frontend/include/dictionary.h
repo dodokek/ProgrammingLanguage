@@ -3,8 +3,8 @@ CMD(ELSE, "ai_ladno");
 
 CMD(WHILE, "poka")
 
-CMD(ADD, "+");
-CMD(SUB, "-");
+CMD(ADD, "sozhrat'");
+CMD(SUB, "kus'_za_zhopu");
 CMD(MUL, "miaia");
 CMD(DIV, "miiuiaiaiaiau");
 CMD(POW, "^");
@@ -26,7 +26,7 @@ CMD(CLOSE_BR, ")")
 CMD(SEMI_COL, "miau")
 CMD(CLOSE_BR, "valim")
 
-CMD(FUNC, "funk")
+CMD(FUNC, "komnata_edinichki")
 CMD(RET, "lee_kuda_presh'")
 
 CMD(VAR, "niukh_niukh")
