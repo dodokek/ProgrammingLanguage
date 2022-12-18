@@ -6,20 +6,15 @@ hlt
 ; function 
 main:
 ; ----------
-push 0
-; ----------
-; popping variable pustota
-pop [0]
-; ----------
 ; getting variable a
 in
-pop [1] 
+pop [0] 
 ; getting variable b
 in
-pop [2] 
+pop [1] 
 ; getting variable c
 in
-pop [3] 
+pop [2] 
 ; ----------
 ; ----------
 ; ----------
@@ -27,31 +22,36 @@ pop [3]
 push 4
 ; ----------
 ; pushing variable a
-push [1]
+push [0]
 ; ----------
 mul
 ; ----------
 ; pushing variable c
-push [3]
+push [2]
 ; ----------
 mul
 ; ----------
 ; pushing variable b
-push [2]
+push [1]
 ; ----------
 ; pushing variable b
-push [2]
+push [1]
 ; ----------
 mul
 ; ----------
 sub
 ; ----------
 ; popping variable miaukriminant
-pop [4]
+pop [3]
+; ----------
+; printing variable miaukriminant
+push [3] 
+out
+; ----------
 ; ----------
 ; if begin
 ; pushing variable a
-push [1]
+push [0]
 ; ----------
 push 0
 ; ----------
@@ -60,10 +60,10 @@ jne if_label0
 ; ----------
 ; if true
 ; pushing variable b
-push [2]
+push [1]
 ; ----------
 ; pushing variable c
-push [3]
+push [2]
 ; ----------
 push 0
 ; ----------
@@ -90,9 +90,10 @@ jmp else_label0
 
 if_label0:
 ; if false
-ret
-; end of func
-
+push 3802
+; ----------
+; popping variable pustota
+pop [14]
 ; ----------
 ; ----------
 
@@ -100,23 +101,28 @@ else_label0:
 ; ----------
 ; ----------
 ; if begin
-; pushing variable miaukriminant
-push [4]
-; ----------
 push 0
 ; ----------
-jne if_label1
+; pushing variable miaukriminant
+push [3]
+; ----------
+jae if_label1
 
 ; ----------
 ; if true
 ; printing variable pustota
-push [0] 
+push [14] 
 out
 ; ----------
 ; ----------
 ; printing variable pustota
-push [0] 
+push [14] 
 out
+; ----------
+; ----------
+ret
+; end of func
+
 ; ----------
 ; ----------
 ; ----------
@@ -128,39 +134,43 @@ if_label1:
 push 2
 ; ----------
 ; pushing variable a
-push [1]
+push [0]
 ; ----------
 mul
 ; ----------
 ; pushing variable b
-push [2]
+push [1]
 ; ----------
 push 0
 ; ----------
 sub
 ; ----------
 ; pushing variable miaukriminant
-push [4]
+push [3]
+; ----------
+sqr
 ; ----------
 add
 ; ----------
 div
 ; ----------
 ; popping variable kotik1
-pop [17]
+pop [18]
 ; ----------
 push 2
 ; ----------
 ; pushing variable a
-push [1]
+push [0]
 ; ----------
 mul
 ; ----------
 ; pushing variable miaukriminant
-push [4]
+push [3]
+; ----------
+sqr
 ; ----------
 ; pushing variable b
-push [2]
+push [1]
 ; ----------
 push 0
 ; ----------
@@ -171,13 +181,13 @@ sub
 div
 ; ----------
 ; popping variable kotik2
-pop [21]
+pop [22]
 ; ----------
 ; printing variable kotik1
-push [17] 
+push [18] 
 out
 ; printing variable kotik2
-push [21] 
+push [22] 
 out
 ; ----------
 ; ----------

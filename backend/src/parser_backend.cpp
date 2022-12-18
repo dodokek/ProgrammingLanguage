@@ -498,8 +498,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case IS_BT:
-            PrintOperation (l_child);
             PrintOperation (r_child);
+            PrintOperation (l_child);
             PRINT ("jae if_label%d\n\n", label_counter);
 
             break;
