@@ -279,8 +279,6 @@ void FillTokensArray (Token* token_array)
         
         if (isalpha(input[i]))
         {
-            printf ("Now at %c, ind %d out of %d\n", input[i], i, strlen(input)); // for dbg only
-
             char op_name[MAX_NAME_LEN] = "";
 
             int len = 0;
@@ -312,7 +310,7 @@ void FillTokensArray (Token* token_array)
 
             tokens_amount++;
         } 
-        else if (isdigit (input[i]))
+        else if (isdigit (input[i]) || input[i] == '-')
         {
             printf ("Now at %c\n", input[i]);
 
@@ -395,7 +393,7 @@ void PrintCmdsInFile (TreeNode* root)
 {
     FILE* cmds_file = get_file ("data/cmds.asm", "w+");
 
-    PRINT ("call main\nhlt\n\n");
+    PRINT ("call meikun \nhlt\n\n");
     PRINT ("; let the chaos begin\n\n");
 
     PrintOperation (root, cmds_file);
@@ -418,7 +416,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 
     if (cur_node->type == OP_T)
     {
-        printf ("Switch op_t: %s\n",GetOpSign(cur_node->value.op_val));
+        printf ("Switch op_t: %s\n", GetOpSign(cur_node->value.op_val));
         int cur_label_num = -1;
      
         switch (cur_node->value.op_val)
@@ -502,6 +500,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
         case ELSE:
             cur_label_num = label_counter;
             label_counter++;
+            
             PRINT ("; if true\n");
             PrintOperation (l_child);
             PRINT ("jmp else_label%d\n", cur_label_num);

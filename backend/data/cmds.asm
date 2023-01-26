@@ -11,15 +11,20 @@ push 3802
 ; popping variable zhopka
 pop [0]
 ; ----------
+push 0
+; ----------
+; popping variable sonnyi_ded
+pop [1]
+; ----------
 ; getting variable a
 in
-pop [1] 
+pop [2] 
 ; getting variable b
 in
-pop [2] 
+pop [3] 
 ; getting variable c
 in
-pop [3] 
+pop [4] 
 ; ----------
 ; ----------
 ; ----------
@@ -27,31 +32,31 @@ pop [3]
 push 4
 ; ----------
 ; pushing variable a
-push [1]
+push [2]
 ; ----------
 mul
 ; ----------
 ; pushing variable c
-push [3]
+push [4]
 ; ----------
 mul
 ; ----------
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 mul
 ; ----------
 sub
 ; ----------
 ; popping variable miaukriminant
-pop [4]
+pop [5]
 ; ----------
 ; if begin
 ; pushing variable a
-push [1]
+push [2]
 ; ----------
 push 0
 ; ----------
@@ -61,11 +66,21 @@ jne if_label0
 ; if true
 ; if begin
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 push 0
 ; ----------
 jne if_label1
+
+; ----------
+; if true
+; if begin
+; pushing variable c
+push [4]
+; ----------
+push 0
+; ----------
+jne if_label2
 
 ; ----------
 ; if true
@@ -80,15 +95,35 @@ ret
 ; ----------
 ; ----------
 ; ----------
+jmp else_label2
+
+if_label2:
+; if false
+; printing variable sonnyi_ded
+push [1] 
+out
+; ----------
+; ----------
+ret
+; end of func
+
+; ----------
+; ----------
+; ----------
+
+else_label2:
+; ----------
+; ----------
+; ----------
 jmp else_label1
 
 if_label1:
 ; if false
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 ; pushing variable c
-push [3]
+push [4]
 ; ----------
 push 0
 ; ----------
@@ -97,10 +132,10 @@ sub
 div
 ; ----------
 ; popping variable otvet
-pop [12]
+pop [15]
 ; ----------
 ; printing variable otvet
-push [12] 
+push [15] 
 out
 ; ----------
 ; ----------
@@ -123,7 +158,7 @@ if_label0:
 push 1337
 ; ----------
 ; popping variable pustota
-pop [16]
+pop [19]
 ; ----------
 ; ----------
 
@@ -132,23 +167,23 @@ else_label0:
 ; ----------
 ; if begin
 ; pushing variable miaukriminant
-push [4]
+push [5]
 ; ----------
 push 0
 ; ----------
-jne if_label2
+jne if_label3
 
 ; ----------
 ; if true
 ; pushing variable a
-push [1]
+push [2]
 ; ----------
 push 2
 ; ----------
 mul
 ; ----------
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 push 0
 ; ----------
@@ -157,45 +192,10 @@ sub
 div
 ; ----------
 ; popping variable otvet
-pop [12]
+pop [15]
 ; ----------
 ; printing variable otvet
-push [12] 
-out
-; ----------
-; ----------
-ret
-; end of func
-
-; ----------
-; ----------
-; ----------
-; ----------
-jmp else_label2
-
-if_label2:
-; if false
-
-else_label2:
-; ----------
-; ----------
-; if begin
-push 0
-; ----------
-; pushing variable miaukriminant
-push [4]
-; ----------
-jae if_label3
-
-; ----------
-; if true
-; printing variable pustota
-push [16] 
-out
-; ----------
-; ----------
-; printing variable pustota
-push [16] 
+push [15] 
 out
 ; ----------
 ; ----------
@@ -210,22 +210,57 @@ jmp else_label3
 
 if_label3:
 ; if false
+
+else_label3:
+; ----------
+; ----------
+; if begin
+push 0
+; ----------
+; pushing variable miaukriminant
+push [5]
+; ----------
+jae if_label4
+
+; ----------
+; if true
+; printing variable pustota
+push [19] 
+out
+; ----------
+; ----------
+; printing variable pustota
+push [19] 
+out
+; ----------
+; ----------
+ret
+; end of func
+
+; ----------
+; ----------
+; ----------
+; ----------
+jmp else_label4
+
+if_label4:
+; if false
 push 2
 ; ----------
 ; pushing variable a
-push [1]
+push [2]
 ; ----------
 mul
 ; ----------
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 push 0
 ; ----------
 sub
 ; ----------
 ; pushing variable miaukriminant
-push [4]
+push [5]
 ; ----------
 sqr
 ; ----------
@@ -234,22 +269,22 @@ add
 div
 ; ----------
 ; popping variable kotik1
-pop [25]
+pop [28]
 ; ----------
 push 2
 ; ----------
 ; pushing variable a
-push [1]
+push [2]
 ; ----------
 mul
 ; ----------
 ; pushing variable miaukriminant
-push [4]
+push [5]
 ; ----------
 sqr
 ; ----------
 ; pushing variable b
-push [2]
+push [3]
 ; ----------
 push 0
 ; ----------
@@ -260,13 +295,13 @@ sub
 div
 ; ----------
 ; popping variable kotik2
-pop [29]
+pop [32]
 ; ----------
 ; printing variable kotik1
-push [25] 
+push [28] 
 out
 ; printing variable kotik2
-push [29] 
+push [32] 
 out
 ; ----------
 ; ----------
@@ -275,12 +310,13 @@ out
 ; ----------
 ; ----------
 
-else_label3:
+else_label4:
 ; ----------
 ; ----------
 ret
 ; end of func
 
+; ----------
 ; ----------
 ; ----------
 ; ----------
