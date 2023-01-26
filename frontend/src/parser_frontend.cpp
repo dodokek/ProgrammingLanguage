@@ -680,9 +680,9 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
     PRINT (" } ");
 }
 
-//--Write on disk. End---------------------------------------------
+//--- Write on disk. End---------------------------------------------
 
-//--Tree to original language. Begin---------------------------------------------
+//--- Tree to original language. Begin---------------------------------------------
 
 
 void TreeToOriginalLang (TreeNode* root)
@@ -690,11 +690,16 @@ void TreeToOriginalLang (TreeNode* root)
     FILE* out_file = get_file ("data/reverse.txt", "w+");
 
     RecToOrigin (root, out_file);
+
+    close_file (out_file, "reverse.txt");
 }
 
 
 void RecToOrigin (TreeNode* cur_node, FILE* out_file)
 {
+    printf ("Translating. type %d. name %d. val %d.\n",
+             cur_node->type, cur_node->value.var_name, cur_node->value.dbl_val);
+
     if (cur_node->type == VAR_T  ||
         cur_node->type == NAME_T ||
         cur_node->type == NAME_SHORT_T )
@@ -708,18 +713,19 @@ void RecToOrigin (TreeNode* cur_node, FILE* out_file)
     else
     {
         #define CMD(code, name)                                             \
+                                                                            \
         case code:                                                          \
-            if (cur_node->left) RecPrintNode (cur_node->left, out_file);    \
+            if (cur_node->left) RecToOrigin (cur_node->left, out_file);     \
             PRINT (" %s ", name);                                           \
-            if (cur_node->right) RecPrintNode (cur_node->right, out_file);  \
+            if (cur_node->right) RecToOrigin (cur_node->right, out_file);   \
             break;                                                          \
 
         switch (cur_node->value.op_val)
         {
         case ST:
-            if (cur_node->left) RecPrintNode (cur_node->left, out_file);
+            if (cur_node->left) RecToOrigin (cur_node->left, out_file);
             PRINT ("\n мяу \n");
-            if (cur_node->right) RecPrintNode (cur_node->right, out_file);
+            if (cur_node->right) RecToOrigin (cur_node->right, out_file);
             break;
        
         // ---------------Codegen--------------

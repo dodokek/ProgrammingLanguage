@@ -10,7 +10,9 @@ int main()
 
     DrawTree (root);
 
-    PrintTreeInFile (root);
+    TreeToOriginalLang (root);
+
+    // PrintTreeInFile (root);
 
     DestructTree (root);
 }
