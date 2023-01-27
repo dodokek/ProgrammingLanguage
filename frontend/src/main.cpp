@@ -12,7 +12,7 @@ int main()
 
     TreeToOriginalLang (root);
 
-    // PrintTreeInFile (root);
+    PrintTreeInFile (root);
 
     DestructTree (root);
 }

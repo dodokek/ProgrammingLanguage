@@ -398,7 +398,6 @@ void PrintCmdsInFile (TreeNode* root)
 
     PrintOperation (root, cmds_file);
 
-
     printf ("Successfully closing asm file\n");
     fclose (cmds_file);
 }
@@ -408,6 +407,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
 {
     if (!cur_node) return;
 
+    static int variables_from_begin = 0;
     static int label_counter = 0;
     static Options previous_option = UNKNOWN;
 
@@ -427,6 +427,8 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
         
         case FUNC:
+            variables_from_begin = 0;
+
             PRINT ("; function \n");
             PrintOperation (l_child);
             PrintOperation (r_child);
@@ -580,7 +582,6 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     else if (cur_node->type == NAME_T)
     {
         PRINT ("%s:\n", cur_node->value.var_name);
-        // PrintOperation (r_child);
     }
     else if (cur_node->type == NUM_T)
     {
@@ -589,14 +590,16 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     else if (cur_node->type == VAR_T)
     {
         PRINT ("; pushing variable %s\n", cur_node->value.var_name);
-        PRINT ("push [%d]\n", GetVarIndx(cur_node->value.var_name));
+        PRINT ("push [%d + rax]\n", variables_from_begin);
+
+        variables_from_begin++;
     }
     else
     {
         printf ("Error while translating to asm, unknown command, type %d, op %d\n",
                 cur_node->type, cur_node->value.op_val);
     }
-    PRINT ("; ----------\n");
+    PRINT ("; ---------------------------------------------\n");
 
     return;
 }
