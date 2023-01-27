@@ -63,6 +63,11 @@
 
 //----Tree to asm-----------------
 
+#define TO_ORIGIN(node, child) if (node->child) RecToOrigin (node->child, out_file)
+#define TRANSLATE_OP(name)          \
+    TO_ORIGIN (cur_node, left);     \
+    PRINT (name);                   \
+    TO_ORIGIN (cur_node, right);    \
 
 
 #endif
