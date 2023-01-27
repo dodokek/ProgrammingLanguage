@@ -791,7 +791,6 @@ void RecToOrigin (TreeNode* cur_node, FILE* out_file)
             
             TO_ORIGIN (cur_node, left);
             PRINT ("\n");
-            PutTabs (out_file, global_offset);
             TO_ORIGIN (cur_node, right);
             
             PRINT ("валим\n\n");
