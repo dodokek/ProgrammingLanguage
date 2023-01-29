@@ -58,8 +58,8 @@
 
 //----Tree to asm-----------------
 
-#define l_child cur_node->left, cmds_file
-#define r_child cur_node->right, cmds_file
+#define l_child cur_node->left, cmds_file, namespace_offset
+#define r_child cur_node->right, cmds_file, namespace_offset 
 
 
 //----Tree to asm-----------------

@@ -5,12 +5,6 @@
 
 const char input_path[] = "../frontend/data/tree.txt";
 
-// Gods forgive me for this global variable i am not govnocoder.
-Variable VARIABLES_ARRAY[MAX_VARIABLES] = {};
-int VARIABLES_AMOUNT = 0;
-// Gods forgive me for this global variable i am not govnocoder.
-
-
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
 {
@@ -95,7 +89,6 @@ TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name
         }
         else 
         {
-            ADD_TO_NAMETABLE;
             NEXT_TOKEN;
             return VAR_NODE (PREV_TOKEN.value.var_name, nullptr, nullptr);
         } 
@@ -392,24 +385,37 @@ void PrintTokens (Token* token_array)
 void PrintCmdsInFile (TreeNode* root)
 {
     FILE* cmds_file = get_file ("data/cmds.asm", "w+");
+    Stack namespace_offset = {};
+    StackCtor (&namespace_offset, MAX_NAMESPACES);
+    StackPush (&namespace_offset, 0);
 
-    PRINT ("call meikun \nhlt\n\n");
+    PRINT ("call main \nhlt\n\n");
     PRINT ("; let the chaos begin\n\n");
 
-    PrintOperation (root, cmds_file);
+    PrintOperation (root, cmds_file, &namespace_offset);
 
     printf ("Successfully closing asm file\n");
     fclose (cmds_file);
 }
 
 
-void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
+void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offset)
 {
     if (!cur_node) return;
 
-    static int variables_from_begin = 0;
     static int label_counter = 0;
     static Options previous_option = UNKNOWN;
+
+    static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
+    int vars_before = StackPop (namespace_offset);
+
+    printf ("====Listing namspace: \n");
+    for (int i = 0; i < vars_before; i++)
+    {
+        printf ("\t%s\n", _namespace[i]);
+    }
+
+    printf ("Vars from begin %d !!!!!!!!!!!!!\n", vars_before);
 
     printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
              cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val, cur_node->value.var_name);
@@ -427,11 +433,18 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
         
         case FUNC:
-            variables_from_begin = 0;
+            PRINT ("; switching namespace\npush %d\npush rax\nsub\n", vars_before);
+
+            for (int i = 0; i < vars_before; i++)
+                _namespace[i] = nullptr;
+            
+            StackPush (namespace_offset, 0);
 
             PRINT ("; function \n");
             PrintOperation (l_child);
             PrintOperation (r_child);
+
+            StackPop (namespace_offset);
             break;
 
         case RET:
@@ -515,9 +528,11 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             break;
 
         case VAR:
+           GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name); 
+
             PrintOperation (r_child);
             PRINT ("; popping variable %s\n", cur_node->left->value.var_name);
-            PRINT ("pop [%d]\n", GetVarIndx(cur_node->left->value.var_name));
+            PRINT ("pop [%d + rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name));
 
             break;
 
@@ -538,12 +553,12 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
             {
                 PRINT ("; getting variable %s\n", cur_node->left->value.var_name);
                 PRINT ("in\n");
-                PRINT ("pop [%d] \n", GetVarIndx (cur_node->left->value.var_name));
+                PRINT ("pop [rax + %d] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name));
             }
             else
             {
                 PRINT ("; printing variable %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d] \n", GetVarIndx (cur_node->left->value.var_name));
+                PRINT ("push [rax + %d] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name));
                 PRINT ("out\n");
             }
 
@@ -589,10 +604,12 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     }
     else if (cur_node->type == VAR_T)
     {
+        if (GetVariablePos (_namespace, &vars_before, cur_node->value.var_name) == -1)
+            vars_before++;
+        
         PRINT ("; pushing variable %s\n", cur_node->value.var_name);
-        PRINT ("push [%d + rax]\n", variables_from_begin);
-
-        variables_from_begin++;
+        PRINT ("push [%d + rax]\n",
+                GetVariablePos (_namespace, &vars_before, cur_node->value.var_name));
     }
     else
     {
@@ -601,19 +618,36 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file)
     }
     PRINT ("; ---------------------------------------------\n");
 
+    StackPush (namespace_offset, vars_before);
+
     return;
 }
 
 
-int GetVarIndx (const char* var_name)
+int GetVariablePos (char** _namespace, int* amount, const char var_name[])
 {
-    for (int cur_indx = 0; cur_indx < VARIABLES_AMOUNT; cur_indx++)
+    for (int cur_indx = 0; cur_indx < *amount; cur_indx++)
     {
-        if (strcmp (var_name, VARIABLES_ARRAY[cur_indx].name) == 0)
-            return VARIABLES_ARRAY[cur_indx].ram_indx;
+        printf ("\tNow cmpring %s and %s\n",_namespace[cur_indx], var_name);
+        if (strcmp ( _namespace[cur_indx], var_name ) == 0)
+            return *amount;
     }
 
-    printf ("Didn't found match fot %s in db\n", var_name);
+    InsertVarInNamespace (_namespace, amount, var_name);
+
+    printf ("Adding new variable to namespace: %s\n", var_name);
+    return -1;
+}
+
+
+int InsertVarInNamespace (char** _namespace, int* amount, const char var_name[])
+{
+    _namespace[*amount] = (char*) var_name;
+    (*amount)++;
+    for (int i = 0; i < *amount; i++)
+    {
+        printf ("-------------:%s:--------\n", _namespace[i]);
+    }
     return 0;
 }
 
