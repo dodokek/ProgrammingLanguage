@@ -449,6 +449,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case RET:
+
+            previous_option = RET;
+            PrintOperation (l_child);
+            
             PRINT ("ret\n");
             PRINT ("; end of func\n\n");
             break;
@@ -485,10 +489,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             previous_option = CALL;
             PrintOperation (r_child);
 
-            PRINT ("; switching namespace\npush %d\npush rax\nadd\n", vars_before);
+            PRINT ("; switching namespace\npush %d\npush rax\nadd\npop rax\n", vars_before);
             PRINT ("; calling func\ncall %s\n", cur_node->left->value.var_name);
             
-            PRINT ("; switching namespace\npush %d\npush rax\nsub\n", vars_before);
+            PRINT ("; switching namespace\npush %d\npush rax\nsub\npop rax\n", vars_before);
             
             break;
 
@@ -540,7 +544,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 
             PrintOperation (r_child);
             PRINT ("; popping variable %s\n", cur_node->left->value.var_name);
-            PRINT ("pop [rax + %d]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+            PRINT ("pop [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
 
             break;
 
@@ -561,25 +565,30 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             {
                 PRINT ("; getting variable %s\n", cur_node->left->value.var_name);
                 PRINT ("in\n");
-                PRINT ("pop [rax + %d] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
             else if (previous_option == OUT)
             {
                 PRINT ("; printing variable %s\n", cur_node->left->value.var_name);
-                PRINT ("push [rax + %d] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
                 PRINT ("out\n");
             }
             else if (previous_option == CALL)
             {
                 PRINT ("; pushing function call param: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [rax + %d]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
             else if (previous_option == FUNC)
             {
                 GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset);
                 
                 PRINT ("; poping function argument: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [rax + %d]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+            }
+            else if (previous_option == RET)
+            {
+                PRINT ("; returning the value from var: %s\n", cur_node->left->value.var_name);
+                PRINT ("push [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
 
             if (cur_node->right) PrintOperation (r_child);
@@ -630,7 +639,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
         GetVariablePos (_namespace, &vars_before, cur_node->value.var_name, namespace_offset);
         
         PRINT ("; pushing variable %s\n", cur_node->value.var_name);
-        PRINT ("push [rax + %d]\n",
+        PRINT ("push [%d+rax]\n",
                 GetVariablePos (_namespace, &vars_before, cur_node->value.var_name, namespace_offset));
     }
     else

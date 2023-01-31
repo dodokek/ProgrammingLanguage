@@ -35,6 +35,8 @@ void RawToBin (Text RawCmd, FILE* CmdFile)
     CmdsToZero (&RawCmd, &AsmInfo);     
     EachLineToBin (&RawCmd, &AsmInfo);
 
+    printf ("Successfully translated to bin file!\n");
+
     //Filling signatures and writing result in file
 
     WriteProgramHeader (&AsmInfo);
@@ -177,7 +179,7 @@ int HandlePushPop (Assembler* AsmInfo, char* cur_cmd_line, int cmd_type)
     elem_t tmp_imm = 0; // value after the command   
     char tmp_reg[MAX_CMD_LEN] = "";
 
-    if  (sscanf (cmd_line_copy, "%lg + %s",     &tmp_imm,  tmp_reg)   == 2 || 
+    if  (sscanf (cmd_line_copy, "%lg+%s",     &tmp_imm,  tmp_reg)   == 2 || 
          sscanf (cmd_line_copy, " %[^+ ] + %lg", tmp_reg, &tmp_imm  ) == 2) 
     {
         *cmd_byte |= ARG_IMMED;

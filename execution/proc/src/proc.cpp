@@ -58,6 +58,7 @@ void Execute (Processor* CpuInfo)
 
         int exit_flag = ProcessCommand (&MainStack, CpuInfo->cmds + ip, &ip, CpuInfo);
         if (exit_flag) return;
+        // StackDump (&MainStack);
     }
 
     StackDtor (&MainStack);

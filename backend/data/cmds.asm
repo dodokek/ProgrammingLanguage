@@ -6,39 +6,38 @@ hlt
 ; function 
 main:
 ; ---------------------------------------------
-push 10
+push 1
 ; ---------------------------------------------
 ; popping variable bebra
-pop [rax + 0]
-; ---------------------------------------------
-push 5
-; ---------------------------------------------
-; popping variable bebra
-pop [rax + 0]
+pop [0+rax]
 ; ---------------------------------------------
 ; pushing function call param: bebra
-push [rax + 0]
+push [0+rax]
 ; ---------------------------------------------
 ; switching namespace
 push 1
 push rax
 add
+pop rax
 ; calling func
 call fak
 ; switching namespace
 push 1
 push rax
 sub
+pop rax
 ; ---------------------------------------------
-push 5
+; popping variable bebra
+pop [0+rax]
 ; ---------------------------------------------
-; popping variable sosiska
-pop [rax + 1]
+; printing variable bebra
+push [0+rax] 
+out
+; ---------------------------------------------
 ; ---------------------------------------------
 ret
 ; end of func
 
-; ---------------------------------------------
 ; ---------------------------------------------
 ; ---------------------------------------------
 ; ---------------------------------------------
@@ -47,33 +46,69 @@ ret
 ; ---------------------------------------------
 ; function 
 ; poping function argument: schet
-push [rax + 0]
+pop [0+rax]
 ; ---------------------------------------------
 fak:
 ; ---------------------------------------------
+; pushing variable schet
+push [0+rax]
+; ---------------------------------------------
 push 1
 ; ---------------------------------------------
-; pushing variable schet
-push [rax + 0]
-; ---------------------------------------------
-sub
+add
 ; ---------------------------------------------
 ; popping variable schet
-pop [rax + 0]
+pop [0+rax]
 ; ---------------------------------------------
-push 1
+; printing variable schet
+push [0+rax] 
+out
 ; ---------------------------------------------
-; popping variable suchka
-pop [rax + 1]
 ; ---------------------------------------------
-push 1
+; if begin
+; pushing variable schet
+push [0+rax]
 ; ---------------------------------------------
-; popping variable iaseksi
-pop [rax + 2]
+push 15
+; ---------------------------------------------
+jne if_label0
+
+; ---------------------------------------------
+; if true
+; returning the value from var: schet
+push [0+rax]
 ; ---------------------------------------------
 ret
 ; end of func
 
+; ---------------------------------------------
+; ---------------------------------------------
+jmp else_label0
+
+if_label0:
+; if false
+; pushing function call param: schet
+push [0+rax]
+; ---------------------------------------------
+; switching namespace
+push 1
+push rax
+add
+pop rax
+; calling func
+call fak
+; switching namespace
+push 1
+push rax
+sub
+pop rax
+; ---------------------------------------------
+; popping variable schet
+pop [0+rax]
+; ---------------------------------------------
+; ---------------------------------------------
+
+else_label0:
 ; ---------------------------------------------
 ; ---------------------------------------------
 ; ---------------------------------------------

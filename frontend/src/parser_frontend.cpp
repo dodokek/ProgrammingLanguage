@@ -273,14 +273,14 @@ TreeNode* GetVar (Token token_array[], int* cur_token_id)
     if (CHECK_OP_T (VAR))
     {
         NEXT_TOKEN;
-        TreeNode* name_node = GetVar (TOKENS_DATA);
-        TreeNode* val_node  = GetExpression (TOKENS_DATA);
+        TreeNode* name_node = GetNumOrName (TOKENS_DATA);
+        TreeNode* val_node  = GetCall (TOKENS_DATA);
 
         return OP_NODE (VAR, name_node, val_node);
     }
     else 
     {
-        return GetSpecOperations (TOKENS_DATA);
+        return GetExpression (TOKENS_DATA);
     }
 }
 
@@ -443,6 +443,7 @@ TreeNode* GetNumOrName (Token token_array[], int* cur_token_id)
     else 
     {
         printf ("Didn't find any nums or vars, returning null\n");
+        printf ("Name ptr %p, type: %d\n", CUR_TOKEN.value.var_name, CUR_TOKEN.type);
         return nullptr;
     }
 }
