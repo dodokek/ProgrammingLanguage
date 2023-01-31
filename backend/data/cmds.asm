@@ -9,17 +9,21 @@ main:
 push 10
 ; ---------------------------------------------
 ; popping variable bebra
-pop [0 + rax]
+pop [rax + 0]
 ; ---------------------------------------------
 push 5
 ; ---------------------------------------------
 ; popping variable bebra
-pop [0 + rax]
+pop [rax + 0]
+; ---------------------------------------------
+; pushing function call param: bebra
+push [rax + 0]
 ; ---------------------------------------------
 ; switching namespace
 push 1
 push rax
 add
+; calling func
 call fak
 ; switching namespace
 push 1
@@ -29,7 +33,7 @@ sub
 push 5
 ; ---------------------------------------------
 ; popping variable sosiska
-pop [1 + rax]
+pop [rax + 1]
 ; ---------------------------------------------
 ret
 ; end of func
@@ -42,27 +46,30 @@ ret
 ; ---------------------------------------------
 ; ---------------------------------------------
 ; function 
+; poping function argument: schet
+push [rax + 0]
+; ---------------------------------------------
 fak:
 ; ---------------------------------------------
 push 1
 ; ---------------------------------------------
 ; pushing variable schet
-push [0 + rax]
+push [rax + 0]
 ; ---------------------------------------------
 sub
 ; ---------------------------------------------
 ; popping variable schet
-pop [0 + rax]
+pop [rax + 0]
 ; ---------------------------------------------
 push 1
 ; ---------------------------------------------
 ; popping variable suchka
-pop [1 + rax]
+pop [rax + 1]
 ; ---------------------------------------------
 push 1
 ; ---------------------------------------------
 ; popping variable iaseksi
-pop [2 + rax]
+pop [rax + 2]
 ; ---------------------------------------------
 ret
 ; end of func

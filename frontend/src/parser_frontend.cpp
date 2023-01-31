@@ -657,7 +657,16 @@ void RecPrintNode (TreeNode* cur_node, FILE* out_file)
     if      (cur_node->type == NUM_T) PRINT ("%lg", cur_node->value.dbl_val);
     else if (cur_node->type == NAME_T)
     {
-        PRINT ("\"%s\" { NIL } { VOID } ", cur_node->value.var_name);
+        if (cur_node->left)
+        {
+            PRINT ("\"%s\"", cur_node->value.var_name);
+            RecPrintNode (cur_node->left, out_file);
+            PRINT ("{ TYPE }");
+        }
+        else
+        { 
+            PRINT ("\"%s\" { NIL } { VOID } ", cur_node->value.var_name);
+        }
     }
     else if (cur_node->type == NAME_SHORT_T)
     {
