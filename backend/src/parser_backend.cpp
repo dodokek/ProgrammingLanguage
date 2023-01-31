@@ -405,10 +405,9 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 
     static int label_counter = 0;
     static Options previous_option = UNKNOWN;
+    static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
 
     StackDump (namespace_offset);
-
-    static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
     
     int vars_before = StackPop (namespace_offset);
     StackPush (namespace_offset, vars_before);
@@ -437,8 +436,6 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
         
         case FUNC:
-            PRINT ("; switching namespace\npush %d\npush rax\nsub\n", vars_before);
-
             for (int i = 0; i < vars_before; i++)
                 _namespace[i] = nullptr;
             
@@ -486,7 +483,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case CALL:
+            PRINT ("; switching namespace\npush %d\npush rax\nadd\n", vars_before);
             PRINT ("call %s\n", cur_node->left->value.var_name);
+            PRINT ("; switching namespace\npush %d\npush rax\nsub\n", vars_before);
+
             break;
 
         case IS_EE:
