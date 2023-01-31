@@ -489,10 +489,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             previous_option = CALL;
             PrintOperation (r_child);
 
-            PRINT ("; switching namespace\npush %d\npush rax\nadd\npop rax\n", vars_before);
+            PRINT ("; switching namespace\npush %d\npush rax\nadd\npop rax\npush rax\nout\npush 12345\nout\n", vars_before + 1);
             PRINT ("; calling func\ncall %s\n", cur_node->left->value.var_name);
             
-            PRINT ("; switching namespace\npush %d\npush rax\nsub\npop rax\n", vars_before);
+            PRINT ("; switching namespace\npush %d\npush rax\nsub\npop rax\npush rax\nout\npush 12345\nout\n", vars_before + 1);
             
             break;
 
@@ -625,10 +625,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     }
     else if (cur_node->type == NAME_T)
     {
+        PRINT ("%s:\n", cur_node->value.var_name);
+
         previous_option = FUNC;
         PrintOperation (l_child);
-
-        PRINT ("%s:\n", cur_node->value.var_name);
     }
     else if (cur_node->type == NUM_T)
     {
@@ -647,7 +647,6 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
         printf ("Error while translating to asm, unknown command, type %d, op %d\n",
                 cur_node->type, cur_node->value.op_val);
     }
-    PRINT ("; ---------------------------------------------\n");
 
     return;
 }

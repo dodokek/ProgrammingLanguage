@@ -58,9 +58,10 @@ void Execute (Processor* CpuInfo)
 
         int exit_flag = ProcessCommand (&MainStack, CpuInfo->cmds + ip, &ip, CpuInfo);
         if (exit_flag) return;
-        // StackDump (&MainStack);
-    }
+        // printf ("rax: %d\n", CpuInfo->Regs[0]);
 
+    }
+    printf ("End.\n");
     StackDtor (&MainStack);
 }
 
