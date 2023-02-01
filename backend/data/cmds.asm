@@ -5,115 +5,177 @@ hlt
 
 ; function 
 main:
-push 1
-; popping variable bebra
+push 3802
+; popping variable zhopka
 pop [0+rax]
-push 1
-; popping variable tekushch
-pop [1+rax]
-push 0
-; popping variable topchik
-pop [2+rax]
-; getting variable topchik
+; getting variable a
 in
-pop [2+rax] 
-; pushing function call param: bebra
-push [0+rax]
-; pushing function call param: tekushch
+pop [-1+rax] 
+; getting variable b
+in
+pop [-1+rax] 
+; getting variable c
+in
+pop [-1+rax] 
+push 4
+; pushing variable a
 push [1+rax]
-; pushing function call param: topchik
+mul
+; pushing variable c
+push [3+rax]
+mul
+; pushing variable b
 push [2+rax]
-; switching namespace
-push 4
-push rax
-add
-pop rax
-; calling func
-call fak
-; switching namespace
-push 4
-push rax
+; pushing variable b
+push [2+rax]
+mul
 sub
-pop rax
-; popping variable bebra
-pop [0+rax]
-; printing variable bebra
+; popping variable miaukriminant
+pop [4+rax]
+; printing variable miaukriminant
+push [4+rax] 
+out
+; if begin
+; pushing variable a
+push [1+rax]
+push 0
+jne if_label0
+
+; if true
+; if begin
+; pushing variable b
+push [2+rax]
+push 0
+jne if_label1
+
+; if true
+; printing variable zhopka
 push [0+rax] 
 out
 ret
 ; end of func
 
-; function 
-fak:
-; poping function argument: verkh
-pop [0+rax]
-; poping function argument: sus
-pop [1+rax]
-; poping function argument: rez
-pop [2+rax]
-; pushing variable sus
-push [1+rax]
-push 1
-add
-; popping variable sus
-pop [1+rax]
-; pushing variable rez
-push [2+rax]
-; pushing variable sus
-push [1+rax]
-mul
-; popping variable rez
-pop [2+rax]
-push 123
-; popping variable bebra
-pop [3+rax]
-; printing variable sus
-push [1+rax] 
-out
-; printing variable rez
-push [2+rax] 
-out
-; if begin
-; pushing variable sus
-push [1+rax]
-; pushing variable verkh
-push [0+rax]
-jne if_label0
+jmp else_label1
 
-; if true
-; returning the value from var: rez
+if_label1:
+; if false
+; pushing variable b
 push [2+rax]
+; pushing variable c
+push [3+rax]
+push 0
+sub
+div
+; popping variable otvet
+pop [5+rax]
+; printing variable otvet
+push [5+rax] 
+out
 ret
 ; end of func
 
+
+else_label1:
 jmp else_label0
 
 if_label0:
 ; if false
-; pushing function call param: rez
-push [2+rax]
-; pushing function call param: sus
-push [1+rax]
-; pushing function call param: verkh
-push [0+rax]
-; switching namespace
-push 5
-push rax
-add
-pop rax
-; calling func
-call fak
-; switching namespace
-push 5
-push rax
-sub
-pop rax
-; popping variable rez
-pop [2+rax]
+push 1337
+; popping variable pustota
+pop [6+rax]
 
 else_label0:
-; returning the value from var: rez
+; if begin
+; pushing variable miaukriminant
+push [4+rax]
+push 0
+jne if_label2
+
+; if true
+; pushing variable a
+push [1+rax]
+push 2
+mul
+; pushing variable b
 push [2+rax]
+push 0
+sub
+div
+; popping variable otvet
+pop [5+rax]
+; printing variable otvet
+push [5+rax] 
+out
+ret
+; end of func
+
+jmp else_label2
+
+if_label2:
+; if false
+ret
+; end of func
+
+
+else_label2:
+; if begin
+push 0
+; pushing variable miaukriminant
+push [4+rax]
+jae if_label3
+
+; if true
+; printing variable pustota
+push [6+rax] 
+out
+; printing variable pustota
+push [6+rax] 
+out
+ret
+; end of func
+
+jmp else_label3
+
+if_label3:
+; if false
+push 2
+; pushing variable a
+push [1+rax]
+mul
+; pushing variable b
+push [2+rax]
+push 0
+sub
+; pushing variable miaukriminant
+push [4+rax]
+sqr
+add
+div
+; popping variable kotik1
+pop [7+rax]
+push 2
+; pushing variable a
+push [1+rax]
+mul
+; pushing variable miaukriminant
+push [4+rax]
+sqr
+; pushing variable b
+push [2+rax]
+push 0
+sub
+sub
+div
+; popping variable kotik2
+pop [8+rax]
+; printing variable kotik1
+push [7+rax] 
+out
+; printing variable kotik2
+push [8+rax] 
+out
+
+else_label3:
 ret
 ; end of func
 

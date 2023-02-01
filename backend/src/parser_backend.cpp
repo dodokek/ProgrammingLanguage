@@ -407,22 +407,9 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     static Options previous_option = UNKNOWN;
     static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
     static int    namespace_pointer = 0;
-
-    // StackDump (namespace_offset);
     
     int vars_before = StackPop (namespace_offset);
     StackPush (namespace_offset, vars_before);
-
-    printf ("==== Listing namspace: \n");
-    for (int i = namespace_pointer; i < vars_before; i++)
-    {
-        printf ("\t%s\n", _namespace[i]);
-    }
-
-    printf ("Vars from begin %d !!!!!!!!!!!!!\n", vars_before);
-
-    printf ("Now printing type %d, operation %s, dbl val: %lg, name ptr %p\n",
-             cur_node->type, GetOpSign (cur_node->value.op_val), cur_node->value.dbl_val, cur_node->value.var_name);
 
     if (cur_node->type == OP_T)
     {
@@ -453,7 +440,6 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case RET:
-
             previous_option = RET;
             PrintOperation (l_child);
             
