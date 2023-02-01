@@ -9,21 +9,29 @@ push 1
 ; popping variable bebra
 pop [0+rax]
 push 1
-; popping variable verkh
+; popping variable tekushch
 pop [1+rax]
+push 0
+; popping variable topchik
+pop [2+rax]
+; getting variable topchik
+in
+pop [2+rax] 
 ; pushing function call param: bebra
 push [0+rax]
-; pushing function call param: verkh
+; pushing function call param: tekushch
 push [1+rax]
+; pushing function call param: topchik
+push [2+rax]
 ; switching namespace
-push 3
+push 4
 push rax
 add
 pop rax
 ; calling func
 call fak
 ; switching namespace
-push 3
+push 4
 push rax
 sub
 pop rax
@@ -37,38 +45,41 @@ ret
 
 ; function 
 fak:
-; poping function argument: sus
+; poping function argument: verkh
 pop [0+rax]
-; poping function argument: rez
+; poping function argument: sus
 pop [1+rax]
+; poping function argument: rez
+pop [2+rax]
 ; pushing variable sus
-push [0+rax]
+push [1+rax]
 push 1
 add
 ; popping variable sus
-pop [0+rax]
+pop [1+rax]
 ; pushing variable rez
-push [1+rax]
+push [2+rax]
 ; pushing variable sus
-push [0+rax]
+push [1+rax]
 mul
 ; popping variable rez
-pop [1+rax]
+pop [2+rax]
 ; printing variable sus
-push [0+rax] 
+push [1+rax] 
 out
 ; printing variable rez
-push [1+rax] 
+push [2+rax] 
 out
 ; if begin
 ; pushing variable sus
+push [1+rax]
+; pushing variable verkh
 push [0+rax]
-push 10
 jne if_label0
 
 ; if true
 ; returning the value from var: rez
-push [1+rax]
+push [2+rax]
 ret
 ; end of func
 
@@ -77,27 +88,29 @@ jmp else_label0
 if_label0:
 ; if false
 ; pushing function call param: rez
-push [1+rax]
+push [2+rax]
 ; pushing function call param: sus
+push [1+rax]
+; pushing function call param: verkh
 push [0+rax]
 ; switching namespace
-push 3
+push 4
 push rax
 add
 pop rax
 ; calling func
 call fak
 ; switching namespace
-push 3
+push 4
 push rax
 sub
 pop rax
 ; popping variable rez
-pop [1+rax]
+pop [2+rax]
 
 else_label0:
 ; returning the value from var: rez
-push [1+rax]
+push [2+rax]
 ret
 ; end of func
 
