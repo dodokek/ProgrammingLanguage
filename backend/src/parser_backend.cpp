@@ -407,7 +407,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     static Options previous_option = UNKNOWN;
     static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
 
-    StackDump (namespace_offset);
+    // StackDump (namespace_offset);
     
     int vars_before = StackPop (namespace_offset);
     StackPush (namespace_offset, vars_before);
@@ -489,10 +489,10 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             previous_option = CALL;
             PrintOperation (r_child);
 
-            PRINT ("; switching namespace\npush %d\npush rax\nadd\npop rax\npush rax\nout\npush 12345\nout\n", vars_before + 1);
+            PRINT ("; switching namespace\npush %d\npush rax\nadd\npop rax\n", vars_before + 1);
             PRINT ("; calling func\ncall %s\n", cur_node->left->value.var_name);
             
-            PRINT ("; switching namespace\npush %d\npush rax\nsub\npop rax\npush rax\nout\npush 12345\nout\n", vars_before + 1);
+            PRINT ("; switching namespace\npush %d\npush rax\nsub\npop rax\n", vars_before + 1);
             
             break;
 
