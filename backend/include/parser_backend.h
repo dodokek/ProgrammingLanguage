@@ -24,9 +24,11 @@ void PrintCmdsInFile (TreeNode* root);
 
 void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offset);
 
-int GetVariablePos (char** _namespace, int* amount, const char var_name[], Stack* namespace_offset);
+int GetVariablePos (int namespace_pointer, char** _namespace, int* var_amount,
+                    const char var_name[], Stack* namespace_offset);
 
-int InsertVarInNamespace (char** _namespace, int* amount, const char var_name[]);
+int InsertVarInNamespace (int namespace_pointer, char** _namespace,
+                          int* var_amount, const char var_name[]);
 
 char* GetInputLine ();
 

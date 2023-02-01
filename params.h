@@ -9,7 +9,7 @@ enum Sizes
     MAX_NAME_LEN = 200,
     MAX_SRC_LEN = 20000,
     MAX_VAR_LEN = 20,
-    MAX_VARIABLES = 200,
+    MAX_VARIABLES = 10,
     MAX_TOKEN_LEN = 400,
     MAX_TOKENS = 500,
     MAX_NAMESPACES = 20,

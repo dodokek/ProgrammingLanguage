@@ -5,99 +5,115 @@ hlt
 
 ; function 
 main:
-push 0
-; popping variable ded
+push 1
+; popping variable bebra
 pop [0+rax]
-; getting variable ded
-in
-pop [0+rax] 
-push 0
-; popping variable otec
+push 1
+; popping variable tekushch
 pop [1+rax]
-; getting variable otec
-in
-pop [1+rax] 
 push 0
-; popping variable brat
+; popping variable topchik
 pop [2+rax]
-; getting variable brat
+; getting variable topchik
 in
 pop [2+rax] 
-push 0
-; popping variable greatded
-pop [3+rax]
-push 0
-; popping variable greatbab
-pop [4+rax]
-; if begin
-; pushing variable ded
+; pushing function call param: bebra
 push [0+rax]
-; if true
-push 4
-; pushing variable ded
-push [0+rax]
-mul
-; pushing variable brat
+; pushing function call param: tekushch
+push [1+rax]
+; pushing function call param: topchik
 push [2+rax]
-mul
+; switching namespace
+push 4
+push rax
+add
+pop rax
+; calling func
+call fak
+; switching namespace
+push 4
+push rax
 sub
-; popping variable godfather
-pop [5+rax]
+pop rax
+; popping variable bebra
+pop [0+rax]
+; printing variable bebra
+push [0+rax] 
+out
+ret
+; end of func
+
+; function 
+fak:
+; poping function argument: verkh
+pop [0+rax]
+; poping function argument: sus
+pop [1+rax]
+; poping function argument: rez
+pop [2+rax]
+; pushing variable sus
+push [1+rax]
+push 1
+add
+; popping variable sus
+pop [1+rax]
+; pushing variable rez
+push [2+rax]
+; pushing variable sus
+push [1+rax]
+mul
+; popping variable rez
+pop [2+rax]
+push 123
+; popping variable bebra
+pop [3+rax]
+; printing variable sus
+push [1+rax] 
+out
+; printing variable rez
+push [2+rax] 
+out
 ; if begin
-push 0
-; pushing variable godfather
-push [5+rax]
-jae if_label1
+; pushing variable sus
+push [1+rax]
+; pushing variable verkh
+push [0+rax]
+jne if_label0
 
 ; if true
-; printing variable greatded
-push [3+rax] 
-out
-; printing variable greatbab
-push [4+rax] 
-out
-push 1
+; returning the value from var: rez
+push [2+rax]
 ret
 ; end of func
 
-jmp else_label1
-
-if_label1:
-; if false
-push 1
-ret
-; end of func
-
-
-else_label1:
 jmp else_label0
 
 if_label0:
 ; if false
-; if begin
-; pushing variable otec
+; pushing function call param: rez
+push [2+rax]
+; pushing function call param: sus
 push [1+rax]
-; if true
-; printing variable greatded
-push [3+rax] 
-out
-push 1
-ret
-; end of func
-
-jmp else_label2
-
-if_label2:
-; if false
-push 1
-ret
-; end of func
-
-
-else_label2:
+; pushing function call param: verkh
+push [0+rax]
+; switching namespace
+push 5
+push rax
+add
+pop rax
+; calling func
+call fak
+; switching namespace
+push 5
+push rax
+sub
+pop rax
+; popping variable rez
+pop [2+rax]
 
 else_label0:
-push 0
+; returning the value from var: rez
+push [2+rax]
 ret
 ; end of func
 

@@ -406,6 +406,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     static int label_counter = 0;
     static Options previous_option = UNKNOWN;
     static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
+    static int    namespace_pointer = 0;
 
     // StackDump (namespace_offset);
     
@@ -413,7 +414,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     StackPush (namespace_offset, vars_before);
 
     printf ("==== Listing namspace: \n");
-    for (int i = 0; i < vars_before; i++)
+    for (int i = namespace_pointer; i < vars_before; i++)
     {
         printf ("\t%s\n", _namespace[i]);
     }
@@ -440,12 +441,15 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
                 _namespace[i] = nullptr;
             
             StackPush (namespace_offset, 0);
+            namespace_pointer += MAX_VARIABLES;
 
             PRINT ("; function \n");
             PrintOperation (l_child);
             PrintOperation (r_child);
 
             StackPop (namespace_offset);
+            namespace_pointer -= MAX_VARIABLES;
+
             break;
 
         case RET:
@@ -540,11 +544,11 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case VAR:
-            GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset); 
+            GetVariablePos (namespace_pointer,_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset); 
 
             PrintOperation (r_child);
             PRINT ("; popping variable %s\n", cur_node->left->value.var_name);
-            PRINT ("pop [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+            PRINT ("pop [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
 
             break;
 
@@ -565,30 +569,30 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             {
                 PRINT ("; getting variable %s\n", cur_node->left->value.var_name);
                 PRINT ("in\n");
-                PRINT ("pop [%d+rax] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax] \n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
             else if (previous_option == OUT)
             {
                 PRINT ("; printing variable %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax] \n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax] \n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
                 PRINT ("out\n");
             }
             else if (previous_option == CALL)
             {
                 PRINT ("; pushing function call param: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
             else if (previous_option == FUNC)
             {
-                GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset);
+                GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset);
                 
                 PRINT ("; poping function argument: %s\n", cur_node->left->value.var_name);
-                PRINT ("pop [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
             else if (previous_option == RET)
             {
                 PRINT ("; returning the value from var: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax]\n", GetVariablePos (_namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
             }
 
             if (cur_node->right) PrintOperation (r_child);
@@ -636,11 +640,11 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     }
     else if (cur_node->type == VAR_T)
     {
-        GetVariablePos (_namespace, &vars_before, cur_node->value.var_name, namespace_offset);
+        GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->value.var_name, namespace_offset);
         
         PRINT ("; pushing variable %s\n", cur_node->value.var_name);
         PRINT ("push [%d+rax]\n",
-                GetVariablePos (_namespace, &vars_before, cur_node->value.var_name, namespace_offset));
+                GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->value.var_name, namespace_offset));
     }
     else
     {
@@ -652,30 +656,32 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 }
 
 
-int GetVariablePos (char** _namespace, int* amount, const char var_name[], Stack* namespace_offset)
+int GetVariablePos (int namespace_pointer, char** _namespace, int* var_amount,
+                    const char var_name[], Stack* namespace_offset)
 {
-    for (int cur_indx = 0; cur_indx < *amount; cur_indx++)
+    for (int cur_indx = namespace_pointer; cur_indx < *var_amount + namespace_pointer; cur_indx++)
     {
         printf ("\tNow cmpring %s and %s\n",_namespace[cur_indx], var_name);
         if (strcmp ( _namespace[cur_indx], var_name ) == 0)
-            return cur_indx;
+            return cur_indx - namespace_pointer;
     }
 
-    InsertVarInNamespace (_namespace, amount, var_name);
+    InsertVarInNamespace (namespace_pointer, _namespace, var_amount, var_name);
 
-    StackPop (namespace_offset);
-    StackPush (namespace_offset, *amount);
+    StackPop  (namespace_offset);
+    StackPush (namespace_offset, *var_amount);
 
     printf ("Adding new variable to namespace: %s\n", var_name);
     return -1;
 }
 
 
-int InsertVarInNamespace (char** _namespace, int* amount, const char var_name[])
+int InsertVarInNamespace (int namespace_pointer, char** _namespace,
+                          int* var_amount, const char var_name[])
 {
-    _namespace[*amount] = (char*) var_name;
-    (*amount)++;
-    for (int i = 0; i < *amount; i++)
+    _namespace[*var_amount + namespace_pointer] = (char*) var_name;
+    (*var_amount)++;
+    for (int i = namespace_pointer; i < *var_amount + namespace_pointer; i++)
     {
         printf ("\tName:%s...\n", _namespace[i]);
     }

@@ -479,9 +479,9 @@ void FillTokensArray (Token* token_array)
             TOP_TOKEN = *(CreateToken (NUM_T, num, UNKNOWN));
             tokens_amount++;
         }
-        else if (*cur_ptr == '^')
+        else if (*cur_ptr == '>')
         {
-            cur_ptr += VAR_OFFSET; // skips the ^_^: prefix in variables
+            cur_ptr += PREFIX_OFFSET; // skips the ^_^: prefix in variables
 
             TOP_TOKEN = *(CreateToken (VAR_T, 0, UNKNOWN));  
             
