@@ -17,3 +17,14 @@ FILE* get_file (const char file_name[], const char* mode)
     return nullptr;
 }
 
+
+FILE* close_file (FILE* file, char* name)
+{
+    assert (file != nullptr);
+
+    printf ("Succesfully closing the file: %s\n", name);
+
+    fclose (file);
+
+    return 0;
+}

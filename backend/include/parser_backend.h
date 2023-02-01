@@ -66,6 +66,12 @@ int SimplifyTree (TreeNode* cur_node);
 
 TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name);
 
+void TreeToOriginalLang (TreeNode* root);
+
+void RecToOrigin (TreeNode* cur_node, FILE* out_file);
+
+void PutTabs (FILE* file, int amount);
+
 #define PRINT(...) fprintf (cmds_file, __VA_ARGS__)
 
 #endif

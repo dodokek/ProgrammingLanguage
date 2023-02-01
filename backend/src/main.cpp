@@ -10,5 +10,7 @@ int main()
 
     PrintCmdsInFile (root);
 
+    TreeToOriginalLang (root);
+
     DestructTree (root);
 }

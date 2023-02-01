@@ -18,4 +18,6 @@ static const char default_output_name[] = "data//output.txt";
 
 FILE* get_file (const char file_name[], const char* mode);
 
+FILE* close_file (FILE* file, char* name);
+
 #endif
