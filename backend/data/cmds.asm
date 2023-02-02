@@ -10,13 +10,13 @@ push 3802
 pop [0+rax]
 ; getting variable a
 in
-pop [-1+rax] 
+pop [1+rax] 
 ; getting variable b
 in
-pop [-1+rax] 
+pop [2+rax] 
 ; getting variable c
 in
-pop [-1+rax] 
+pop [3+rax] 
 push 4
 ; pushing variable a
 push [1+rax]
@@ -113,9 +113,6 @@ jmp else_label2
 
 if_label2:
 ; if false
-ret
-; end of func
-
 
 else_label2:
 ; if begin

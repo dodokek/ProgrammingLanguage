@@ -60,14 +60,6 @@ void Execute (Processor* CpuInfo)
         if (exit_flag) return;
         // printf ("rax: %d\n", CpuInfo->Regs[0]);
 
-        // for (int i = 0; i<20; i++)
-        // {
-        //     printf ("%d ", CpuInfo->Ram[i]);
-
-        //     if (i % 10 == 0) printf ("\n");
-        // }
-        // printf ("\n\n");
-
     }
     printf ("End.\n");
     StackDtor (&MainStack);

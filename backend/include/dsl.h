@@ -71,11 +71,9 @@
     left_child = RecGetChild (TOKENS_DATA);        \
     right_child = RecGetChild (TOKENS_DATA);       \
     return OP_NODE (name, left_child, right_child);
+    
+#define GET_VAR_POS(node) GetVariablePos (namespace_pointer, _namespace, &vars_before, node, namespace_offset)                                               \
 
-#define ADD_TO_NAMETABLE    \ 
-    VARIABLES_ARRAY[VARIABLES_AMOUNT].name = CUR_TOKEN.value.var_name; \
-    VARIABLES_ARRAY[VARIABLES_AMOUNT].ram_indx = VARIABLES_AMOUNT;     \
-    VARIABLES_AMOUNT++;                                                \
 
 
 //----------------

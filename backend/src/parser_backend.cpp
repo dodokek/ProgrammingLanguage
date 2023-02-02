@@ -405,7 +405,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 
     static int label_counter = 0;
     static Options previous_option = UNKNOWN;
-    static char** _namespace = (char**) calloc (MAX_VARIABLES, sizeof (char*));
+    static char** _namespace = (char**) calloc (MAX_VARIABLES * MAX_NAMESPACES, sizeof (char*));
     static int    namespace_pointer = 0;
     
     int vars_before = StackPop (namespace_offset);
@@ -534,7 +534,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 
             PrintOperation (r_child);
             PRINT ("; popping variable %s\n", cur_node->left->value.var_name);
-            PRINT ("pop [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+            PRINT ("pop [%d+rax]\n", GET_VAR_POS (cur_node->left->value.var_name));
 
             break;
 
@@ -551,34 +551,36 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case PARAM:
+
+            GET_VAR_POS (cur_node->left->value.var_name);
             if (previous_option == IN)
             {
                 PRINT ("; getting variable %s\n", cur_node->left->value.var_name);
                 PRINT ("in\n");
-                PRINT ("pop [%d+rax] \n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax] \n", GET_VAR_POS (cur_node->left->value.var_name));
             }
             else if (previous_option == OUT)
             {
                 PRINT ("; printing variable %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax] \n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax] \n", GET_VAR_POS (cur_node->left->value.var_name));
                 PRINT ("out\n");
             }
             else if (previous_option == CALL)
             {
                 PRINT ("; pushing function call param: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax]\n", GET_VAR_POS (cur_node->left->value.var_name));
             }
             else if (previous_option == FUNC)
             {
-                GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset);
+                GET_VAR_POS (cur_node->left->value.var_name);
                 
                 PRINT ("; poping function argument: %s\n", cur_node->left->value.var_name);
-                PRINT ("pop [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("pop [%d+rax]\n", GET_VAR_POS (cur_node->left->value.var_name));
             }
             else if (previous_option == RET)
             {
                 PRINT ("; returning the value from var: %s\n", cur_node->left->value.var_name);
-                PRINT ("push [%d+rax]\n", GetVariablePos (namespace_pointer, _namespace, &vars_before, cur_node->left->value.var_name, namespace_offset));
+                PRINT ("push [%d+rax]\n", GET_VAR_POS (cur_node->left->value.var_name));
             }
 
             if (cur_node->right) PrintOperation (r_child);
@@ -709,7 +711,7 @@ void RecToOrigin (TreeNode* cur_node, FILE* out_file)
         || cur_node->type == NAME_SHORT_T
         || cur_node->type == NAME_T )
     {
-        PRINT ("^_^:%s ", cur_node->value.var_name);
+        PRINT (">%s ", cur_node->value.var_name);
         if (cur_node->type == NAME_T)
         {    
             PRINT ("( ");
