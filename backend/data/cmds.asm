@@ -4,7 +4,7 @@ hlt
 ; let the chaos begin
 
 ; function 
-main:
+(null):
 push 3802
 ; popping variable zhopka
 pop [0+rax]

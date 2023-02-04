@@ -1,5 +1,6 @@
 #include "parser_frontend.h"
 #include "translitor.h"
+#include "write_on_disk.h"
 #include <clocale>
 
 int main()

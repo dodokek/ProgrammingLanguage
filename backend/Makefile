@@ -14,8 +14,8 @@ SRC_DIR = ./
 OBJ_DIR = ./lib/
 UTILS_DIR = ../utils/
 
-SRC   = parser_backend.cpp main.cpp
-UTILS = fileUtils.cpp stringUtils.cpp stack.cpp
+SRC   = parser_backend.cpp main.cpp tree_to_asm.cpp reverse.cpp
+UTILS = fileUtils.cpp stringUtils.cpp stack.cpp tree.cpp
 OBJ   = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC)) 
 U_OBJ = $(patsubst %.cpp, $(UTILS_DIR)/$(OBJ_DIR)%.o, $(UTILS)) 
 

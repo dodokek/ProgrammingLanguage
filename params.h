@@ -89,19 +89,6 @@ union Values
 };
 
 
-struct TreeNode
-{
-    Types type; 
-    
-    TreeNode* parent;
-
-    TreeNode* left;
-    TreeNode* right;
-
-    Values value;
-};
-
-
 struct Token
 {
     Types type;

@@ -4,6 +4,7 @@
 #include "dsl.h" 
 #include "../../utils/include/fileUtils.h"
 #include "../../utils/include/stringUtils.h"
+#include "../../utils/include/tree.h"
 #include "../../params.h"
 #include "translitor.h"
 
@@ -66,10 +67,6 @@ Token* CommandToToken (char* name);
 Token* CreateToken (Types type, double dbl_val, Options operation);
 
 void PrintTokens (Token token_array[]);
-
-void RecPrintNode (TreeNode* cur_node, FILE* out_file);
-
-void PrintTreeInFile (TreeNode* root);
 
 void SkipSpaces (char** string);
 

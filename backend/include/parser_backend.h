@@ -5,7 +5,11 @@
 #include "../../utils/include/fileUtils.h"
 #include "../../utils/include/stack.h"
 #include "../../utils/include/stringUtils.h"
+#include "../../utils/include/tree.h"
 #include "../../params.h"
+#include "tree_to_asm.h"
+#include "reverse.h"
+
 
 //-----------------------------------------------
 
@@ -18,16 +22,6 @@ enum IsFunc
 };
 
 
-
-void PrintCmdsInFile (TreeNode* root);
-
-void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offset);
-
-int GetVariablePos (int namespace_pointer, char** _namespace, int* var_amount,
-                    const char var_name[], Stack* namespace_offset);
-
-int InsertVarInNamespace (int namespace_pointer, char** _namespace,
-                          int* var_amount, const char var_name[]);
 
 char* GetInputLine ();
 
@@ -66,10 +60,6 @@ char* GetOpSign (Options op);
 int SimplifyTree (TreeNode* cur_node);
 
 TreeNode* RecGetChild (Token token_array[], int* cur_token_id, bool is_func_name);
-
-void TreeToOriginalLang (TreeNode* root);
-
-void RecToOrigin (TreeNode* cur_node, FILE* out_file);
 
 void PutTabs (FILE* file, int amount);
 

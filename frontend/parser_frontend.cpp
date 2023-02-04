@@ -2,40 +2,6 @@
 
 const char input_path[] = "data/input.txt";
 
-TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
-                      TreeNode* left_child, TreeNode* right_child)
-{
-    // printf ("Creating node with type %d\n", type);
-
-    TreeNode* new_node = (TreeNode*) calloc (1, sizeof (TreeNode));
-    if (!new_node) return nullptr;
-
-    if      (type == NUM_T) new_node->value.dbl_val  = dbl_val;
-    else if (type == VAR_T) new_node->value.var_name = var_name;
-    else if (type == OP_T)  new_node->value.op_val   = op_val;
-    
-    new_node->left   = left_child;
-    new_node->right  = right_child;
-    new_node->parent = nullptr;
-    new_node->type   = type;
-
-    return new_node;
-}
-
-
-TreeNode* DestructTree (TreeNode* root)
-{
-    if (root->left)  DestructTree (root->left);
-    if (root->right) DestructTree (root->right);
-
-    root->value.var_name = nullptr;
-    
-    free (root);
-    root = nullptr;
-
-    return root;
-}
-
 
 //---<Parser>-------------------------------------------
 
@@ -582,7 +548,7 @@ void SkipSpaces (char** string)
 
 #define SWITCH(op, return_statement)    \
     case op:                            \
-        return #op;                     \    
+        return #op;                     
 
 
 char* GetOpSign (Options op)
@@ -617,9 +583,9 @@ char* GetOpSign (Options op)
     SWITCH (SEMI_COL, "semi col")
     SWITCH (IN, "Input")
     SWITCH (OUT, "Output")
-    SWITCH (SIN, "Output")
-    SWITCH (COS, "Output")
-    SWITCH (SQRT, "Output")
+    SWITCH (SIN, "Sinus")
+    SWITCH (COS, "Cosinus")
+    SWITCH (SQRT, "Sqrt")
 
     default:
         return "?";
@@ -627,71 +593,10 @@ char* GetOpSign (Options op)
 } 
 
 
-//-------Parser->Lecsical analysis----------------------------------
+//-------Parser->Lecsical analysis.End----------------------------------
 //--Parser.End-----------------------------------------------------
 
 
-//--Write on disk. Begin-------------------------------------------
-
-#define PRINT(...) fprintf (out_file, __VA_ARGS__)
-
-void PrintTreeInFile (TreeNode* root)
-{
-    FILE* out_file = get_file ("data/tree.txt", "w+");
-
-    RecPrintNode (root, out_file);
-
-    fclose (out_file);
-    printf ("Closing out file successfully\n");
-}
-
-
-void RecPrintNode (TreeNode* cur_node, FILE* out_file)
-{
-    printf ("Printing node type: %d with op type: %d\n",
-             cur_node->type, cur_node->value.op_val);
-
-    PRINT (" { ");
-
-    if      (cur_node->type == NUM_T) PRINT ("%lg", cur_node->value.dbl_val);
-    else if (cur_node->type == NAME_T)
-    {
-        if (cur_node->left)
-        {
-            PRINT ("\"%s\"", cur_node->value.var_name);
-            RecPrintNode (cur_node->left, out_file);
-            PRINT ("{ TYPE }");
-        }
-        else
-        { 
-            PRINT ("\"%s\" { NIL } { VOID } ", cur_node->value.var_name);
-        }
-    }
-    else if (cur_node->type == NAME_SHORT_T)
-    {
-        PRINT ("\"%s\" { NIL } { NIL } ", cur_node->value.var_name);
-    }
-    else if (cur_node->type == VAR_T)
-    {
-        PRINT ("\"%s\"", cur_node->value.var_name);
-        if (cur_node->left) RecPrintNode (cur_node->left, out_file);
-    }
-    else
-    {
-        PRINT (" %s ", GetOpSign (cur_node->value.op_val));   
-    
-        if (cur_node->left) RecPrintNode (cur_node->left, out_file);
-        else PRINT (" { NIL } ");
-
-        if (cur_node->right) RecPrintNode (cur_node->right, out_file);
-        else PRINT (" { NIL } ");
-    }
-
-
-    PRINT (" } ");
-}
-
-//--- Write on disk. End---------------------------------------------
 
 //------Dump. Begin--------------------------------------------------------
 

@@ -1,22 +1,10 @@
 #ifndef DSL_H
 #define DSL_H
 
-#define DL GetDerivative (cur_node->left, print_in_pdf)
-#define DR GetDerivative (cur_node->right, print_in_pdf)
-#define CL CopyNode (cur_node->left)
-#define CR CopyNode (cur_node->right)
-
 #define DIGIT_NODE(num) CreateNode (NUM_T, num, UNKNOWN, nullptr, nullptr, nullptr)
 #define OP_NODE(op, l, r) CreateNode (OP_T, 0, op, nullptr, l, r)
 #define NAME_NODE(name, l, r) CreateNode (NAME_T, 0, UNKNOWN, name, l, r)
 #define VAR_NODE(name, l, r) CreateNode (VAR_T, 0, UNKNOWN, name, l, r)
-
-#define ADD(L, R) CreateNode (OP_T, 0, ADD, nullptr, L, R)
-#define SUB(L, R) CreateNode (OP_T, 0, SUB, nullptr, L, R)
-#define MUL(L, R) CreateNode (OP_T, 0, MUL, nullptr, L, R)
-#define DIV(L, R) CreateNode (OP_T, 0, DIV, nullptr, L, R)
-#define POW(L, R) CreateNode (OP_T, 0, POW,  nullptr,  L, R)
-#define EQ(L, R) CreateNode (OP_T, 0, EQ,  nullptr,  L, R)
 
 
 #define _print(...) fprintf (out_file, __VA_ARGS__)

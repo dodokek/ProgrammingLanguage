@@ -14,8 +14,8 @@ SRC_DIR = ./
 OBJ_DIR = ./lib/
 UTILS_DIR = ../utils/
 
-SRC   = parser_frontend.cpp main.cpp translitor.cpp
-UTILS = fileUtils.cpp stringUtils.cpp
+SRC   = parser_frontend.cpp main.cpp translitor.cpp write_on_disk.cpp
+UTILS = fileUtils.cpp stringUtils.cpp tree.cpp
 OBJ   = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC)) 
 U_OBJ = $(patsubst %.cpp, $(UTILS_DIR)/$(OBJ_DIR)%.o, $(UTILS)) 
 
