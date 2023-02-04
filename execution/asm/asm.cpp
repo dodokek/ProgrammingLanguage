@@ -51,7 +51,7 @@ void EachLineToBin (Text* RawCmd, Assembler* AsmInfo)
 {
     for (int line_ctr = 0; line_ctr < RawCmd->lines_amount; line_ctr++)
     {
-        AsmInfo->cur_len += LineToCommands (RawCmd->lines_array[line_ctr].begin_ptr, AsmInfo);
+        AsmInfo->cur_len += LineToCommands (RawCmd->objects[line_ctr].begin, AsmInfo);
     }    
 }
 
@@ -322,7 +322,6 @@ int GetCmdNum (char* cmd)
     #include "../../general_includes/codegen/cmds.h"
     {
         printf ("=========SIGILL %d:==========\n", *cmd);
-        scanf ("");
         return -1;
     }
     //------------------

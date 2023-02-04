@@ -1,8 +1,8 @@
 #ifndef ASM_H
 #define ASM_H
 
-#include "fileUtils.h"
-#include "stringUtils.h"
+#include "../../../utils/include/fileUtils.h"
+#include "../../../utils/include/stringUtils.h"
 #include "../../general_includes/config.h"
 
 

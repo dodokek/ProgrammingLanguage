@@ -57,6 +57,10 @@ void ClearBuffer (char stop_sym);
 
 char* GetTextBuffer (FILE* file);
 
+void HandleTextStruct (Text* MainText, FILE* input_file);
+
+void TextDestr (Text *self);
+
 //-----------------------------------------------------------------------------
 
 #endif

@@ -1,9 +1,9 @@
 #ifndef PROC_H
 #define PROC_H
 
-#include "stack.h"
-#include "fileUtils.h"
-#include "fileUtils.h"
+#include "../../../utils/include/fileUtils.h"
+#include "../../../utils/include/stack.h"
+#include "../../../utils/include/stringUtils.h"
 #include "../../asm/include/asm.h"
 
 

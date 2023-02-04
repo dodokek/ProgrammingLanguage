@@ -1,5 +1,5 @@
 
-#include "stringUtils.h"
+#include "include/stringUtils.h"
 
 
 void GetTreeObjects (Text* MainText, FILE* input_file)
@@ -107,7 +107,7 @@ void trim_left (Text *MainText)
     for (int i = 0; i < (MainText->lines_amount); i++)
     {
         char* cur_line = MainText->objects[i].begin;
-        while (!isalpha(*cur_line))
+        while (!isalpha(*cur_line) && *cur_line != ';' )
         {
             if (*cur_line == '{' || *cur_line == '}') break;
 
@@ -159,4 +159,22 @@ int read_file (FILE* file, Text *MainText)
     MainText->symbols_amount = fread (MainText->buffer, sizeof(char), file_len, file);
 
     return 1;
+}
+
+
+void HandleTextStruct (Text* MainText, FILE* input_file)
+{
+    read_file (input_file, MainText);
+
+    calloc_objects (MainText);
+
+    separate_lines (MainText);
+
+    trim_left (MainText);    
+}
+
+void TextDestr (Text *self)
+{
+    free (self->buffer);
+    free (self->objects);
 }
