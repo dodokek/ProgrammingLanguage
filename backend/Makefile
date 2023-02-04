@@ -5,32 +5,22 @@ else
 endif
 
 CC = g++
-CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -Wwrite-strings -D_DEBUG -D_EJUDGE_CLIENT_SIDE
-IFLAGS = -I./include/ #-I../LOG/ -I../OptionsCmdLine/ -I./../
+CFLAGS = -Wshadow -Winit-self -Wredundant-decls -Wcast-align -Wundef -Wfloat-equal -Winline -Wunreachable-code -Wmissing-declarations -Wmissing-include-dirs -Wswitch-default -Weffc++ -Wmain -Wextra -Wall -g -pipe -fexceptions -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wempty-body -Wformat-security -Wformat=2 -Wignored-qualifiers -Wlogical-op -Wnon-virtual-dtor -Woverloaded-virtual -Wpointer-arith -Wsign-promo -Wstack-usage=8192 -Wstrict-aliasing -Wstrict-null-sentinel -Wtype-limits -D_DEBUG -D_EJUDGE_CLIENT_SIDE
+IFLAGS = -I./include/ 
 
 #main
-SRC_DIR = ./src/
+
+SRC_DIR = ./
 OBJ_DIR = ./lib/
+UTILS_DIR = ../utils/
 
-SRC = $(wildcard $(SRC_DIR)*.cpp)
-OBJ = $(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRC)) 
-
-#LOG
-LOG_SRC_DIR = ../LOG/src/
-LOG_OBJ_DIR = ../LOG/lib/
-
-LOG_SRC = $(wildcard $(LOG_SRC_DIR)*.cpp)
-LOG_OBJ = $(patsubst $(LOG_SRC_DIR)%.cpp, $(LOG_OBJ_DIR)%.o, $(LOG_SRC))
-
-#OPTIONS_CMD_LINE
-OPT_SRC_DIR = ../OptionsCmdLine/src/
-OPT_OBJ_DIR = ../OptionsCmdLine/lib/
-
-OPT_SRC = $(wildcard $(OPT_SRC_DIR)*.cpp)
-OPT_OBJ = $(patsubst $(OPT_OBJ_DIR)%.cpp, $(OPT_OBJ_DIR)%.o, $(OPT_SRC))
+SRC   = parser_backend.cpp main.cpp
+UTILS = fileUtils.cpp stringUtils.cpp stack.cpp
+OBJ   = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC)) 
+U_OBJ = $(patsubst %.cpp, $(UTILS_DIR)/$(OBJ_DIR)%.o, $(UTILS)) 
 
 #linking
-all : $(OBJ) #$(LOG_OBJ) #$(OPT_OBJ)
+all : $(OBJ) $(U_OBJ) 
 	$(CC) $(IFLAGS) $(CFLAGS) $^ -o $(OUTPUT_FILE_NAME)
 
 #main
@@ -38,13 +28,8 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.cpp
 	mkdir -p $(@D)
 	$(CC) $(IFLAGS) $(CFLAGS) -c $^ -o $@
 
-#LOG
-$(LOG_OBJ_DIR)%.o : $(LOG_SRC_DIR)%.cpp
-	mkdir -p $(@D)
-	$(CC) $(IFLAGS) $(CFLAGS) -c $^ -o $@
-
-#OPTIONS_CMD_LINE
-$(OPT_OBJ_DIR)%.o : $(OPT_SRC_DIR)%.cpp
+#utils
+$(UTILS_DIR)/$(OBJ_DIR)%.o : $(UTILS_DIR)%.cpp
 	mkdir -p $(@D)
 	$(CC) $(IFLAGS) $(CFLAGS) -c $^ -o $@
 

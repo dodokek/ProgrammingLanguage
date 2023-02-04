@@ -2,11 +2,10 @@
 #define BACK_H
 
 #include "dsl.h" 
-#include "stringUtils.h"
-#include "fileUtils.h"
-#include "stack.h"
+#include "../../utils/include/fileUtils.h"
+#include "../../utils/include/stack.h"
+#include "../../utils/include/stringUtils.h"
 #include "../../params.h"
-
 
 //-----------------------------------------------
 

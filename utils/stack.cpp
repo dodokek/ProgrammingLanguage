@@ -1,5 +1,5 @@
 
-#include "../include/stack.h"
+#include "include/stack.h"
 
 
 void StackCtor_ (Stack* self, size_t capacity, const char* name, const char* filename, const char* funcname, int line)
