@@ -3,7 +3,7 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include "stringUtils.h"
+#include "../../utils/include/stringUtils.h"
 
 
 enum RussianSymb // Thanks @aleksplast for that very much

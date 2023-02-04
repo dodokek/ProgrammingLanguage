@@ -1,10 +1,9 @@
 #ifndef PARS_H
 #define PARS_H
 
-
 #include "dsl.h" 
-#include "stringUtils.h"
-#include "fileUtils.h"
+#include "../../utils/include/fileUtils.h"
+#include "../../utils/include/stringUtils.h"
 #include "../../params.h"
 #include "translitor.h"
 

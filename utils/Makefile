@@ -12,27 +12,19 @@ IFLAGS = -I./include/
 
 SRC_DIR = ./
 OBJ_DIR = ./lib/
-UTILS_DIR = ../utils/
 
-SRC   = parser_frontend.cpp main.cpp translitor.cpp
-UTILS = fileUtils.cpp stringUtils.cpp
-OBJ   = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC)) 
-U_OBJ = $(patsubst %.cpp, $(UTILS_DIR)/$(OBJ_DIR)%.o, $(UTILS)) 
+SRC = fileUtils.cpp stringUtils.cpp
+OBJ = $(patsubst %.cpp, $(OBJ_DIR)%.o, $(SRC)) 
 
 #SRC = $(wildcard $(SRC_DIR)*.cpp)
 #OBJ = $(patsubst $(SRC_DIR)%.cpp, $(OBJ_DIR)%.o, $(SRC)) 
 
 #linking
-all : $(OBJ) $(U_OBJ) 
+all : $(OBJ) 
 	$(CC) $(IFLAGS) $(CFLAGS) $^ -o $(OUTPUT_FILE_NAME)
 
 #main
 $(OBJ_DIR)%.o : $(SRC_DIR)%.cpp
-	mkdir -p $(@D)
-	$(CC) $(IFLAGS) $(CFLAGS) -c $^ -o $@
-
-#utils
-$(UTILS_DIR)/$(OBJ_DIR)%.o : $(UTILS_DIR)%.cpp
 	mkdir -p $(@D)
 	$(CC) $(IFLAGS) $(CFLAGS) -c $^ -o $@
 
