@@ -4,13 +4,11 @@
 TreeNode* CreateNode (Types type, double dbl_val, Options op_val, const char* var_name,
                       TreeNode* left_child, TreeNode* right_child)
 {
-    // printf ("Creating node with type %d\n", type);
-
     TreeNode* new_node = (TreeNode*) calloc (1, sizeof (TreeNode));
     if (!new_node) return nullptr;
 
     if      (type == NUM_T) new_node->value.dbl_val  = dbl_val;
-    else if (type == VAR_T) new_node->value.var_name = var_name;
+    else if (type == VAR_T || type == NAME_T) new_node->value.var_name = var_name;
     else if (type == OP_T)  new_node->value.op_val   = op_val;
     
     new_node->left   = left_child;

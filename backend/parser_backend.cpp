@@ -323,7 +323,6 @@ void PrintTokens (Token* token_array)
 
 
 //-------Parser->Lecsical analysis----------------------------------
-//--Parser.End---------------------------------------------------
 
 
 #define CMP(operation)                                        \
