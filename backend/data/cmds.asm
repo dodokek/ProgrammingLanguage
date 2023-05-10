@@ -8,15 +8,15 @@ main:
 push 3802
 ; popping variable zhopka
 pop [0+rax]
-; getting variable a
-in
-pop [1+rax] 
-; getting variable b
-in
-pop [2+rax] 
-; getting variable c
-in
-pop [3+rax] 
+push 1
+; popping variable a
+pop [1+rax]
+push 4
+; popping variable b
+pop [2+rax]
+push 3
+; popping variable c
+pop [3+rax]
 push 4
 ; pushing variable a
 push [1+rax]
