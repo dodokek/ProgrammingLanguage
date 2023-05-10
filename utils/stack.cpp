@@ -105,7 +105,7 @@ void StackResize (Stack* self, int mode)
         return;
     }
 
-    self->data = (elem_t*) recalloc (self->data, elem_size, self->capacity);
+    self->data = (elem_t*) realloc (self->data, elem_size * self->capacity);
  
     ON_DEBUG( fill_array (self->data + self->size, self->data + self->capacity, POISON_NUM) );
     
@@ -116,19 +116,6 @@ void StackResize (Stack* self, int mode)
 
 void* recalloc (void* ptr, size_t size_new, int amount)
 {
-    int len_old = _msize (ptr);
-    int len_new = size_new * amount;
-    
-    if (len_old == len_new) return ptr;
-
-    ptr = (void*) realloc (ptr, len_new);
-
-    for (int i = len_old; i < len_new; i++)
-    {
-        ((char*) ptr)[i] = 0;
-    }
-    
-    return ptr;
 }
 
 

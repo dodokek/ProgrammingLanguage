@@ -5,7 +5,7 @@ hlt
 
 ; function 
 main:
-push 3802
+push 380002
 ; popping variable zhopka
 pop [0+rax]
 ; getting variable a

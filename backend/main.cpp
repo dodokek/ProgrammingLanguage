@@ -4,13 +4,13 @@ int main()
 {
     TreeNode* root = GetGrammar ();
 
-    SimplifyTree (root);
+    // SimplifyTree (root);
 
-    DrawTree (root);
+    // DrawTree (root);
 
     PrintCmdsInFile (root);
 
-    TreeToOriginalLang (root);
+    // TreeToOriginalLang (root);
 
     DestructTree (root);
 }

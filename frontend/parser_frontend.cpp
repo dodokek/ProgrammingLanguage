@@ -429,7 +429,7 @@ void FillTokensArray (Token* token_array)
     while (true)
     {
         SkipSpaces (&cur_ptr);
-        if (*cur_ptr == '\0' || *(cur_ptr - 1) == '\0')
+        if (*cur_ptr == '\0' || (*(cur_ptr - 1) == '\0' && cur_ptr != input))
         {
             TOP_TOKEN = *(CreateToken (OP_T, 0, TERMINATION_SYM));
             break;
