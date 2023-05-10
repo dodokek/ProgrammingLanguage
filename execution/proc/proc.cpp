@@ -155,7 +155,7 @@ void ProcCtor (Processor* CpuInfo)
     assert (CpuInfo->Ram);
 
     CpuInfo->CallStack = {};
-    StackCtor (&CpuInfo->CallStack, 2);
+    StackCtor (&CpuInfo->CallStack, 1000);
 }
 
 

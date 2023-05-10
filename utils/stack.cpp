@@ -47,7 +47,7 @@ elem_t StackPop (Stack* self)
 
     )
 
-    StackResize (self, DECREASE);
+    // StackResize (self, DECREASE);
 
     elem_t tmp = self->data[self->size - 1];
 
@@ -70,7 +70,7 @@ void StackPush (Stack* self, elem_t value)
 
     )
 
-    StackResize (self, INCREASE);
+    // StackResize (self, INCREASE);
 
     self->data[self->size] = value;
 

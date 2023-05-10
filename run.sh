@@ -1,15 +1,15 @@
 cd frontend
-main.exe
+./main
 cd ..
 
 cd backend
-main.exe
+./main
 cd ..
 
 cd execution/asm
-main.exe
+./main
 cd ../../
 
 cd execution/proc
-main.exe
+./main
 cd ../../
