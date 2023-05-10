@@ -1,11 +1,11 @@
 call main 
-hlt
+ret
 
 ; let the chaos begin
 
 ; function 
 main:
-push 380002
+push 3802
 ; popping variable zhopka
 pop [0+rax]
 ; getting variable a
@@ -176,3 +176,5 @@ else_label3:
 ret
 ; end of func
 
+; goodbye
+hlt

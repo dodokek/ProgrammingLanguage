@@ -85,7 +85,6 @@ int LineToCommands (char* line, Assembler* AsmInfo)
         InsertLabel (AsmInfo, line, label_len); 
         return ZERO_OFFSET;
     }
-
     // Generating command cases
 
     #define DEF_LINE(name, len, ...)                                 \

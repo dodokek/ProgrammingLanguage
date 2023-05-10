@@ -209,6 +209,12 @@ DEF_CMD(call,CALL, 17, MULTI_BYTE_OFFSET,
 
 DEF_CMD(ret,RET, 18, ZERO_OFFSET,
 {
+    if (CpuInfo->CallStack.size == 0)
+    {
+        printf ("End of commands\n");
+        return 1;
+    }
+
     *ip = StackPop(&CpuInfo->CallStack);
     // printf ("Returning to %d\n", *ip);
 })
