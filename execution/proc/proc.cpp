@@ -54,7 +54,7 @@ void Execute (Processor* CpuInfo)
 
     for (int ip = SERVICE_DATA_LEN; ip < CpuInfo->cmds_amount; ip++)
     {
-        // printf ("Ip %3d: ", ip);
+        // printf ("Ip %3d:\n ", ip);
 
         int exit_flag = ProcessCommand (&MainStack, CpuInfo->cmds + ip, &ip, CpuInfo);
         if (exit_flag) return;

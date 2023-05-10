@@ -56,7 +56,9 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
 
             PRINT ("; function \n");
             PrintOperation (l_child);
+            PRINT ("push rcx \n");
             PrintOperation (r_child);
+
 
             StackPop (namespace_offset);
             namespace_pointer -= MAX_VARIABLES;
@@ -64,9 +66,12 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
             break;
 
         case RET:
+            PRINT ("pop rcx\n");
             previous_option = RET;
             PrintOperation (l_child);
-            
+            PRINT ("push rcx\n");
+
+
             PRINT ("ret\n");
             PRINT ("; end of func\n\n");
             break;
@@ -242,6 +247,7 @@ void PrintOperation (TreeNode* cur_node, FILE* cmds_file, Stack* namespace_offse
     else if (cur_node->type == NAME_T)
     {
         PRINT ("%s:\n", cur_node->value.var_name);
+        PRINT ("pop rcx \n");
 
         previous_option = FUNC;
         PrintOperation (l_child);

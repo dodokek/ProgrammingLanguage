@@ -201,21 +201,23 @@ DEF_CMD(in,IN, 16, ZERO_OFFSET,
 
 DEF_CMD(call,CALL, 17, MULTI_BYTE_OFFSET,
 {
-    StackPush (&CpuInfo->CallStack, *ip + MULTI_BYTE_OFFSET);
+    StackPush (self, *ip + MULTI_BYTE_OFFSET);
     *ip = LABLE_POS;
-    // printf ("Calling ip %d\n", *ip);
+    // printf ("Call pushed in stack ip:%d\n", *ip);
 })
 
 
 DEF_CMD(ret,RET, 18, ZERO_OFFSET,
 {
-    if (CpuInfo->CallStack.size == 0)
+
+    if (self->size == 0)
     {
         printf ("End of commands\n");
         return 1;
     }
-
-    *ip = StackPop(&CpuInfo->CallStack);
+    
+    *ip = StackPop (self);
+    // printf ("Just popped ip: %d\n", *ip);
     // printf ("Returning to %d\n", *ip);
 })
 
