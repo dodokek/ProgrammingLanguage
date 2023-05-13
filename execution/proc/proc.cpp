@@ -1,6 +1,6 @@
 
+#include <chrono>
 #include "../include/proc.h"
-
 
 int main ()
 {
@@ -11,7 +11,14 @@ int main ()
 
     ReadHeader (&CpuInfo, buffer); 
     if (CpuInfo.version != PROC_VERSION) printf ("Wrong bin file!");
+    
+    std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
     Execute (&CpuInfo);
+
+    std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+    printf ("Elapsed time(mcr. s): %lu\n", std::chrono::duration_cast<std::chrono::microseconds>(end - begin).count());
+
 
     FREE(buffer);
     ProcDtor (&CpuInfo);

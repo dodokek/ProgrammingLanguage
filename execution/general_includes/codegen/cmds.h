@@ -69,7 +69,7 @@ DEF_CMD(div,DIV, 5, ZERO_OFFSET,
 DEF_CMD(out,OUT, 7, ZERO_OFFSET,
 {
     // StackDump (self);        
-    printf ("Ouput: %lg\n", StackPop (self));
+    fprintf (stderr, "%lg\n", StackPop (self));
 })
 
 DEF_CMD(dmp,DMP, 8, ZERO_OFFSET,

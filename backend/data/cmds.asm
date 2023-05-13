@@ -13,15 +13,15 @@ pop [0+rax]
 push 2083
 ; popping variable popka
 pop [1+rax]
-; getting variable a
-in
-pop [2+rax] 
-; getting variable b
-in
-pop [3+rax] 
-; getting variable c
-in
-pop [4+rax] 
+push 1
+; popping variable a
+pop [2+rax]
+push 4
+; popping variable b
+pop [3+rax]
+push 3
+; popping variable c
+pop [4+rax]
 ; if begin
 ; pushing variable a
 push [2+rax]

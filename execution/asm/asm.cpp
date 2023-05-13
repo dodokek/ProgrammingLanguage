@@ -6,7 +6,6 @@ int main()
 {
     Text RawCommands = {};
 
-
     FILE* RawCmdFile = get_file ("../../backend/data/cmds.asm", "r");
     // FILE* RawCmdFile = get_file ("data/examples/FactorialExm.asm", "r");
     FILE* CmdFile    = get_file ("../proc/data/cmds.bin", "wb+");
