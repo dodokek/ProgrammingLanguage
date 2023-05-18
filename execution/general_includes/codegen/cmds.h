@@ -248,3 +248,5 @@ DEF_CMD(round,ROUND, 27, ZERO_OFFSET,
 {
     StackPush (self, ceil(StackPop(self)));
 })
+
+DEF_CMD(end, END, 28, ZERO_OFFSET, {})

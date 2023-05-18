@@ -10,12 +10,12 @@ void PrintCmdsInFile (TreeNode* root)
     StackCtor (&namespace_offset, MAX_NAMESPACES);
     StackPush (&namespace_offset, 0);
 
-    PRINT ("call main \nret\n\n");
+    PRINT ("call main \nhlt\n\n");
     PRINT ("; let the chaos begin\n\n");
 
     PrintOperation (root, cmds_file, &namespace_offset);
 
-    PRINT ("; goodbye\nhlt\n");
+    PRINT ("; goodbye\nend\n");
 
 
     printf ("Successfully closing asm file\n");
