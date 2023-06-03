@@ -42,7 +42,7 @@ Heres an example of program, written on *Meow meow script*:
 
 Using **recursive descent** input file is parsed into *AST tree*.
 The result of parsing you can see on this image:
-IMAGEIMAGEIMAGEIMAGEIMAGEIMAGEIMAGE
+![image](https://github.com/dodokek/ProgrammingLanguage/assets/57039216/cce5aa05-adc7-4467-8a35-519a0384db5d)
 
 ### Frontend - Writing AST tree on disk
 
